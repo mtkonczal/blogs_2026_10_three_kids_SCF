@@ -1,0 +1,36 @@
+# --- Raw SCF data (3.5 GB): re-pull with R/01_download.R + manual steps in kids_methods.qmd ---
+/data_raw/*
+# keep the download manifest (URLs + md5s) for provenance
+!/data_raw/download_manifest.csv
+# symlinks into data_raw/ and docs/ from the audit reproduction copy
+/audit/reproduction/data_raw
+/audit/reproduction/docs
+
+# Replicate-weight copies used by the audit (2013/2016)
+/audit/rw/
+
+# Raw data formats anywhere, as a backstop
+*.dta
+*.zip
+*.sas7bdat
+
+# --- Derived / formatted data (rebuilt by the R pipeline) ---
+*.rds
+*.RData
+*.rda
+
+# Fed codebooks (re-downloadable, ~2.6 MB each)
+/docs/codebk*.txt
+
+# Duplicate rendered report in the audit reproduction copy
+/audit/reproduction/kids_methods.html
+
+# --- R / Quarto / OS cruft ---
+.Rhistory
+.RData
+.Rproj.user/
+.Renviron
+.env
+.quarto/
+*_files/
+.DS_Store

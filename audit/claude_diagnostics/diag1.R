@@ -1,0 +1,15 @@
+source("R/scf_functions.R")
+suppressPackageStartupMessages({library(haven)})
+m <- readRDS("output/kids_main.rds")
+cat("rows", nrow(m), "cases", uniqueN(m$case), "\n")
+cat("NA inc_measure:", sum(is.na(m$inc_measure)), " NA NETWORTH:", sum(is.na(m$NETWORTH)), " NA kids:", sum(is.na(m$kids)), "\n")
+print(m[, .(na_norminc = sum(is.na(NORMINC)), zero_norm = sum(NORMINC==0, na.rm=T), cor_norm_inc = if (all(is.na(NORMINC))) NA_real_ else cor(NORMINC, INCOME, use="complete"), sh_diff = mean(abs(NORMINC-INCOME) > 1, na.rm=T)), by=year])
+print(m[, .N, by=.(year, x5910)][order(year, x5910)][x5910 < 1 | x5910 >= 9])
+cat("x5910 distribution by year (min,max):\n"); print(m[, .(min=min(x5910), max=max(x5910), sh_top10 = mean(x5910==10)), by=year])
+cat("KIDS range\n"); print(m[, .(min=min(KIDS), max=max(KIDS), mean=weighted.mean(KIDS,WGT)), by=year])
+# bins sanity: weighted share in each bin per year-implicate
+print(m[year==2025 & implicate==1, .(wshare = sum(WGT)), by=inc_bin][, wshare := wshare/sum(wshare)][order(inc_bin)])
+print(m[period=="2013-2025", .(n_cases = uniqueN(case)), by=inc_bin][order(inc_bin)])
+print(m[period=="2013-2025", .(n_cases = uniqueN(case)), by=nw_bin][order(nw_bin)])
+# married share by bin
+print(m[period=="2013-2025", .(married = 100*wmean(MARRIED==1,w), remarried = 100*wmean(MARRIED==1 & (x7377==2|x7392==2), w), kids_home = wmean(KIDS,w), kids_away=wmean(kids_away,w), mean_age=wmean(AGE,w)), by=inc_bin][order(inc_bin)], digits=3)
