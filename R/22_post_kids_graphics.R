@@ -1,5 +1,5 @@
 # 22_post_kids_graphics.R
-# Graphics + fact-check numbers for the "third kid as a 1% status symbol" post (post_text.md).
+# Graphics + numbers for the "third kid as a 1% status symbol" post (blog_post_text.md).
 # Reads output/kids_main.rds (from R/07_kids_income.R) and the summary extract; writes PNGs to
 # graphics/ and a numbers file to graphics/post_numbers.csv.
 #
@@ -122,7 +122,7 @@ save_png(p, "03_mean_kids_by_income.png")
 for (i in seq_len(nrow(b3))) add(paste("share3p_2013_25", b3$inc_bin[i]), b3$est[i], sprintf("SE %.1f (approx.)", b3$se[i]))
 for (i in seq_len(nrow(bk))) add(paste("mean_kids_2013_25", bk$inc_bin[i]), bk$est[i], sprintf("SE %.2f (approx.)", bk$se[i]))
 
-# Married couples only: numbers for the fact-check (no chart; the post uses all families)
+# Married couples only: numbers for the methods doc (no chart; the post uses all families)
 bm <- bin_means(rec[MARRIED == 1], "y3")
 for (i in seq_len(nrow(bm))) add(paste("share3p_married_2013_25", bm$inc_bin[i]), bm$est[i], sprintf("SE %.1f (approx.)", bm$se[i]))
 

@@ -1,6 +1,6 @@
 # Independent audit artifacts
 
-Main report: `../codex factcheck.html`. Production scripts, draft, data, and charts were not edited.
+Independent audit diagnostics. Production scripts, draft, data, and charts were not edited.
 
 - `reproduction/`: copies of the original R scripts and methods QMD, with raw data and codebooks linked to the originals. R/02, 07, 24, 23, 22 ran in that order, followed by Quarto render.
 - `logs/`: successful reproduction, comparisons, render, and diagnostics; the preview-server log records an unsuccessful local preview attempt.
@@ -9,9 +9,8 @@ Main report: `../codex factcheck.html`. Production scripts, draft, data, and cha
 - `additional_checks.R`: current-marriage restriction and membership checks.
 - `matched_inference.R`: fixed-versus-re-estimated-rank checks with an equal-wave-average-of-gaps estimator to isolate rank uncertainty from the pooled-ratio estimator change.
 - `results/`: CSV results, replicate moment arrays, input MD5 hashes, and R session versions.
-- `build_report.py`: regenerates the HTML report from diagnostic tables and the written referee assessment.
 
-Run the four R scripts from the project root, in the order above, then `python3 audit/build_report.py`. They write only audit outputs and the report. The primary analysis sample is read from the existing `output/kids_main.rds`, whose equality with the independently rebuilt file was verified.
+Run the four R scripts from the project root, in the order above. They write only audit outputs. The primary analysis sample is read from the existing `output/kids_main.rds`, whose equality with the independently rebuilt file was verified.
 
 Additional public sources downloaded October 9, 2026:
 

@@ -50,7 +50,7 @@ built <- nums$built_at[1]
 ::: {.callout-note}
 ## What this is
 
-This document explains, from the ground up, how the children-by-income numbers in `blog_post_text.md` were produced: what the Survey of Consumer Finances (SCF) is, where its files live, the quirks of working with its microdata, how the sample and the children count are defined, how standard errors are computed, and which script produces which chart. Numbers below are pulled from `graphics/post_numbers.csv` (built `r built`) and the `output/` files. Fact checks of the post and the pipeline: `claude_factcheck.html` and `codex factcheck.html`.
+This document explains, from the ground up, how the children-by-income numbers in `blog_post_text.md` were produced: what the Survey of Consumer Finances (SCF) is, where its files live, the quirks of working with its microdata, how the sample and the children count are defined, how standard errors are computed, and which script produces which chart. Numbers below are pulled from `graphics/post_numbers.csv` (built `r built`) and the `output/` files.
 :::
 
 # The SCF in one page
@@ -325,7 +325,6 @@ R packages: `data.table`, `haven`, `fixest`, `ggplot2`, `scales`, `ragg`, `dplyr
 | Path | Role |
 |---|---|
 | `blog_post_text.md` | The post |
-| `claude_factcheck.html`, `codex factcheck.html` | Fact checks of the post and the pipeline |
 | `kids_methods.qmd` | This document |
 | `R/scf_functions.R` | Weighted quantile and mean helpers |
 | `R/rep_se.R` | Replicate-weight standard errors |

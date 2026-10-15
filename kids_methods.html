@@ -3307,7 +3307,7 @@ What this is
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This document explains, from the ground up, how the children-by-income numbers in <code>blog_post_text.md</code> were produced: what the Survey of Consumer Finances (SCF) is, where its files live, the quirks of working with its microdata, how the sample and the children count are defined, how standard errors are computed, and which script produces which chart. Numbers below are pulled from <code>graphics/post_numbers.csv</code> (built 2026-10-15 14:15 EDT) and the <code>output/</code> files. Fact checks of the post and the pipeline: <code>claude_factcheck.html</code> and <code>codex factcheck.html</code>.</p>
+<p>This document explains, from the ground up, how the children-by-income numbers in <code>blog_post_text.md</code> were produced: what the Survey of Consumer Finances (SCF) is, where its files live, the quirks of working with its microdata, how the sample and the children count are defined, how standard errors are computed, and which script produces which chart. Numbers below are pulled from <code>graphics/post_numbers.csv</code> (built 2026-10-15 14:15 EDT) and the <code>output/</code> files.</p>
 </div>
 </div>
 <section id="the-scf-in-one-page" class="level1" data-number="1">
@@ -3729,50 +3729,46 @@ T = \underbrace{\tfrac{1}{5}\textstyle\sum_m \widehat{V}_m}_{\text{within-implic
 <td>The post</td>
 </tr>
 <tr class="even">
-<td><code>claude_factcheck.html</code>, <code>codex factcheck.html</code></td>
-<td>Fact checks of the post and the pipeline</td>
-</tr>
-<tr class="odd">
 <td><code>kids_methods.qmd</code></td>
 <td>This document</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>R/scf_functions.R</code></td>
 <td>Weighted quantile and mean helpers</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>R/rep_se.R</code></td>
 <td>Replicate-weight standard errors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>R/01_download.R</code>, <code>R/02_build_db.R</code></td>
 <td>Summary-extract download and stacking</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>R/07_kids_income.R</code></td>
 <td>Merge with full data; children count; sample; ranks</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>R/22_post_kids_graphics.R</code></td>
 <td>All charts and <code>post_numbers.csv</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>R/23_kids_wealth_work.R</code></td>
 <td>Work hours within the top 1% by wealth</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>R/24_kids_blended.R</code></td>
 <td>Remarried-couple robustness</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>R/25_rep_inference.R</code></td>
 <td>Significance tests: replicate weights, pooled 2013-2025, ranks re-estimated</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>data_raw/</code></td>
 <td>Raw Fed files (zips kept as the record of what was downloaded)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>docs/codebk*.txt</code></td>
 <td>Fed codebooks</td>
 </tr>

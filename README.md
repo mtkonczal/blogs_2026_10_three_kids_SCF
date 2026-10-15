@@ -3,7 +3,7 @@
 Code and data for the post in `blog_post_text.md`: how the number of children varies with income and
 wealth, using the Federal Reserve's Survey of Consumer Finances. **Start with `kids_methods.qmd`**
 (rendered: `kids_methods.html`), which explains the SCF files, the definitions, the standard errors,
-and where every number in the post comes from. Fact checks: `claude_factcheck.html`, `codex factcheck.html`.
+and where every number in the post comes from.
 
 ## Run (from the project root)
 
