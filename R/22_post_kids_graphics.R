@@ -9,8 +9,10 @@
 # pooled period. Main period = 2013-2025 (five waves) because one wave has ~280 top-1% families.
 #
 # SEs: (a) pooled 2013-25 bins: within-implicate cluster-robust (family) + Rubin's rules,
-#      ignores the SCF design (approximate); (b) 2019/2022/2025: Fed replicate weights via
-#      R/rep_se.R, with income ranks held fixed across replicates (slightly understates SEs).
+#      ignores the SCF design (approximate); (b) headline gaps: Fed replicate weights, pooled
+#      2013-2025, ranks re-estimated in each replicate, from R/25_rep_inference.R (run it first);
+#      (c) single waves 2019/2022/2025: replicate weights via R/rep_se.R, ranks held fixed,
+#      used only to show wave-to-wave noise.
 source("R/scf_functions.R")
 source("R/rep_se.R")
 suppressPackageStartupMessages({ library(haven); library(fixest); library(ggplot2); library(scales) })
@@ -142,18 +144,20 @@ gfun <- gfun_rank("inc_rank")
 rw <- lapply(c(2019, 2022, 2025), function(yr) rep_stat(main[year == yr], gfun, yr))
 names(rw) <- c("2019", "2022", "2025")
 rwt <- rbindlist(lapply(names(rw), function(y) data.table(year = y, stat = names(rw[[y]]$est), est = rw[[y]]$est, se = rw[[y]]$se)))
-# Equal-weight average of the three waves (independent samples)
-avg3 <- rwt[, .(year = "2019-25 avg", est = mean(est), se = sqrt(sum(se^2)) / 3), by = stat]
-rwt <- rbind(rwt, avg3)
+# (The former three-wave "2019-25 avg" tests are replaced by the five-wave tests from R/25.)
 print(dcast(rwt, stat ~ year, value.var = c("est", "se")), digits = 3)
 for (i in seq_len(nrow(rwt))) add(paste("rw", rwt$year[i], rwt$stat[i]), rwt$est[i], sprintf("replicate-weight SE %.2f", rwt$se[i]))
 # Same checks with families ranked by net worth (nw_rank, within age band, from 07)
 rwn <- lapply(c(2019, 2022, 2025), function(yr) rep_stat(main[year == yr], gfun_rank("nw_rank"), yr))
 names(rwn) <- c("2019", "2022", "2025")
 rwnt <- rbindlist(lapply(names(rwn), function(y) data.table(year = y, stat = names(rwn[[y]]$est), est = rwn[[y]]$est, se = rwn[[y]]$se)))
-rwnt <- rbind(rwnt, rwnt[, .(year = "2019-25 avg", est = mean(est), se = sqrt(sum(se^2)) / 3), by = stat])
 print(dcast(rwnt, stat ~ year, value.var = c("est", "se")), digits = 3)
 for (i in seq_len(nrow(rwnt))) add(paste("rw_networth", rwnt$year[i], rwnt$stat[i]), rwnt$est[i], sprintf("replicate-weight SE %.2f", rwnt$se[i]))
+# Headline tests: five pooled waves, ranks re-estimated in replicates (R/25_rep_inference.R)
+stopifnot(file.exists("output/kids_rep5.rds"))
+rep5 <- readRDS("output/kids_rep5.rds")
+for (i in seq_len(nrow(rep5))) add(paste("rw5", rep5$rank[i], rep5$stat[i]), rep5$est[i],
+                                   sprintf("replicate-weight SE %.3f, 95%% CI %.2f to %.2f, pooled 2013-2025", rep5$se[i], rep5$lower[i], rep5$upper[i]))
 add("n_top1_families_2025", s25[inc_bin == "Top 1%", uniqueN(case)], "unweighted cases")
 
 # ---- 4. Before vs after 2000 ------------------------------------------------------------
@@ -247,13 +251,12 @@ fmt_w <- function(x) ifelse(abs(x) >= 1e6, sprintf("$%.1fM", x / 1e6), ifelse(ab
 lab_nw <- c(paste0("<", fmt_w(nw_cuts[1]), "\n\n", pct_lab[1]),
             paste0(fmt_w(nw_cuts[-11]), "-\n", sub("^\\$", "", fmt_w(nw_cuts[-1])), "\n", pct_lab[2:11]),
             paste0(fmt_w(nw_cuts[11]), "+\n\n", pct_lab[12]))
-nw_rw <- rwnt[year == "2019-25 avg"]
-sig3 <- sprintf("Top 1%% vs. 90th-99th: %+.1f pts (SE %.1f), Fed replicate weights, 2019-2025.", nw_rw[stat == "gap_top1_p90_99", est], nw_rw[stat == "gap_top1_p90_99", se])
-# Robustness from R/24_kids_blended.R (run it first): same gap without remarried couples
-stopifnot(file.exists("output/kids_blended.rds"))
-bl <- readRDS("output/kids_blended.rds")$rw_excl_remarried[rank == "nw_rank"]
-sig3 <- paste0(sig3, sprintf("\nExcluding remarried couples (stepchildren possible): %+.1f pts (SE %.1f), not significant.", bl[stat == "gap3", est], bl[stat == "gap3", se]))
-sigk <- sprintf("Top 1%% vs. 90th-99th: %+.2f children (SE %.2f), Fed replicate weights, 2019-2025.", nw_rw[stat == "k_gap_top1_p90_99", est], nw_rw[stat == "k_gap_top1_p90_99", se])
+# Captions report the five-wave tests (same waves as the chart); no hard-coded significance words.
+r5 <- function(st) rep5[rank == "nw_rank" & stat == st]
+rw_src <- "Fed replicate weights, pooled 2013-2025, ranks re-estimated in each replicate."
+sig3 <- sprintf("Top 1%% vs. 90th-99th: %+.1f pts (SE %.1f); excluding remarried couples: %+.1f pts (SE %.1f).\n%s",
+                r5("all_gap3")$est, r5("all_gap3")$se, r5("no_remarried_gap3")$est, r5("no_remarried_gap3")$se, rw_src)
+sigk <- sprintf("Top 1%% vs. 90th-99th: %+.2f children (SE %.2f).\n%s", r5("all_gapkids")$est, r5("all_gapkids")$se, rw_src)
 p <- curve_plot(n3, "Families with 3+ children (%)", "Ranked by wealth, big families fall, then jump at the top 1%", "%.0f%%", 2.4,
                 labels = lab_nw, xlab = "Family net worth, 2025 dollars (and wealth percentile)", rank_note = paste("Ranked by net worth.", sig3)) +
   scale_y_continuous(labels = label_percent(scale = 1))

@@ -34,3 +34,9 @@
 .quarto/
 *_files/
 .DS_Store
+
+# Local Claude Code config
+.claude/
+
+# Datestamped output snapshots taken before pipeline reruns (local only)
+/backups/outputs_*/

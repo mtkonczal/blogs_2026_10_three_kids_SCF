@@ -13,6 +13,7 @@ load_reps <- function(year) {
   if (!is.null(.rw_cache[[key]])) return(.rw_cache[[key]])
   f <- sprintf("data_raw/rw/p%02d_rw1.dta", year %% 100)
   r <- as.data.table(zap_labels(read_dta(f)))
+  setnames(r, tolower(names(r)))   # 2013/2016 files use uppercase (Y1, WT1B1, MM1)
   R <- 999
   m <- matrix(0, nrow(r), R)
   for (i in seq_len(R)) { w <- r[[paste0("wt1b", i)]] * r[[paste0("mm", i)]]; w[is.na(w)] <- 0; m[, i] <- w }
