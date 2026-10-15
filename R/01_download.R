@@ -29,6 +29,7 @@ if (force) {
 }
 dir.create(zip_dir, recursive = TRUE, showWarnings = FALSE)
 dir.create(csv_dir, recursive = TRUE, showWarnings = FALSE)
+rel <- function(p) substring(p, nchar(root) + 2)   # manifest paths relative to project root
 
 manifest <- list()
 for (y in years) {
@@ -44,8 +45,8 @@ for (y in years) {
   if (!file.exists(csv)) stop("Expected ", csv, " after unzip; zip contents: ",
                               paste(unzip(dest, list = TRUE)$Name, collapse = ", "))
   manifest[[length(manifest) + 1]] <- data.frame(
-    year = y, url = url, zip = dest, zip_md5 = unname(md5sum(dest)),
-    zip_bytes = file.size(dest), csv = csv,
+    year = y, url = url, zip = rel(dest), zip_md5 = unname(md5sum(dest)),
+    zip_bytes = file.size(dest), csv = rel(csv),
     file_mtime = format(file.mtime(dest), "%Y-%m-%d %H:%M:%S"),
     recorded_at = format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z"))
 }
