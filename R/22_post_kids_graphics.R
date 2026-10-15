@@ -99,7 +99,7 @@ lab_dollar <- paste0(c(paste0("<", fmt_d(inc_cuts[1])), paste0(fmt_d(inc_cuts[-1
                      "\n", pct_lab)
 lab_dollar[1] <- paste0("<", fmt_d(inc_cuts[1]), "\n\n", pct_lab[1])
 x_title <- "Annual family income, 2025 dollars (and income percentile)"
-dollar_note <- "Dollar ranges are approximate: families are ranked against others whose head is the same age."
+dollar_note <- "Dollar ranges are approximate: families are ranked against others whose head is the same age, in the same survey year."
 curve_plot <- function(b, ylab, title, fmt, top_lab_off, labels = lab_dollar, xlab = x_title,
                        rank_note = "Usual income, including capital income.") {
   b <- copy(b)[, top := inc_bin == "Top 1%"]

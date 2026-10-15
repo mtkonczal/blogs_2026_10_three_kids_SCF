@@ -12,7 +12,8 @@
 #    as in the charts), so the pooled share is a ratio of summed moments, not an average of
 #    per-wave gaps. Point estimates therefore equal the charted 2013-2025 levels.
 #  - Ranks are re-estimated inside every replicate (within age band, implicate 1), because
-#    "top 1%" is itself an estimated percentile. Holding ranks fixed understates the SEs.
+#    "top 1%" is itself an estimated percentile. Holding ranks fixed ignores that
+#    uncertainty (for the main comparisons here it gives smaller SEs).
 #  - Waves are independent samples: per-wave replicate variances of the moments are combined
 #    through the Jacobian of the pooled ratios (delta method). Imputation variance (1.2 B) is
 #    computed on the pooled statistic across the five implicates.
