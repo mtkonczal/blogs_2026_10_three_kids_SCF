@@ -1,0 +1,8 @@
+file,result
+data/scf_linked.rds,TRUE
+output/kids_main.rds,TRUE
+output/kids_income.rds,TRUE
+output/kids_blended.rds,TRUE
+output/kids_wealth_work.rds,TRUE
+output/kids_rep5.rds,TRUE
+graphics/post_numbers.csv,TRUE

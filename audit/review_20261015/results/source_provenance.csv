@@ -1,0 +1,7 @@
+file,url,sha256,matches_stored
+bulletin.macro.txt,https://www.federalreserve.gov/econres/files/bulletin.macro.txt,5aef2019a0bbb4f3d77909c404d52c516a706b216b0cc1b25a0cd9a7f9014f98,True
+codebk2025.txt,https://www.federalreserve.gov/econres/files/codebk2025.txt,ad79528ce8a38d63e0869c3614ceec8572e0d46a601f1c4dc741ffe9a3679fcf,True
+codebk2016.txt,https://www.federalreserve.gov/econres/files/codebk2016.txt,bae450b629ab8b4fcbad8759ed72e7a108c92ef8c1aa0c720b8491245752f64b,not previously stored
+codebk95.txt,https://www.federalreserve.gov/econres/files/codebk95.txt,e2f25938cb429fd8a0ecf3577e6841bfebdbee79f95acabdd41cd2377c61cce7,not previously stored
+codebk92.txt,https://www.federalreserve.gov/econres/files/codebk92.txt,11b1f724f9a42102790d9b114b1d9e21a1a95c0392fb1142a5a3ab104a65ee89,not previously stored
+Standard_Error_Documentation.pdf,https://www.federalreserve.gov/econres/files/Standard_Error_Documentation.pdf,55cf2c0ca8a0d3d451b37a3e32abae0fb2cc8b7fbd4654c92184c1d7b34cf584,not previously stored

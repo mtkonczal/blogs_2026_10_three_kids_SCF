@@ -1,0 +1,5 @@
+# Retain review code/results/logs; local reconstructed data and downloaded references
+# can be regenerated. Production files are never modified by this audit.
+/reproduction/
+/clean_room/
+/sources/
