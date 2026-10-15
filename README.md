@@ -21,7 +21,7 @@ quarto render kids_methods.qmd     # -> kids_methods.html
 ## Data
 
 - `data_raw/xlsx/`, `data_raw/zips/`: summary extracts (`scfp{YEAR}excel.zip`), fetched by `R/01_download.R`.
-- `data_raw/full/`: full public data (`scf{YEAR}s.zip` -> `p{YY}i6.dta`), all 13 waves. Downloaded by hand;
+- `data_raw/full/`: full public data (`scf{YEAR}s.zip` -> `p{YY}i6.dta`; 1992 is `p92i4.dta`), all 13 waves. Downloaded by hand;
   commands are in `kids_methods.qmd`, section 2.
 - `data_raw/rw/`: replicate weights (`scf{YEAR}rw1s.zip` -> `p{YY}_rw1.dta`), 2013/2016/2019/2022/2025. Downloaded by hand.
 - `docs/codebk{YEAR}.txt`: Fed codebooks.

@@ -47,8 +47,9 @@ stopifnot(nrow(d) == nrow(sx))
 d[, kids_away := pmax(x5910, 0)]
 d[, kids := KIDS + kids_away]
 d[, first_marriage_couple := MARRIED == 1 & x7377 == 1 & x7392 == 1]  # NA before 1995
-# Work status recode: 11-17 = working (worker only, or worker + another status)
-d[, `:=`(r_works = x4100 %in% 11:17, sp_works = x4700 %in% 11:17)]
+# Work status recode: 11-17 = working (worker only, or worker + another status);
+# 96 = "other combination incl. worker" (codebook X4100/X4700), also working.
+d[, `:=`(r_works = x4100 %in% c(11:17, 96), sp_works = x4700 %in% c(11:17, 96))]
 d[, earners := fifelse(MARRIED == 1, fifelse(r_works & sp_works, "Two earners", "One or no earner"), NA_character_)]
 d[, period := factor(fcase(year <= 1998, "1989-1998", year <= 2010, "2001-2010", default = "2013-2025"),
                      c("1989-1998", "2001-2010", "2013-2025"))]

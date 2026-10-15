@@ -28,6 +28,9 @@ theme_post <- theme_minimal(base_size = 12) +
         plot.title = element_text(face = "bold"), plot.title.position = "plot",
         plot.caption = element_text(color = "grey40", hjust = 0, size = 8.5), plot.caption.position = "plot")
 src_note <- "Source: Federal Reserve Survey of Consumer Finances, author's calculations."
+# KIDS (roster code 4) also counts children-in-law at home; X5910 includes stepchildren.
+kids_note <- "Children = living children of the head or spouse, at home or elsewhere; includes stepchildren and children-in-law at home."
+inc_note <- "Ranked by usual income (1989 and 1992: actual income)."
 blue <- "#2c6fbb"; red <- "#c0392b"; grey <- "grey55"
 save_png <- function(p, f, w = 8, h = 5) ggsave(file.path("graphics", f), p, width = w, height = h, dpi = 200, bg = "white", device = ragg::agg_png)
 
@@ -73,7 +76,7 @@ p <- ggplot(cx, aes(x, y)) +
   annotate("text", x = 90.5, y = (at90 + 100) / 2, label = sprintf("Top 10%%\nown %.0f%%", 100 - at90), hjust = 1, size = 4.2, fontface = "bold", color = red, lineheight = .9) +
   scale_x_continuous(breaks = seq(0, 100, 10), labels = function(v) paste0(v, "th"), expand = expansion(add = c(1, 2))) +
   scale_y_continuous(labels = label_percent(scale = 1), breaks = seq(0, 100, 20), expand = expansion(add = c(1, 2))) +
-  labs(title = "The top 10% own over 80% of the stock market",
+  labs(title = "The wealthiest 10% own over 80% of families' stock",
        subtitle = "Cumulative share of all stock owned, with families lined up from least to most wealth, 2025",
        x = "Family wealth percentile", y = "Share of all stock owned (cumulative)",
        caption = paste0("Stock includes shares held through mutual funds and retirement accounts.\n", src_note)) +
@@ -108,11 +111,10 @@ curve_plot <- function(b, ylab, title, fmt, top_lab_off, labels = lab_dollar, xl
     geom_text(data = b[top == TRUE], aes(label = sprintf(fmt, est)), color = red, fontface = "bold", nudge_y = top_lab_off, size = 4.2) +
     scale_x_discrete(labels = labels) +
     labs(title = title, x = xlab, y = ylab,
-         caption = paste("Families with a head aged 45-64, pooled 2013-2025 surveys. Children = living children of the head or spouse,",
-                         "at home or elsewhere.", paste0("\n", rank_note), "Band = approximate 95% CI.", paste0("\n", dollar_note, "\n", src_note))) +
+         caption = paste("Families with a head aged 45-64, pooled 2013-2025 surveys.", paste0("\n", kids_note), paste0("\n", rank_note), "Band = approximate 95% CI.", paste0("\n", dollar_note, "\n", src_note))) +
     theme_post + theme(axis.text.x = element_text(size = 8.5, lineheight = .9))
 }
-p <- curve_plot(b3, "Families with 3+ children (%)", "Big families are most common in the top 1%", "%.0f%%", 2.2) +
+p <- curve_plot(b3, "Families with 3+ children (%)", "Families with 3+ kids are most common in the top 1%", "%.0f%%", 2.2) +
   scale_y_continuous(labels = label_percent(scale = 1))
 save_png(p, "02_three_plus_kids_by_income.png")
 p <- curve_plot(bk, "Average number of children", "Average number of children by income", "%.2f", .05)
@@ -169,10 +171,10 @@ p <- ggplot(per, aes(inc_bin, est, color = period, group = period)) +
   scale_color_manual(values = c(`1989-1998` = grey, `2001-2010` = "#7fa7d6", `2013-2025` = blue), guide = "none") +
   scale_x_discrete(labels = lab_x, expand = expansion(add = c(1.9, .6))) +
   scale_y_continuous(labels = label_percent(scale = 1)) +
-  labs(title = "Big families got rarer everywhere except the top 1%",
+  labs(title = "Families with 3+ kids got rarer since the 1990s, except in the top 1%",
        subtitle = "Families with 3+ children, by income percentile and survey period",
        x = "Income percentile (among families with a head of the same age)", y = "Families with 3+ children (%)",
-       caption = paste0("Families with a head aged 45-64. Each survey weighted equally within a period.\n", src_note)) +
+       caption = paste0("Families with a head aged 45-64. Each survey weighted equally within a period. ", inc_note, "\n", kids_note, "\n", src_note)) +
   theme_post
 save_png(p, "04_three_plus_kids_by_period.png")
 for (i in seq_len(nrow(per))) add(paste("share3p", per$period[i], per$inc_bin[i]), per$est[i])
@@ -187,8 +189,7 @@ p <- ggplot(perk, aes(inc_bin, est, color = period, group = period)) +
   labs(title = "Families shrank everywhere, least at the top 1%",
        subtitle = "Average number of children, by income percentile and survey period",
        x = "Income percentile (among families with a head of the same age)", y = "Average number of children",
-       caption = paste0("Families with a head aged 45-64. Children = living children of the head or spouse, at home or elsewhere.\n",
-                        "Each survey weighted equally within a period. ", src_note)) +
+       caption = paste0("Families with a head aged 45-64. Each survey weighted equally within a period. ", inc_note, "\n", kids_note, "\n", src_note)) +
   theme_post
 save_png(p, "04b_mean_kids_by_period.png")
 for (i in seq_len(nrow(perk))) add(paste("mean_kids", perk$period[i], perk$inc_bin[i]), perk$est[i])
@@ -228,7 +229,13 @@ add("share3p_2013_25_P40_60", mid3)
 d25 <- d[year == 2025]
 add("p99_wage_2025wave_head45_64_nominal2024", wq(d25$wage, d25$WGT, .99), "nominal 2024 $, all heads 45-64")
 add("p99_capinc_2025wave_head45_64_nominal2024", wq(d25$cap, d25$WGT, .99), "nominal 2024 $")
-defl <- d[x5729 > 0, .(f = sum(INCOME * WGT) / sum(x5729 * WGT)), by = year]
+# Price factor to 2025 dollars: extract WAGEINC / raw X5702, which is a single constant per wave
+# (the Fed's own factor). The earlier INCOME / X5729 ratio was 2-3% too high because extract INCOME
+# also adds pension-account withdrawals that X5729 lacks.
+wg <- merge(d[x5702 > 0, .(year, Y1, x5702)], readRDS("data/scf_linked.rds")[year >= 2013, .(year, Y1, WAGEINC)], by = c("year", "Y1"))
+defl <- wg[, .(f = median(WAGEINC / x5702), spread = diff(range(WAGEINC / x5702))), by = year]
+stopifnot(all(defl$spread < 1e-6))   # fail loudly if the factor is not constant within a wave
+defl[, spread := NULL]
 print(defl)
 d <- merge(d, defl, by = "year")
 thr <- c(`Total income` = wq(d$inc_measure, d$w, .99), `Wages and salaries` = wq(d$wage * d$f, d$w, .99),
@@ -257,7 +264,7 @@ rw_src <- "Fed replicate weights, pooled 2013-2025, ranks re-estimated in each r
 sig3 <- sprintf("Top 1%% vs. 90th-99th: %+.1f pts (SE %.1f); excluding remarried couples: %+.1f pts (SE %.1f).\n%s",
                 r5("all_gap3")$est, r5("all_gap3")$se, r5("no_remarried_gap3")$est, r5("no_remarried_gap3")$se, rw_src)
 sigk <- sprintf("Top 1%% vs. 90th-99th: %+.2f children (SE %.2f).\n%s", r5("all_gapkids")$est, r5("all_gapkids")$se, rw_src)
-p <- curve_plot(n3, "Families with 3+ children (%)", "Ranked by wealth, big families fall, then jump at the top 1%", "%.0f%%", 2.4,
+p <- curve_plot(n3, "Families with 3+ children (%)", "Ranked by wealth, families with 3+ kids fall, then jump at the top 1%", "%.0f%%", 2.4,
                 labels = lab_nw, xlab = "Family net worth, 2025 dollars (and wealth percentile)", rank_note = paste("Ranked by net worth.", sig3)) +
   scale_y_continuous(labels = label_percent(scale = 1))
 save_png(p, "05_three_plus_kids_by_networth.png")

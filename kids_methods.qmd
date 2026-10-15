@@ -165,10 +165,12 @@ $$
 \text{kids} \;=\; \underbrace{\texttt{KIDS}}_{\text{children living at home}} \;+\; \underbrace{\max(\texttt{X5910},\,0)}_{\text{children living elsewhere}}
 $$
 
-- `KIDS` (summary extract): children of the reference person or spouse/partner who live in the household.
-- `X5910` (full data, asked in every wave since 1989): *"Altogether, including children from previous marriages and adopted children, how many sons and daughters do you (or your spouse/partner) have who do not live with you?"* Interviewers are told to include only living children and stepchildren. It is top-coded at 10 in the public data.
+- `KIDS` (summary extract): the number of household-roster members coded as a child of the reference person or spouse/partner. In the public file that roster code (4) is labeled "CHILD (in-law)", so `KIDS` also counts children-in-law living in the household. The roster also lists financially dependent children who do not usually live there (for example, college students), and they are counted too.
+- `X5910` (full data, asked in every wave since 1989): *"Altogether, including children from previous marriages and adopted children, how many sons and daughters do you (or your spouse/partner) have who do not live with you?"* Interviewers are told to include only living children and stepchildren. It is top-coded at 10 in the recent public files; three families in the 1989 and 1992 files report more (up to 16), which cannot change the 3+ share and barely moves the early-period means.
 
-The SCF never asks "how many children have you ever had." The sum above is the closest available measure. It counts adopted children and stepchildren, and it misses children who have died.
+The SCF never asks "how many children have you ever had." The sum above is the closest available measure. It counts adopted children and stepchildren, it counts children-in-law at home, and it misses children who have died. It is a count of children associated with the current family, not of births to one person.
+
+**Possible double count.** A dependent child who is on the roster but away from home (code 4, "does not usually live here") can be reported again in `X5910` as a child who does not live with the respondent. This is more common at the top: about 2.4% of top-1% families have both a roster-away child and `X5910` > 0. An upper bound on the bias, from dropping all roster-away children (`audit/claude_diagnostics/diag3.R`, 9 October run), lowers the top-1% share with 3+ children from 49.1% to 46.7% and the gap with the 90th-99th from about +9.1 to about +7.9 points.
 
 ## Sample: families with a head aged 45 to 64
 
@@ -292,7 +294,8 @@ The difference (under 40 minus 40+ hours) is `r sprintf("%+.1f", ww$top1w_hours_
 # Caveats
 
 - **Reverse causation.** Income, wealth and hours are measured when the head is 45-64, after the children. Children can lower family earnings (especially mothers'), which would push large families down the income ranks in the middle of the distribution more than at the top, where income is mostly from capital. The post treats the results as correlations.
-- **Children count.** Includes stepchildren and adopted children; excludes children who died. `X5910` is top-coded at 10. "Remarried couple" is a proxy for possible stepchildren, not a direct measure.
+- **Children count.** Includes stepchildren, adopted children and children-in-law at home; excludes children who died; can double-count a dependent child away from home (see Definitions). "Remarried couple" is a proxy for possible stepchildren, not a direct measure: it misses children from earlier non-marital relationships. Never-married cohabiting partners count as not remarried, but they are excluded from the stricter "first-marriage couple" group, which requires both partners to report a first marriage.
+- **Family counts.** Reported numbers of families count a family in a bin if it falls there in any implicate, so they slightly overstate per-implicate cell sizes. Estimates are unaffected.
 - **Age-band ranks.** "Top 1%" means top 1% among families whose head is the same age. Dollar labels on charts are approximate.
 - **Public-data edits** (top-coding, rounding, perturbation) mainly affect the very top.
 - **Approximate SEs on the charts.** The shaded bands ignore the sample design. The significance claims in the post rely on replicate weights for all five pooled waves (`R/25_rep_inference.R`).

@@ -6,21 +6,21 @@ Here's a quick picture of the distribution of stocks, for instance, from the Sur
 
 ![Share of stock owned by wealth group, 2025](graphics/01_stock_ownership_2025.png)
 
-So let's go back to kids. Measuring this is going to be tough because, while we get a great look at income and wealth, we only get an average number of children living in the home from the aggregate data. But by digging into the micro data, we can add a workable fertility question. Let's take that, as well as focusing on mid-life households, with a reference person between 45 and 64. To get enough people in the 1%, I pool the last five surveys, going back to 2013. [All this analysis is here on Github for your AI to replicate](https://github.com/mtkonczal/blogs_2026_10_three_kids_SCF).
+So let's go back to kids. Measuring this is going to be tough because, while we get a great look at income and wealth, the Fed's summary data only counts the children living at home. But by digging into the full survey data, we can add a workable fertility question. Let's take that, as well as focusing on mid-life households, with a reference person between 45 and 64. To get enough people in the 1%, I pool the last five surveys, going back to 2013. [All this analysis is here on Github for your AI to replicate](https://github.com/mtkonczal/blogs_2026_10_three_kids_SCF).
 
-For kids, I combine the SCF's household child count with its count of living sons and daughters of either partner who live elsewhere ("how many sons and daughters do you (or your spouse) have who do not live with you?"). This includes stepchildren and children-in-law in the household, so it is an imperfect family count, not a direct measure of births. But I think it's workable.
+For kids, I combine the SCF's household child count with its count of living sons and daughters of either partner who live elsewhere ("how many sons and daughters do you (or your spouse) have who do not live with you?"). This includes stepchildren, and children-in-law who live in the household, so it is an imperfect family count, not a direct measure of births. But I think it's workable.
 
 Now, the generic, textbook view is that with more income, you have fewer kids. That's what we've seen across countries. That's what we've seen historically. And so we'd expect that if we take the number of kids and plot it against incomes, we'll see it declining.
 
-REWRITE TK: However there’s been a [newer line of research](https://www.nber.org/papers/w29948) saying that relationship is changing, Elliot Haspel [has also written](https://www.romper.com/life/when-people-cant-afford-another-child-we-know-big-families-are-only-for-the-rich-15649230) about this. [ADD MORE TK] Economists have made this argument, too: [Bar and coauthors](https://doi.org/10.20955/wp.2018.022) document rising fertility among higher-income American families and propose that buying child care cheaply relative to their incomes helps explain it. 
+However, there's been a [newer line of research](https://www.nber.org/papers/w29948) showing that relationship is changing: in rich countries it has flattened, and in some cases reversed. Elliot Haspel [has written](https://www.romper.com/life/when-people-cant-afford-another-child-we-know-big-families-are-only-for-the-rich-15649230) about what this means for families, arguing that when child care costs this much, big families become something only the rich can afford. Economists have made this argument, too: [Bar and coauthors](https://doi.org/10.20955/wp.2018.022) document rising fertility among higher-income American families and propose that buying child care cheaply relative to their incomes helps explain it.
 
-So let's do a graph where the x-axis is all families, grouped by usual income, including capital income, and the y-axis is the percent of families with a child count of at least three. Across much of the income scale it's pretty flat, around 40 to 43%, and it dips to 37% at the 80th–90th percentiles. But it has a statistically significant rise at the top 1%: 49%, compared with about 40% for the rest of the top 10%.
+So let's do a graph where the x-axis is all mid-life families, grouped by usual income (including capital income) relative to others their age, and the y-axis is the percent of families with a child count of at least three. Across much of the income scale it's pretty flat, around 40 to 43%, and it dips to 37% at the 80th–90th percentiles. But it has a statistically significant rise at the top 1%: 49%, compared with about 40% for the rest of the top 10%.
 
 ![Families with 3+ children by income](graphics/02_three_plus_kids_by_income.png)
 
 Under the hood, this is driven by those with exactly three kids: about 34% of the top 1%, versus 24% of the rest of the top 10%. Four or more kids are about equally common in those two groups. So the third kid really is that sign you made it!
 
-We can also do an average number of kids. The top 1% average about 2.5, compared with 2.35 for the rest of the top 10%.
+We can also do an average number of kids. The top 1% average about 2.5, compared with 2.35 for the rest of the top 10%. That's a smaller gap, and not one I can distinguish from noise.
 
 ![Average number of children by income](graphics/03_mean_kids_by_income.png)
 
