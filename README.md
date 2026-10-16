@@ -14,6 +14,7 @@ Rscript R/07_kids_income.R         # -> output/kids_main.rds (merges full public
 Rscript R/24_kids_blended.R        # -> output/kids_blended.rds (remarried-couple robustness; run before 22)
 Rscript R/23_kids_wealth_work.R    # -> output/kids_wealth_work.rds (work hours, top 1% by wealth)
 Rscript R/25_rep_inference.R       # -> output/kids_rep5.rds (significance tests, pooled 2013-2025; run before 22)
+Rscript R/26_top1_definitions.R    # -> output/kids_top1_defs.rds, definitions.html (top-1% definition robustness; after 25)
 Rscript R/22_post_kids_graphics.R  # -> graphics/*.png, graphics/post_numbers.csv
 quarto render kids_methods.qmd     # -> kids_methods.html
 ```

@@ -149,6 +149,7 @@ R/02_build_db.R  -> data/scf_linked.rds                    extracts stacked: 312
 R/07_kids_income.R  -> output/kids_main.rds                adds X5910 etc. from data_raw/full/*.dta, builds the sample
 R/24_kids_blended.R -> output/kids_blended.rds             remarried-couple robustness
 R/25_rep_inference.R -> output/kids_rep5.rds              significance tests, pooled 2013-2025
+R/26_top1_definitions.R -> output/kids_top1_defs.rds     robustness to the top-1% definition; definitions.html
 R/23_kids_wealth_work.R -> output/kids_wealth_work.rds     work hours within the top 1% by wealth
 R/22_post_kids_graphics.R -> graphics/*.png, graphics/post_numbers.csv
 ```
@@ -174,7 +175,7 @@ The SCF never asks "how many children have you ever had." The sum above is the c
 
 ## Sample: families with a head aged 45 to 64
 
-Restricting to heads aged 45-64 means most families have finished having children (so the count approximates completed fertility), and most children have not yet died. The trade-off is that income and wealth are measured *after* the children arrive (section 8).
+Restricting to heads aged 45-64 means most families have finished having children and most children have not yet died. The count is still a family child count, not completed fertility (see above). The age is the reference person's, which in a mixed-sex couple is the man's, so a younger partner may still have children. An independent audit check (`audit/review_20261015/`) restricting to heads aged 50-64 with a partner aged at least 45 still found significant income and wealth gaps. The trade-off is that income and wealth are measured *after* the children arrive (section 8).
 
 ## Income and wealth ranks
 
@@ -257,7 +258,7 @@ The pattern is not stable wave to wave: in 2025 alone the gap is `r sprintf("%+.
 
 ![](graphics/04b_mean_kids_by_period.png)
 
-Same sample and definitions, run separately for 1989-1998, 2001-2010 and 2013-2025, using all 13 waves. Ranks are within each wave, so these charts use percentile labels, not dollars (real incomes at a given percentile differ across periods). The top 1% share with 3+ children is `r p0(num("share3p 1989-1998 Top 1%"))`, `r p0(num("share3p 2001-2010 Top 1%"))` and `r p0(num("share3p 2013-2025 Top 1%"))` across the three periods; the middle (50th-60th) goes from `r p0(num("share3p 1989-1998 P50-60"))` to `r p0(num("share3p 2013-2025 P50-60"))`.
+Same sample and definitions, run separately for 1989-1998, 2001-2010 and 2013-2025, using all 13 waves. Chart 4, in the post, compares only the two endpoints, 1989-1998 and 2013-2025; chart 4b (not in the post) shows all three periods. Ranks are within each wave, so these charts use percentile labels, not dollars (real incomes at a given percentile differ across periods). The top 1% share with 3+ children is `r p0(num("share3p 1989-1998 Top 1%"))`, `r p0(num("share3p 2001-2010 Top 1%"))` and `r p0(num("share3p 2013-2025 Top 1%"))` across the three periods; the middle (50th-60th) goes from `r p0(num("share3p 1989-1998 P50-60"))` to `r p0(num("share3p 2013-2025 P50-60"))`.
 
 A regression of 3+ children on a top-1% dummy, with age and year fixed effects, among the top 10% only, gives the top-1% gap relative to the 90th-99th in each period:
 
@@ -266,6 +267,8 @@ A regression of 3+ children on a top-1% dummy, with age and year fixed effects, 
 | 1989-1998 | `r sprintf("%+.1f", num("gap_top1_vs_p90_99_ageyear 1989-1998"))` | `r p1(se_of("gap_top1_vs_p90_99_ageyear 1989-1998"))` |
 | 2001-2010 | `r sprintf("%+.1f", num("gap_top1_vs_p90_99_ageyear 2001-2010"))` | `r p1(se_of("gap_top1_vs_p90_99_ageyear 2001-2010"))` |
 | 2013-2025 | `r sprintf("%+.1f", num("gap_top1_vs_p90_99_ageyear 2013-2025"))` | `r p1(se_of("gap_top1_vs_p90_99_ageyear 2013-2025"))` |
+
+The change in the gap from 1989-1998 to 2013-2025 is `r sprintf("%+.1f", num("gap_top1_vs_p90_99_ageyear 2013-2025") - num("gap_top1_vs_p90_99_ageyear 1989-1998"))` points, about `r sprintf("%.1f", (num("gap_top1_vs_p90_99_ageyear 2013-2025") - num("gap_top1_vs_p90_99_ageyear 1989-1998")) / sqrt(se_of("gap_top1_vs_p90_99_ageyear 2013-2025")^2 + se_of("gap_top1_vs_p90_99_ageyear 1989-1998")^2))` approximate standard errors (treating the periods as independent). That is on the edge of significance, and these SEs ignore the survey design: replicate weights were downloaded only for 2013-2025. The post therefore calls the change suggestive. The early period also mixes income measures (actual income in 1989 and 1992, usual income from 1995).
 
 ## Charts 5 and 5b: ranking by wealth instead of income
 
@@ -276,6 +279,22 @@ A regression of 3+ children on a top-1% dummy, with age and year fixed effects, 
 Identical to charts 2 and 3, but families are ranked by net worth within age band. The top-1% wealth cutoff is about **`r usd(num("networth_cutoff_P99_2013_25"))`**. The share with 3+ children peaks at `r p0(num("share3p_networth_2013_25 P20-30"))` in the 20th-30th percentile (about `r usd(num("networth_cutoff_P20_2013_25"))` to `r usd(num("networth_cutoff_P30_2013_25"))`), falls to `r p0(num("share3p_networth_2013_25 P70-80"))` in the 70th-80th (about `r usd(num("networth_cutoff_P70_2013_25"))` to `r usd(num("networth_cutoff_P80_2013_25"))`), then is `r p0(num("share3p_networth_2013_25 Top 1%"))` at the top 1%. Average children follow the same shape: `r d2(num("mean_kids_networth_2013_25 P20-30"))`, `r d2(num("mean_kids_networth_2013_25 P70-80"))`, and `r d2(num("mean_kids_networth_2013_25 Top 1%"))`.
 
 Replicate-weight tests on the pooled 2013-2025 sample, top 1% vs. 90th-99th by wealth: `r g5("nw_rank", "all_gap3")` points for the share with 3+ children (`r excl0("nw_rank", "all_gap3")`), and `r g5("nw_rank", "all_gapkids", 2)` for average children. Excluding remarried couples: `r g5("nw_rank", "no_remarried_gap3")` points. The wealth result is at least as strong as the income one. An earlier three-wave test (2019-2025) made it look weaker because it left out 2013 and 2016, the waves with the largest wealth gaps.
+
+## Robustness: how the top 1% is defined
+
+`R/26_top1_definitions.R` reruns the headline test (share with 3+ children, top group minus the rest of the top 10%) under different definitions of the top group. The outcome, sample (heads 45-64, 2013-2025) and inference are unchanged: 999 replicate weights per wave with ranks re-estimated in every replicate, plus imputation variance, as in `R/25`. For the pooled-across-years ranking, ranks depend on all five waves at once, so the variance is taken over replicate draws of the summed moments rather than summed wave by wave. The script checks that its baseline row reproduces `R/25` exactly and also writes a standalone table, `definitions.html`.
+
+```{r}
+#| label: top1-definitions
+td <- readRDS("output/kids_top1_defs.rds")
+fmt <- function(z) if (!nrow(z)) "n/a" else sprintf("%+.1f (%.1f to %.1f)%s", z$gap, z$lower, z$upper, if (z$lower > 0) "" else ", n.s.")
+tab <- unique(td[, .(id, label)])
+tab[, `Income gap, pts (95% CI)` := vapply(id, function(i) fmt(td[id == i & rank == "income"]), "")]
+tab[, `Wealth gap, pts (95% CI)` := vapply(id, function(i) fmt(td[id == i & rank == "wealth"]), "")]
+knitr::kable(tab[, -"id"], col.names = c("Definition", names(tab)[3:4]))
+```
+
+`r td[, sum(lower > 0)]` of `r nrow(td)` gaps have 95% intervals that exclude zero. The definitions select heavily overlapping families from the same surveys, so these are checks that the choice of definition is not driving the result, not independent confirmations. Intervals are pointwise and unadjusted for multiple comparisons.
 
 ## Work hours within the top 1% by wealth
 
@@ -296,7 +315,7 @@ The difference (under 40 minus 40+ hours) is `r sprintf("%+.1f", ww$top1w_hours_
 - **Reverse causation.** Income, wealth and hours are measured when the head is 45-64, after the children. Children can lower family earnings (especially mothers'), which would push large families down the income ranks in the middle of the distribution more than at the top, where wages are a smaller share of income. The post treats the results as correlations.
 - **Children count.** Includes stepchildren, adopted children and children-in-law at home; excludes children who died; can double-count a dependent child away from home (see Definitions). "Remarried couple" is a proxy for possible stepchildren, not a direct measure: it misses children from earlier non-marital relationships. Never-married cohabiting partners count as not remarried, but they are excluded from the stricter "first-marriage couple" group, which requires both partners to report a first marriage. Cohabiting partners who were married once before report that marriage as their first, so they count as not remarried and can fall in the "first-marriage couple" group.
 - **Family counts.** Reported numbers of families count a family in a bin if it falls there in any implicate, so they slightly overstate per-implicate cell sizes. Estimates are unaffected.
-- **Age-band ranks.** "Top 1%" means top 1% among families whose head is the same age. Dollar labels on charts are approximate.
+- **Age-band ranks.** "Top 1%" means top 1% among families whose head is the same age, in the same survey year. Dollar labels on charts are approximate. Other definitions of the top group give the same result (see the robustness section).
 - **Public-data edits** (top-coding, rounding, perturbation) mainly affect the very top.
 - **Approximate SEs on the charts.** The shaded bands ignore the sample design. The significance claims in the post rely on replicate weights for all five pooled waves (`R/25_rep_inference.R`).
 - **Who is the head.** In mixed-sex couples the reference person is the man, so "head aged 45-64" is the man's age. For families where the woman is younger, her childbearing may be less complete.
@@ -334,5 +353,6 @@ R packages: `data.table`, `haven`, `fixest`, `ggplot2`, `scales`, `ragg`, `dplyr
 | `R/23_kids_wealth_work.R` | Work hours within the top 1% by wealth |
 | `R/24_kids_blended.R` | Remarried-couple robustness |
 | `R/25_rep_inference.R` | Significance tests: replicate weights, pooled 2013-2025, ranks re-estimated |
+| `R/26_top1_definitions.R`, `definitions.html` | Robustness of the headline test to the definition of the top 1% |
 | `data_raw/` | Raw Fed files (zips kept as the record of what was downloaded) |
 | `docs/codebk*.txt` | Fed codebooks |

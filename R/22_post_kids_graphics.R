@@ -164,15 +164,17 @@ add("n_top1_families_2025", s25[inc_bin == "Top 1%", uniqueN(case)], "unweighted
 
 # ---- 4. Before vs after 2000 ------------------------------------------------------------
 per <- main[, .(est = wmean(y3, w)), by = .(period, inc_bin)]
-per_lab <- per[inc_bin == "P0-10"]
-p <- ggplot(per, aes(inc_bin, est, color = period, group = period)) +
+# Chart shows the two endpoints only; all three periods are still recorded in post_numbers.csv
+per_plot <- per[period %in% c("1989-1998", "2013-2025")]
+per_lab <- per_plot[inc_bin == "P0-10"]
+p <- ggplot(per_plot, aes(inc_bin, est, color = period, group = period)) +
   geom_line(linewidth = 1) + geom_point(size = 2.2) +
   geom_text(data = per_lab, aes(label = period), hjust = 1.15, size = 3.8, fontface = "bold", show.legend = FALSE) +
   scale_color_manual(values = c(`1989-1998` = grey, `2001-2010` = "#7fa7d6", `2013-2025` = blue), guide = "none") +
   scale_x_discrete(labels = lab_x, expand = expansion(add = c(1.9, .6))) +
   scale_y_continuous(labels = label_percent(scale = 1)) +
   labs(title = "Families with 3+ kids got rarer since the 1990s, except in the top 1%",
-       subtitle = "Families with 3+ children, by income percentile and survey period",
+       subtitle = "Families with 3+ children, by income percentile, 1989-1998 vs. 2013-2025 surveys",
        x = "Income percentile (among families with a head of the same age)", y = "Families with 3+ children (%)",
        caption = paste0("Families with a head aged 45-64. Each survey weighted equally within a period. ", inc_note, "\n", kids_note, "\n", src_note)) +
   theme_post
@@ -268,7 +270,7 @@ p <- curve_plot(n3, "Families with 3+ children (%)", "Ranked by wealth, families
                 labels = lab_nw, xlab = "Family net worth, 2025 dollars (and wealth percentile)", rank_note = paste("Ranked by net worth.", sig3)) +
   scale_y_continuous(labels = label_percent(scale = 1))
 save_png(p, "05_three_plus_kids_by_networth.png")
-p <- curve_plot(nk, "Average number of children", "Average number of children by wealth", "%.2f", .06,
+p <- curve_plot(nk, "Average number of children", "Ranked by wealth, the top 1% also have more children on average", "%.2f", .06,
                 labels = lab_nw, xlab = "Family net worth, 2025 dollars (and wealth percentile)", rank_note = paste("Ranked by net worth.", sigk))
 save_png(p, "05b_mean_kids_by_networth.png")
 
