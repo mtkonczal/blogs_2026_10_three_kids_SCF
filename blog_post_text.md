@@ -26,7 +26,7 @@ Some preliminary digging makes me think this is new. Or, more accurately, compar
 
 ![Families with 3+ children by income and period](graphics/04_three_plus_kids_by_period.png)
 
-The top 1% sits at about 49% in both periods, while the rest of the top 10% fell from about 53% to 40%. That change in the gap is only on the edge of statistical significance, so treat it as suggestive.
+The top 1% sits at about 49% in both periods, while the rest of the top 10% fell from about 53% to 40%. That widening gap, 12 to 14 points depending on the measure, is statistically significant whether we rank by usual income, actual income, or net worth.
 
 These results are robust to many different ways of defining the 1%.[^1] Also, because it's the SCF, we can move from income to net worth as well. So here are families ranked by net worth, with approximate dollar labels. The share with three or more kids falls through much of the wealth distribution, from 47% around the 20th–30th percentiles down to 34% around the 70th–80th. Then, at the top 1%, it rises to 50%, compared with about 37% for the rest of the top 10%. So the same pattern shows up when we rank by wealth, and here it's not just the third kid: the top 1% are also more likely to have four or more (19% versus 14%).
 

@@ -27,7 +27,7 @@ theme_post <- theme_minimal(base_size = 12) +
   theme(panel.grid.minor = element_blank(), panel.grid.major = element_line(color = "grey90"),
         plot.title = element_text(face = "bold"), plot.title.position = "plot",
         plot.caption = element_text(color = "grey40", hjust = 0, size = 8.5), plot.caption.position = "plot")
-src_note <- "Source: Federal Reserve Survey of Consumer Finances, author's calculations."
+src_note <- "Source: Federal Reserve Survey of Consumer Finances, author's calculations, Mike Konczal."
 # KIDS (roster code 4) also counts children-in-law at home; X5910 includes stepchildren.
 kids_note <- "Children = living children of the head or spouse, at home or elsewhere; includes stepchildren and children-in-law at home."
 inc_note <- "Ranked by usual income (1989 and 1992: actual income)."
