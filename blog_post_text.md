@@ -22,17 +22,19 @@ So let's do a graph where the x-axis is all mid-life families, grouped by usual 
 
 Under the hood, this is driven by those with exactly three kids: about 34% of the top 1%, versus 24% of the rest of the top 10%. Four or more kids are about equally common in those two groups. So the third kid really is that sign you made it!
 
-We can also do an average number of kids. The top 1% average about 2.5, compared with 2.35 for the rest of the top 10%. That's a smaller gap, and not one I can distinguish from noise.
-
-![Average number of children by income](graphics/03_mean_kids_by_income.png)
-
-Is this new? The gap looks larger in the more recent surveys. Back in the earliest period, 1989–1998, the rest of the top 10% looked much more like the top 1%. Notice the pattern in these period averages: about 48 to 49% of top-1% families have a child count of three or more in each period, while the rest of the top 10% fell from about 53% to 40%. There is a lot of survey-to-survey noise here, and the timing depends on how we measure income: the earliest surveys use actual income, while later ones use usual income. These are also survey dates, not the dates when the children were born.
+Some preliminary digging makes me think this is new. Or, more accurately, compared to the 1990s, families with three or more kids became less common overall, except in the 1%, where the share more or less stayed the same. Maybe all the stresses that made child-bearing more difficult over the past 30 years just bounced right off the 1%? Here’s a quick glance at that:
 
 ![Families with 3+ children by income and period](graphics/04_three_plus_kids_by_period.png)
 
-Because it's the SCF, we can move from income to net worth as well. So here are families ranked by net worth, with approximate dollar labels. The share with three or more kids falls through much of the wealth distribution, from 47% around the 20th–30th percentiles down to 34% around the 70th–80th. Then, at the top 1%, it rises to 50%, compared with about 37% for the rest of the top 10%. So the same pattern shows up when we rank by wealth. And it's robust to many different ways of defining the 1%.[^1]
+The top 1% sits at about 49% in both periods, while the rest of the top 10% fell from about 53% to 40%. That change in the gap is only on the edge of statistical significance, so treat it as suggestive.
+
+These results are robust to many different ways of defining the 1%.[^1] Also, because it's the SCF, we can move from income to net worth as well. So here are families ranked by net worth, with approximate dollar labels. The share with three or more kids falls through much of the wealth distribution, from 47% around the 20th–30th percentiles down to 34% around the 70th–80th. Then, at the top 1%, it rises to 50%, compared with about 37% for the rest of the top 10%. So the same pattern shows up when we rank by wealth, and here it's not just the third kid: the top 1% are also more likely to have four or more (19% versus 14%).
 
 ![Families with 3+ children by net worth](graphics/05_three_plus_kids_by_networth.png)
+
+Average number of kids by income increases for the 1%, but not in a statistically significant way; the average is noisier, since a few very large families move it a lot. However, the average number of kids by net worth does increase in a statistically significant way (2.5 versus 2.25), as you can see here:
+
+![Average number of children by net worth](graphics/05b_mean_kids_by_networth.png)
 
 (We did note that remarriages among the 1% could be complicating this question, given the wording of the fertility question. But excluding couples where either partner has been married more than once leaves a positive, statistically significant gap for both income and wealth in the five-survey pool. That doesn't rule out every kind of blended family, but remarriage doesn't explain away the result.)
 
