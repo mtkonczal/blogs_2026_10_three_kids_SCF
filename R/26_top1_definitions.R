@@ -39,7 +39,7 @@ defs <- data.table(
             "Ranked within survey year and 10-year age band (45-54, 55-64).",
             "Ranked within survey year against all families with a head aged 45-64, ignoring age bands.",
             "Ranked within survey year against all US families of every age, then the 45-64 families are kept. The top 1% is the national top 1%.",
-            "One ranking of all heads aged 45-64 across the five surveys combined (2025 dollars, each survey weighted equally). Equivalent to a single fixed dollar cutoff.",
+            "One ranking of all heads aged 45-64 across the five surveys combined (2025 dollars, each survey weighted equally). A common pooled ranking in 2025 dollars.",
             "Current age-band ranking, but on last year's actual income instead of usual income. Income only.",
             "Current age-band ranking, top 2% vs. 90th-98th.",
             "Current age-band ranking, top 0.5% vs. 90th-99.5th."),

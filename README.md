@@ -8,6 +8,7 @@ and where every number in the post comes from.
 ## Run (from the project root)
 
 ```bash
+mkdir -p data_raw/full data_raw/rw output   # needed before the hand downloads and R/07
 Rscript R/01_download.R            # summary extracts -> data_raw/xlsx/ (--force for a datestamped re-pull)
 Rscript R/02_build_db.R            # -> data/scf_linked.rds (13 extracts stacked, 2025 dollars)
 Rscript R/07_kids_income.R         # -> output/kids_main.rds (merges full public data, builds sample)
@@ -16,6 +17,7 @@ Rscript R/23_kids_wealth_work.R    # -> output/kids_wealth_work.rds (work hours,
 Rscript R/25_rep_inference.R       # -> output/kids_rep5.rds (significance tests, pooled 2013-2025; run before 22)
 Rscript R/26_top1_definitions.R    # -> output/kids_top1_defs.rds, definitions.html (top-1% definition robustness; after 25)
 Rscript R/27_period_change_test.R  # -> output/kids_period_change.rds (1989-1998 vs. 2013-2025 change, replicate weights)
+Rscript R/28_bin_intervals.R       # -> output/kids_bin_ci.rds (replicate-weight chart bands; run before 22)
 Rscript R/22_post_kids_graphics.R  # -> graphics/*.png, graphics/post_numbers.csv
 quarto render kids_methods.qmd     # -> kids_methods.html
 ```
@@ -34,5 +36,5 @@ quarto render kids_methods.qmd     # -> kids_methods.html
 - `WGT` (summary extract) is already divided by 5; point estimates pool all five implicates.
 - Extract dollars are 2025 dollars as released by the Fed; full-data dollars are nominal.
 - Standard errors: 999 replicate weights on implicate 1, scale 1/998, plus 1.2 x between-implicate
-  variance. Headline tests: `R/25_rep_inference.R`, pooled 2013-2025, ranks re-estimated in each replicate. Chart bands use Rubin's rules on per-implicate regressions (approximate).
+  variance. Headline tests: `R/25_rep_inference.R`, pooled 2013-2025, ranks re-estimated in each replicate. Chart bands: `R/28_bin_intervals.R`, the same replicate-weight recipe for each bin.
 - Keep R string literals ASCII: the R session locale is not UTF-8.

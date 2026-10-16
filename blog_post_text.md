@@ -4,7 +4,7 @@ We just got the new Survey of Consumer Finances (SCF) for 2025 last week. This i
 
 So let's get to kids. Measuring this is going to be tough because, while we get a great look at income and wealth, the Fed's summary data only counts the children in the household. But by digging into the full survey data, we can build a workable family child count. Let's take that, as well as focusing on mid-life households, with a reference person between 45 and 64. To get enough people in the 1%, I pool the last five surveys, going back to 2013. [All this analysis is here on Github for your AI to replicate](https://github.com/mtkonczal/blogs_2026_10_three_kids_SCF).
 
-For kids, I combine the SCF's household child count with its count of living sons and daughters of either partner who live elsewhere ("how many sons and daughters do you (or your spouse) have who do not live with you?"). This includes stepchildren, and children-in-law who live in the household, so it is an imperfect family count, not a direct measure of births. Some children away from home, like college students, may also be counted twice, but checks that allow for this barely move the result. Stepchildren raise a different worry, about blended families, which I check at the end.
+For kids, I combine the SCF's household child count with its count of living sons and daughters of either partner who live elsewhere ("how many sons and daughters do you (or your spouse) have who do not live with you?"). This includes stepchildren, and children-in-law who live in the household, so it is an imperfect family count, not a direct measure of births. Some children away from home, like college students, may also be counted twice, but checks that allow for this leave the positive gap intact. Stepchildren raise a different worry, about blended families, which I check at the end.
 
 Now, the generic, textbook view is that with more income, you have fewer kids. That's what we've seen across countries. That's what we've seen historically. And so we'd expect that if we take the number of kids and plot it against incomes, we'll see it declining.
 
@@ -18,7 +18,7 @@ So let's do a graph where the x-axis is all mid-life families, grouped by usual 
 
 Under the hood, this is driven by those with exactly three kids: about 34% of the top 1%, versus 24% of the rest of the top 10%. Four or more kids are about equally common in those two groups. So the third kid really is that sign you made it!
 
-Some digging makes me think this is new. Or, more accurately, compared to the 1990s, families with three or more kids became less common overall, except in the 1%, where the share more or less stayed the same. Maybe all the stresses that made childbearing more difficult over the past 30 years just bounced right off the 1%? Here’s a quick glance at that:
+Some digging makes me think this is new. Or, more accurately, compared to the 1990s, families with three or more kids became less common overall, except in the 1%, where the share was roughly unchanged, though with substantial uncertainty. Maybe all the stresses that made childbearing more difficult over the past 30 years just bounced right off the 1%? Here’s a quick glance at that:
 
 ![Families with 3+ children by income and period](graphics/04_three_plus_kids_by_period.png)
 
@@ -26,7 +26,7 @@ The top-1% gap is robust to many different ways of defining the 1%.\[^1\] Also, 
 
 ![Families with 3+ children by net worth](graphics/05_three_plus_kids_by_networth.png)
 
-Average number of kids by income increases for the 1%, but not in a statistically significant way; the average is noisier, since a few very large families move it a lot. However, the average number of kids by net worth does increase in a statistically significant way (2.5 versus 2.25), as you can see here:
+Average number of kids by income increases for the 1%, but not in a statistically significant way; the average is noisier, since a few very large families move it a lot. However, ranked by net worth, the top 1% do have a significantly higher average (2.5 versus 2.25 kids), as you can see here:
 
 ![Average number of children by net worth](graphics/05b_mean_kids_by_networth.png)
 

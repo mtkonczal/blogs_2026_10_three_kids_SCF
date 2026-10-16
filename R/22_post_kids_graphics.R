@@ -40,6 +40,19 @@ bin_means <- function(s, yv) {
   r <- rubin(lapply(1:5, function(i) feols(as.formula(paste(yv, "~ 0 + inc_bin")), data = s[implicate == i], weights = ~w, cluster = ~case)))
   r[, inc_bin := factor(sub("^inc_bin", "", term), levels(s$inc_bin))][]
 }
+# Chart bands use replicate-weight SEs for each bin (R/28: ranks re-estimated in every replicate),
+# not the approximate clustered SEs above. Point estimates are identical; checked here.
+bin_ci <- readRDS("output/kids_bin_ci.rds")
+rep_bands <- function(b, rk, oc) {
+  z <- bin_ci[rank == rk & outcome == oc]
+  b <- copy(b)[, se := z$se[match(as.character(inc_bin), as.character(z$inc_bin))]]
+  stopifnot(nrow(b) == 12, !anyNA(b$se), all(abs(b$est - z$est[match(as.character(b$inc_bin), as.character(z$inc_bin))]) < 1e-6))
+  b
+}
+rep5c <- readRDS("output/kids_rep5.rds")
+gap_note <- function(rk, st, unit) { z <- rep5c[rank == rk & stat == st]
+  if (unit == "pts") sprintf("Top 1%% vs. 90th-99th: %+.1f pts (SE %.1f).", z$est, z$se) else sprintf("Top 1%% vs. 90th-99th: %+.2f children (SE %.2f).", z$est, z$se) }
+band_note <- "Band = 95% interval for each group. Intervals and tests use Fed replicate weights, ranks re-estimated in each replicate."
 
 # ---- 1. Stock ownership concentration, 2025 -------------------------------------------
 # EQUITY = directly + indirectly held stock (mutual funds, retirement accounts, etc.), 2025 $.
@@ -85,7 +98,7 @@ save_png(p, "01_stock_ownership_2025.png")
 
 # ---- 2/3. Children by income percentile, 2013-2025 --------------------------------------
 rec <- main[period == "2013-2025"]
-b3 <- bin_means(rec, "y3"); bk <- bin_means(rec, "kids")
+b3 <- rep_bands(bin_means(rec, "y3"), "inc_rank", "share3"); bk <- rep_bands(bin_means(rec, "kids"), "inc_rank", "kids")
 lab_x <- c("0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60-70", "70-80", "80-90", "90-95", "95-99", "Top\n1%")
 # Dollar labels: income at each percentile cutoff among all heads 45-64, pooled 2013-2025 (2025 $).
 # Bins are ranked within 5-year age bands, so these ranges are approximate: 58-87% of each bin's
@@ -111,16 +124,18 @@ curve_plot <- function(b, ylab, title, fmt, top_lab_off, labels = lab_dollar, xl
     geom_text(data = b[top == TRUE], aes(label = sprintf(fmt, est)), color = red, fontface = "bold", nudge_y = top_lab_off, size = 4.2) +
     scale_x_discrete(labels = labels) +
     labs(title = title, x = xlab, y = ylab,
-         caption = paste("Families with a head aged 45-64, pooled 2013-2025 surveys.", paste0("\n", kids_note), paste0("\n", rank_note), "Band = approximate 95% CI.", paste0("\n", dollar_note, "\n", src_note))) +
+         caption = paste("Families with a head aged 45-64, pooled 2013-2025 surveys.", paste0("\n", kids_note), paste0("\n", rank_note), paste0("\n", band_note), paste0("\n", dollar_note, "\n", src_note))) +
     theme_post + theme(axis.text.x = element_text(size = 8.5, lineheight = .9))
 }
-p <- curve_plot(b3, "Families with 3+ children (%)", "Families with 3+ kids are most common in the top 1%", "%.0f%%", 2.2) +
+p <- curve_plot(b3, "Families with 3+ children (%)", "Families with 3+ kids are most common in the top 1%", "%.0f%%", 2.2,
+                rank_note = paste("Usual income, including capital income.", gap_note("inc_rank", "all_gap3", "pts"))) +
   scale_y_continuous(labels = label_percent(scale = 1))
 save_png(p, "02_three_plus_kids_by_income.png")
-p <- curve_plot(bk, "Average number of children", "Average number of children by income", "%.2f", .05)
+p <- curve_plot(bk, "Average number of children", "Average number of children by income", "%.2f", .05,
+                rank_note = paste("Usual income, including capital income.", gap_note("inc_rank", "all_gapkids", "kids")))
 save_png(p, "03_mean_kids_by_income.png")
-for (i in seq_len(nrow(b3))) add(paste("share3p_2013_25", b3$inc_bin[i]), b3$est[i], sprintf("SE %.1f (approx.)", b3$se[i]))
-for (i in seq_len(nrow(bk))) add(paste("mean_kids_2013_25", bk$inc_bin[i]), bk$est[i], sprintf("SE %.2f (approx.)", bk$se[i]))
+for (i in seq_len(nrow(b3))) add(paste("share3p_2013_25", b3$inc_bin[i]), b3$est[i], sprintf("SE %.1f (replicate weights)", b3$se[i]))
+for (i in seq_len(nrow(bk))) add(paste("mean_kids_2013_25", bk$inc_bin[i]), bk$est[i], sprintf("SE %.2f (replicate weights)", bk$se[i]))
 
 # Married couples only: numbers for the methods doc (no chart; the post uses all families)
 bm <- bin_means(rec[MARRIED == 1], "y3")
@@ -251,21 +266,20 @@ for (i in seq_len(nrow(src))) add(paste("mean_kids_by_source", src$rank[i], src$
 
 # ---- 5. Ranked by net worth instead of income (2013-2025) --------------------------------
 recn <- copy(rec)[, inc_bin := nw_bin]   # bin_means/curve_plot read inc_bin
-n3 <- bin_means(recn, "y3"); nk <- bin_means(recn, "kids")
+n3 <- rep_bands(bin_means(recn, "y3"), "nw_rank", "share3"); nk <- rep_bands(bin_means(recn, "kids"), "nw_rank", "kids")
 nw_cuts <- sapply(pct_cuts, function(q) wq(rec$NETWORTH, rec$w, q))
 for (i in seq_along(pct_cuts)) add(paste0("networth_cutoff_P", 100 * pct_cuts[i], "_2013_25"), nw_cuts[i], "2025 $, heads 45-64, pooled")
-for (i in seq_len(nrow(n3))) add(paste("share3p_networth_2013_25", n3$inc_bin[i]), n3$est[i], sprintf("SE %.1f (approx.)", n3$se[i]))
-for (i in seq_len(nrow(nk))) add(paste("mean_kids_networth_2013_25", nk$inc_bin[i]), nk$est[i], sprintf("SE %.2f (approx.)", nk$se[i]))
+for (i in seq_len(nrow(n3))) add(paste("share3p_networth_2013_25", n3$inc_bin[i]), n3$est[i], sprintf("SE %.1f (replicate weights)", n3$se[i]))
+for (i in seq_len(nrow(nk))) add(paste("mean_kids_networth_2013_25", nk$inc_bin[i]), nk$est[i], sprintf("SE %.2f (replicate weights)", nk$se[i]))
 fmt_w <- function(x) ifelse(abs(x) >= 1e6, sprintf("$%.1fM", x / 1e6), ifelse(abs(x) >= 1e4, sprintf("$%.0fK", x / 1e3), sprintf("$%.0fK", x / 1e3)))
 lab_nw <- c(paste0("<", fmt_w(nw_cuts[1]), "\n\n", pct_lab[1]),
             paste0(fmt_w(nw_cuts[-11]), "-\n", sub("^\\$", "", fmt_w(nw_cuts[-1])), "\n", pct_lab[2:11]),
             paste0(fmt_w(nw_cuts[11]), "+\n\n", pct_lab[12]))
 # Captions report the five-wave tests (same waves as the chart); no hard-coded significance words.
 r5 <- function(st) rep5[rank == "nw_rank" & stat == st]
-rw_src <- "Fed replicate weights, pooled 2013-2025, ranks re-estimated in each replicate."
-sig3 <- sprintf("Top 1%% vs. 90th-99th: %+.1f pts (SE %.1f); excluding remarried couples: %+.1f pts (SE %.1f).\n%s",
-                r5("all_gap3")$est, r5("all_gap3")$se, r5("no_remarried_gap3")$est, r5("no_remarried_gap3")$se, rw_src)
-sigk <- sprintf("Top 1%% vs. 90th-99th: %+.2f children (SE %.2f).\n%s", r5("all_gapkids")$est, r5("all_gapkids")$se, rw_src)
+sig3 <- sprintf("Top 1%% vs. 90th-99th: %+.1f pts (SE %.1f); excluding remarried couples: %+.1f pts (SE %.1f).",
+                r5("all_gap3")$est, r5("all_gap3")$se, r5("no_remarried_gap3")$est, r5("no_remarried_gap3")$se)
+sigk <- gap_note("nw_rank", "all_gapkids", "kids")
 p <- curve_plot(n3, "Families with 3+ children (%)", "Ranked by wealth, families with 3+ kids fall, then jump at the top 1%", "%.0f%%", 2.4,
                 labels = lab_nw, xlab = "Family net worth, 2025 dollars (and wealth percentile)", rank_note = paste("Ranked by net worth.", sig3)) +
   scale_y_continuous(labels = label_percent(scale = 1))

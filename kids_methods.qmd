@@ -81,10 +81,11 @@ The full-data files are large (about 0.2-0.3 GB each as `.dta`, 2.9 GB for all 1
 
 ```bash
 # Full public data, all 13 waves (1989-1998 use two-digit years in the file name)
-for y in 89 92 95 98 01; do curl -sL -o data_raw/full/scf${y}s.zip https://www.federalreserve.gov/econres/files/scf${y}s.zip; done
-for y in 2004 2007 2010 2013 2016 2019 2022 2025; do curl -sL -o data_raw/full/scf${y}s.zip https://www.federalreserve.gov/econres/files/scf${y}s.zip; done
+mkdir -p data_raw/full data_raw/rw output
+for y in 89 92 95 98 01; do curl -fsL -o data_raw/full/scf${y}s.zip https://www.federalreserve.gov/econres/files/scf${y}s.zip; done
+for y in 2004 2007 2010 2013 2016 2019 2022 2025; do curl -fsL -o data_raw/full/scf${y}s.zip https://www.federalreserve.gov/econres/files/scf${y}s.zip; done
 # Replicate weights: the five pooled waves used in the significance tests, plus 1989-1998 for the period test (R/27)
-for y in 2013 2016 2019 2022 2025; do curl -sL -o data_raw/rw/scf${y}rw1s.zip https://www.federalreserve.gov/econres/files/scf${y}rw1s.zip; done
+for y in 2013 2016 2019 2022 2025; do curl -fsL -o data_raw/rw/scf${y}rw1s.zip https://www.federalreserve.gov/econres/files/scf${y}rw1s.zip; done
 for y in 89 92 95 98; do curl -fsL -o data_raw/rw/scf${y}rw1s.zip https://www.federalreserve.gov/econres/files/scf${y}rw1s.zip; done
 # Unzip in place
 for f in data_raw/full/*.zip; do unzip -o "$f" -d data_raw/full; done
@@ -152,6 +153,7 @@ R/24_kids_blended.R -> output/kids_blended.rds             remarried-couple robu
 R/25_rep_inference.R -> output/kids_rep5.rds              significance tests, pooled 2013-2025
 R/26_top1_definitions.R -> output/kids_top1_defs.rds     robustness to the top-1% definition; definitions.html
 R/27_period_change_test.R -> output/kids_period_change.rds  1989-1998 vs. 2013-2025 change, replicate weights
+R/28_bin_intervals.R -> output/kids_bin_ci.rds              replicate-weight bands for the income and wealth charts
 R/23_kids_wealth_work.R -> output/kids_wealth_work.rds     work hours within the top 1% by wealth
 R/22_post_kids_graphics.R -> graphics/*.png, graphics/post_numbers.csv
 ```
@@ -173,7 +175,7 @@ $$
 
 The SCF never asks "how many children have you ever had." The sum above is the closest available measure. It counts adopted children and stepchildren, it counts children-in-law at home, and it misses children who have died. It is a count of children associated with the current family, not of births to one person.
 
-**Possible double count.** A dependent child who is on the roster but away from home (code 4, "does not usually live here") can be reported again in `X5910` as a child who does not live with the respondent. This is more common at the top: about 2.4% of top-1% families have both a roster-away child and `X5910` > 0. A deliberately aggressive check, dropping all roster-away children (`audit/claude_diagnostics/diag3.R`, 9 October run), lowers the top-1% share with 3+ children from 49.1% to 46.7% and the gap with the 90th-99th from about +9.1 to about +7.9 points. This also removes some genuine children, and because it is applied to both groups it is not a formal bound on the bias in the gap.
+**Possible double count.** A dependent child who is on the roster but away from home (relationship code 4, with residence code 5, "does not usually live here") can be reported again in `X5910` as a child who does not live with the respondent. This is more common at the top: about 2.4% of top-1% families have both a roster-away child and `X5910` > 0. A deliberately aggressive check, dropping all roster-away children (`audit/claude_diagnostics/diag3.R`, 9 October run), lowers the top-1% share with 3+ children from 49.1% to 46.7% and the gap with the 90th-99th from about +9.1 to about +7.9 points. This also removes some genuine children, and because it is applied to both groups it is not a formal bound on the bias in the gap.
 
 ## Sample: families with a head aged 45 to 64
 
@@ -196,7 +198,7 @@ Within a period each **wave gets equal total weight** (`w = WGT / sum(WGT)` with
 
 **Point estimates.** Weighted shares and means on the pooled implicates, using `w`.
 
-**Approximate standard errors (the shaded bands on the charts).** For each implicate separately, a weighted regression of the outcome on bin dummies (`fixest::feols`, standard errors clustered on family, which within one implicate amounts to heteroskedasticity-robust errors). The five results are combined with **Rubin's rules**:
+**Approximate standard errors (now used only for the married-couple bin numbers and the period regression table; the chart bands use replicate weights, below).** For each implicate separately, a weighted regression of the outcome on bin dummies (`fixest::feols`, standard errors clustered on family, which within one implicate amounts to heteroskedasticity-robust errors). The five results are combined with **Rubin's rules**:
 
 $$
 \bar{\theta} = \tfrac{1}{5}\textstyle\sum_m \hat{\theta}_m, \qquad
@@ -216,6 +218,8 @@ The headline significance tests (`R/25_rep_inference.R`) apply this recipe to al
 - **Pooled estimator.** Each wave's weights are scaled to sum to one, so every survey counts equally, as in the charts. A pooled share is a ratio of moments summed across waves, and the point estimates equal the charted levels.
 - **Ranks re-estimated in every replicate.** "Top 1%" is itself an estimated percentile. Each replicate recomputes the income (or wealth) ranks within age band before assigning families to groups; holding ranks fixed would ignore that uncertainty, and for the main comparisons here it gives smaller standard errors.
 - **Independent waves.** Each wave's replicate variance is computed separately and combined through the derivative of the pooled ratio (delta method). The imputation term $1.2B$ is computed on the pooled statistic across the five implicates.
+
+**Chart bands.** `R/28_bin_intervals.R` applies the same recipe to every percentile bin on the income and wealth charts: replicate weights for all five waves, ranks re-estimated in each replicate (so uncertainty about which families fall in each bin is included), and imputation variance. Its top-1% values and SEs reproduce `R/25` exactly. The bands are pointwise intervals for each bin, not tests of differences between bins.
 
 Intervals are normal approximations. An earlier version of this analysis tested only 2019-2025 with ranks held fixed; an independent audit (`audit/audit_checks.R`) replaced that test, and `R/25` reproduces the audit's five-wave results exactly. Single-wave replicate-weight results for 2019, 2022 and 2025 (`R/rep_se.R`, ranks held fixed) are kept only to show wave-to-wave noise.
 
@@ -243,7 +247,7 @@ All families in 2025 (not just ages 45-64), sorted by net worth. `EQUITY` from t
 | 95th-99th | `r p0(num("share3p_2013_25 P95-99"))` | `r se_of("share3p_2013_25 P95-99")` | `r d2(num("mean_kids_2013_25 P95-99"))` | `r se_of("mean_kids_2013_25 P95-99")` |
 | **Top 1%** | **`r p0(num("share3p_2013_25 Top 1%"))`** | `r se_of("share3p_2013_25 Top 1%")` | **`r d2(num("mean_kids_2013_25 Top 1%"))`** | `r se_of("mean_kids_2013_25 Top 1%")` |
 
-Standard errors in the table are the approximate Rubin's-rules SEs (percentage points and children). The formal tests use replicate weights on the pooled 2013-2025 sample (`R/25_rep_inference.R`):
+Standard errors in the table are replicate-weight SEs for each bin (`R/28_bin_intervals.R`; percentage points and children), the same ones that draw the chart bands. The formal tests use replicate weights on the pooled 2013-2025 sample (`R/25_rep_inference.R`):
 
 - Top 1% vs. 90th-99th, share with 3+ children: **`r g5("inc_rank", "all_gap3")` points**; `r excl0("inc_rank", "all_gap3")`.
 - Where the gap sits: `r p0(v5("inc_rank", "all_top_exact3"))` of the top 1% have exactly three children, against `r p0(v5("inc_rank", "all_aff_exact3"))` of the 90th-99th (gap `r g5("inc_rank", "all_gap_exact3")` points). Four or more: `r p0(v5("inc_rank", "all_top_4plus"))` vs. `r p0(v5("inc_rank", "all_aff_4plus"))` (gap `r g5("inc_rank", "all_gap_4plus")`). The excess is at the third child.
@@ -333,7 +337,7 @@ The difference (under 40 minus 40+ hours) is `r sprintf("%+.1f", ww$top1w_hours_
 - **Family counts.** Reported numbers of families count a family in a bin if it falls there in any implicate, so they slightly overstate per-implicate cell sizes. Estimates are unaffected.
 - **Age-band ranks.** "Top 1%" means top 1% among families whose head is the same age, in the same survey year. Dollar labels on charts are approximate. Other definitions of the top group give the same result (see the robustness section).
 - **Public-data edits** (top-coding, rounding, perturbation) mainly affect the very top.
-- **Approximate SEs on the charts.** The shaded bands ignore the sample design. The significance claims in the post rely on replicate weights for all five pooled waves (`R/25_rep_inference.R`).
+- **Chart bands.** Pointwise 95% intervals for each group, from replicate weights with ranks re-estimated (`R/28_bin_intervals.R`). Overlapping bands do not mean a gap is insignificant: the top 1% vs. 90th-99th gaps are tested directly (`R/25_rep_inference.R`).
 - **Who is the head.** In mixed-sex couples the reference person is the man, so "head aged 45-64" is the man's age. For families where the woman is younger, her childbearing may be less complete.
 
 # Reproducing everything
@@ -371,5 +375,6 @@ R packages: `data.table`, `haven`, `fixest`, `ggplot2`, `scales`, `ragg`, `dplyr
 | `R/25_rep_inference.R` | Significance tests: replicate weights, pooled 2013-2025, ranks re-estimated |
 | `R/26_top1_definitions.R`, `definitions.html` | Robustness of the headline test to the definition of the top 1% |
 | `R/27_period_change_test.R` | Design-based test of the 1989-1998 vs. 2013-2025 change |
+| `R/28_bin_intervals.R` | Replicate-weight 95% intervals for each bin (chart bands) |
 | `data_raw/` | Raw Fed files (zips kept as the record of what was downloaded) |
 | `docs/codebk*.txt` | Fed codebooks |
