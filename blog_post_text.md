@@ -26,7 +26,7 @@ Average number of kids by income increases for the 1%, but not in a statisticall
 
 ![Average number of children by net worth](graphics/05b_mean_kids_by_networth.png)
 
-Remarriage and children counted twice are obvious worries here. But the gap survives even when I restrict the sample to currently married couples in which both spouses report a first marriage and subtract potential duplicate children. It remains statistically significant for both income and wealth.[^2]
+Remarriage and children counted twice are obvious worries here. But the gap survives even when I restrict the sample to currently married couples in which both spouses report a first marriage and subtract potential duplicate children. It remains statistically significant for both income and wealth. The gap also survives several other checks on how we count families.[^2]
 
 This is a correlation, but it's the one you'd expect if money solves the hard parts of raising kids. When you're in the 1%, a lot of the practical difficulties of childcare, of smoothing your income to get through the difficult few years, are probably not as big a problem. I don't think we can make everyone the 1%, but some of the things their money gives them like stability and support are things we could provide for young families right now. Why aren't we doing it?
 
