@@ -1,23 +1,84 @@
-# Independent audit artifacts
+# Verification and supplementary analysis
 
-Independent audit diagnostics. Production scripts, draft, data, and charts were not edited.
+The primary specification, figures, and reproduction commands are documented in
+[`../kids_methods.qmd`](../kids_methods.qmd) and [`../README.md`](../README.md).
+This directory contains executable checks, numerical results, input hashes, and
+source documentation supporting that analysis.
 
-- `reproduction/`: copies of the original R scripts and methods QMD, with raw data and codebooks linked to the originals. R/02, 07, 24, 23, 22 ran in that order, followed by Quarto render.
-- `logs/`: successful reproduction, comparisons, render, and diagnostics; the preview-server log records an unsuccessful local preview attempt.
-- `audit_checks.R`: independent input checks, explicitly labeled sample/rank sensitivities, and five-wave pooled-ratio inference with percentile ranks re-estimated in replicates.
-- `secondary_checks.R`: dollar-conversion, implicate-pooling, top-code, and hours checks.
-- `additional_checks.R`: current-marriage restriction and membership checks.
-- `matched_inference.R`: fixed-versus-re-estimated-rank checks with an equal-wave-average-of-gaps estimator to isolate rank uncertainty from the pooled-ratio estimator change.
-- `results/`: CSV results, replicate moment arrays, input MD5 hashes, and R session versions.
+## Checks behind the post
 
-Run the four R scripts from the project root, in the order above. They write only audit outputs. The primary analysis sample is read from the existing `output/kids_main.rds`, whose equality with the independently rebuilt file was verified.
+- `../R/25_rep_inference.R`: pooled 2013–2025 income and wealth contrasts.
+- `../R/26_top1_definitions.R`: alternative definitions of the top group, footnote 1.
+- `../R/27_period_change_test.R`: historical changes and differences in changes.
+- `../R/28_bin_intervals.R`: replicate-weight intervals for all plotted bins.
+- `../R/29_family_count_checks.R`: overlap, current first-marriage, and age restrictions,
+  including combined restrictions, footnote 2.
 
-Additional public sources downloaded October 9, 2026:
+Each sensitivity changes the stated outcome, ranking, or population. Its result is
+not silently substituted for the main estimate. Income and wealth are measured at
+interview age; these comparisons do not identify the effect of money on births.
 
-- https://www.federalreserve.gov/econres/files/scf2013rw1s.zip
-- https://www.federalreserve.gov/econres/files/scf2016rw1s.zip
-- https://www.federalreserve.gov/econres/files/bulletin.macro.txt
+## Additional measurement checks
 
-The weight archives are unzipped into `rw/`; their column names are normalized to lowercase in the audit loader. No random bootstrap weights are generated: the analysis uses the Fed's 999 supplied replicate weights. The seed in the script is explicit but no random operation is required by the completed calculations.
+Run from the repository root after the main pipeline:
 
-Inference notes: each wave's weighted subgroup denominators and outcome numerators are normalized by that wave's age-eligible population weight. Five-wave point estimates average pooled ratios across five implicates. Independent-wave replicate moment variances are combined using the Jacobian of those pooled ratios, then the pooled between-implicate variance is added with factor 1.2. All reported 95% intervals are normal approximations. Sensitivity specifications are diagnostics, not silently adopted replacements for the user's analysis.
+```bash
+Rscript audit/measurement_response_20261016.R
+Rscript audit/summary_csv_check_20261016.R
+```
+
+- `results/measurement_response_20261016.csv` includes possible-overlap corrections,
+  stricter marriage and age samples, exclusion of all adult roster children,
+  children-elsewhere-only counts, and three-plus shares conditional on two-plus.
+  The script documents each specification and its assumptions. All estimates,
+  including imprecise and negative contrasts, are retained.
+- `results/summary_csv_check_20261016.csv` uses only the Fed summary CSV extracts,
+  without the full-survey child count. It reports descriptive roster-child results
+  for the main age range and two supplementary younger age ranges. It does not
+  calculate sampling significance.
+
+These checks do not make the family count an individual birth history. Removing
+adult roster children from both groups is a sensitivity, not a worst-case bound
+on differential error. Intervals are pointwise normal approximations and are not
+adjusted for exploratory multiple comparisons.
+
+## Independent verification
+
+The dated paths identify independent numerical verification runs. Their scripts
+and result tables are retained for reproducibility:
+
+- `audit_checks.R`, `secondary_checks.R`, `additional_checks.R`, and
+  `matched_inference.R`: input integrity, pooled inference, membership, dollar
+  conversion, imputation, and matched-estimator diagnostics. Run in that order
+  from the project root after the main pipeline. Replicate weights are read from
+  `data_raw/rw/`; the matched check reads the moment arrays written by the first script.
+- `review_20261015/independent_checks.R`: reconstructs the recent sample from raw
+  inputs and independently calculates the headline contrasts and sensitivities.
+- `review_20261015/revision_7121ec0/check_bands.R`: independently checks all 48
+  income/wealth bin estimates and standard errors, using the sample reconstructed
+  by `independent_checks.R`.
+- `review_20261015/revision_7b3f727/check_revision.R`: independently checks ranking
+  alternatives and period changes. Its final comparison requires the isolated
+  reproduction described below.
+- `results/input_hashes.csv`, `review_20261015/results/provenance.csv`, and the
+  source-provenance tables record the input files checked and their hashes.
+- `sources/bulletin.macro.txt` records the Fed's summary-variable definitions.
+
+To rebuild the current production files in an isolated local copy:
+
+```bash
+python3 audit/review_20261015/reproduce.py
+```
+
+The script reads the raw files already downloaded following the main README,
+executes the current production sequence, and renders the methods document.
+It writes only to ignored reproduction and log directories. The R/29 reference
+CSV is copied into that isolated checkout. The subsequent
+`review_20261015/check_outputs.R` compares the rebuilt and original outputs.
+The independent band and revision scripts use the existing production outputs
+as comparison targets rather than sourcing the production estimators.
+
+No new bootstrap draws are generated: inference uses the Fed's fixed 999
+replicate weights and the five supplied implicates. The repository excludes
+raw-data archives and derived RDS files; download and rebuild them using the
+main instructions before running these checks.

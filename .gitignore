@@ -2,9 +2,11 @@
 /data_raw/*
 # keep the download manifest (URLs + md5s) for provenance
 !/data_raw/download_manifest.csv
-# symlinks into data_raw/ and docs/ from the audit reproduction copy
-/audit/reproduction/data_raw
-/audit/reproduction/docs
+# Rebuilt verification copies and execution logs are local artifacts.
+/audit/reproduction/
+/audit/**/reproduction/
+/audit/logs/
+/audit/**/logs/
 
 # Replicate-weight copies used by the audit (2013/2016)
 /audit/rw/
@@ -22,8 +24,12 @@
 # Fed codebooks (re-downloadable, ~2.6 MB each)
 /docs/codebk*.txt
 
-# Duplicate rendered report in the audit reproduction copy
-/audit/reproduction/kids_methods.html
+# Private editorial drafts and local output snapshots
+/attack_memo*.md
+/backups/
+/Codex Rewrite.md
+/post_text.md
+/post_for_google_docs.html
 
 # --- R / Quarto / OS cruft ---
 .Rhistory
@@ -32,11 +38,9 @@
 .Renviron
 .env
 .quarto/
+__pycache__/
 *_files/
 .DS_Store
 
 # Local Claude Code config
 .claude/
-
-# Datestamped output snapshots taken before pipeline reruns (local only)
-/backups/outputs_*/

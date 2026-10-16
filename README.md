@@ -39,3 +39,9 @@ quarto render kids_methods.qmd     # -> kids_methods.html
 - Standard errors: 999 replicate weights on implicate 1, scale 1/998, plus 1.2 x between-implicate
   variance. Headline tests: `R/25_rep_inference.R`, pooled 2013-2025, ranks re-estimated in each replicate. Chart bands: `R/28_bin_intervals.R`, the same replicate-weight recipe for each bin.
 - Keep R string literals ASCII: the R session locale is not UTF-8.
+
+## Supplementary checks
+
+See [`audit/README.md`](audit/README.md) for independent verification, input provenance,
+and additional family-count sensitivities. These include alternative specifications whose
+intervals include zero; they supplement the primary estimates rather than replace them.

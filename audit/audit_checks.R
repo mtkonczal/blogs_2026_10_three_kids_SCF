@@ -94,7 +94,7 @@ for(rk in c('inc_rank','nw_rank')) {
  v<-if(rk=='inc_rank')'inc_measure' else 'NETWORTH'; per<-list()
  for(yr in years) {
   s<-rec[year==yr];s1<-s[implicate==1]
-  f<-sprintf('%s/p%02d_rw1.dta',if(yr<2019)'audit/rw' else 'data_raw/rw',yr%%100)
+  f<-sprintf('data_raw/rw/p%02d_rw1.dta',yr%%100)
   rw<-as.data.table(zap_labels(read_dta(f)));setnames(rw,tolower(names(rw)));ix<-match(s1$Y1,rw$y1);stopifnot(!anyNA(ix))
   imp<-lapply(1:5,function(i){z<-s[implicate==i];moments(z,z$WGT,z[[rk]])})
   draws<-list(fixed=array(0,c(3,length(labels),999)),reranked=array(0,c(3,length(labels),999)))

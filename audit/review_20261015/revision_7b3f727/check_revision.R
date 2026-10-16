@@ -91,7 +91,7 @@ stopifnot(max(abs(pc$est_error))<1e-9,max(abs(pc$se_error))<1e-7)
 fwrite(pc,file.path(out,'independent_period_change.csv'))
 
 # Compare isolated production reruns without counting build-time metadata.
-repro<-'audit/review_20261015/revision_7b3f727/reproduction'
+repro<-'audit/review_20261015/reproduction'
 cmp<-rbindlist(lapply(c('kids_top1_defs.rds','kids_period_change.rds'),function(f){
   a<-readRDS(file.path('output',f));b<-readRDS(file.path(repro,'output',f))
   attr(a,'built_at')<-attr(b,'built_at')<-NULL
