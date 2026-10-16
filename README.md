@@ -18,6 +18,7 @@ Rscript R/25_rep_inference.R       # -> output/kids_rep5.rds (significance tests
 Rscript R/26_top1_definitions.R    # -> output/kids_top1_defs.rds, definitions.html (top-1% definition robustness; after 25)
 Rscript R/27_period_change_test.R  # -> output/kids_period_change.rds (1989-1998 vs. 2013-2025 change, replicate weights)
 Rscript R/28_bin_intervals.R       # -> output/kids_bin_ci.rds (replicate-weight chart bands; run before 22)
+Rscript R/29_family_count_checks.R # -> output/kids_count_checks.rds (double-count and marriage checks, post footnote 2; after 25)
 Rscript R/22_post_kids_graphics.R  # -> graphics/*.png, graphics/post_numbers.csv
 quarto render kids_methods.qmd     # -> kids_methods.html
 ```

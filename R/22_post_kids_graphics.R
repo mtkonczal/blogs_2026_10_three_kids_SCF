@@ -8,8 +8,9 @@
 # income within survey year x implicate x 5-year age band; each wave gets equal weight in a
 # pooled period. Main period = 2013-2025 (five waves) because one wave has ~280 top-1% families.
 #
-# SEs: (a) pooled 2013-25 bins: within-implicate cluster-robust (family) + Rubin's rules,
-#      ignores the SCF design (approximate); (b) headline gaps: Fed replicate weights, pooled
+# SEs: (a) pooled 2013-25 bins (chart bands): Fed replicate weights with ranks re-estimated, from
+#      R/28_bin_intervals.R (run it first); bin_means() still computes approximate clustered SEs,
+#      which are kept only for the married-couple numbers; (b) headline gaps: Fed replicate weights, pooled
 #      2013-2025, ranks re-estimated in each replicate, from R/25_rep_inference.R (run it first);
 #      (c) single waves 2019/2022/2025: replicate weights via R/rep_se.R, ranks held fixed,
 #      used only to show wave-to-wave noise.

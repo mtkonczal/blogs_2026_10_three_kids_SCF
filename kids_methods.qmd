@@ -154,6 +154,7 @@ R/25_rep_inference.R -> output/kids_rep5.rds              significance tests, po
 R/26_top1_definitions.R -> output/kids_top1_defs.rds     robustness to the top-1% definition; definitions.html
 R/27_period_change_test.R -> output/kids_period_change.rds  1989-1998 vs. 2013-2025 change, replicate weights
 R/28_bin_intervals.R -> output/kids_bin_ci.rds              replicate-weight bands for the income and wealth charts
+R/29_family_count_checks.R -> output/kids_count_checks.rds  double-count and marriage-history checks (footnote 2)
 R/23_kids_wealth_work.R -> output/kids_wealth_work.rds     work hours within the top 1% by wealth
 R/22_post_kids_graphics.R -> graphics/*.png, graphics/post_numbers.csv
 ```
@@ -316,6 +317,26 @@ knitr::kable(tab[, -"id"], col.names = c("Definition", names(tab)[3:4]))
 
 `r td[, sum(lower > 0)]` of `r nrow(td)` gaps have 95% intervals that exclude zero. The definitions select heavily overlapping families from the same surveys, so these are checks that the choice of definition is not driving the result, not independent confirmations. Intervals are pointwise and unadjusted for multiple comparisons.
 
+## Counting checks (footnote 2 of the post)
+
+`R/29_family_count_checks.R` reruns the headline test (top 1% vs. 90th-99th, share with 3+ children) under the counting and family-history checks cited in the post's second footnote. Ranks always come from the full sample, so each check changes only which families, or which children, enter the comparison. The overlap corrections subtract the largest possible double count, `min(A, B)`, where A is roster children who do not usually live in the household (relationship code 4 with residence code 5) and B is `X5910`. "Currently married, first marriage" requires both partners to be currently married to each other (`X8023` = 1, `X105` = 1) and both to report a first marriage, so unlike `R/24`'s flag it excludes cohabiters. The older-family check keeps heads aged 50-64 whose spouse or partner, if present, is at least 45 (`X19`). The script checks that its baseline reproduces `R/25` and that the separate checks reproduce the independent audit (`audit/review_20261015/results/independent_inference.csv`).
+
+```{r}
+#| label: count-checks
+cc <- readRDS("output/kids_count_checks.rds")
+lab <- c(baseline = "Baseline", overlap_all = "Subtract maximum possible double count, all families",
+         overlap_top = "Subtract it only in the top 1% (adverse case)", strict_first = "Currently married, both in a first marriage",
+         older = "Head 50-64, partner (if any) 45+", strict_first_overlap_all = "First marriage + double-count correction, all families",
+         strict_first_overlap_top = "First marriage + correction only in the top 1%")
+cf <- function(z) sprintf("%+.1f (%.1f to %.1f)", z$gap, z$lower, z$upper)
+ct <- data.table(Check = lab[unique(cc$spec)],
+                 `Income gap, pts (95% CI)` = sapply(unique(cc$spec), function(s) cf(cc[rank == "inc_rank" & spec == s])),
+                 `Wealth gap, pts (95% CI)` = sapply(unique(cc$spec), function(s) cf(cc[rank == "nw_rank" & spec == s])))
+knitr::kable(ct)
+```
+
+All intervals exclude zero; the adverse combined wealth check only narrowly (lower bound `r sprintf("%.1f", cc[rank == "nw_rank" & spec == "strict_first_overlap_top", lower])`). These checks address specific counting problems. They cannot identify births to one person or rule out every kind of blended family, for example children from earlier non-marital relationships.
+
 ## Work hours within the top 1% by wealth
 
 `R/23_kids_wealth_work.R` adds usual weekly hours on the main job for the head (`X4110`) and spouse/partner (`X4710`), summed, with 0 for those not working. Among families in the top 1% of wealth (pooled 2013-2025):
@@ -345,17 +366,22 @@ The difference (under 40 minus 40+ hours) is `r sprintf("%+.1f", ww$top1w_hours_
 Run from the project root. The first two steps only need rerunning if the raw data change.
 
 ```bash
+mkdir -p data_raw/full data_raw/rw output   # before the hand downloads (section 2) and R/07
 Rscript R/01_download.R            # summary extracts -> data_raw/xlsx/, writes data_raw/download_manifest.csv
 Rscript R/02_build_db.R            # -> data/scf_linked.rds
 Rscript R/07_kids_income.R         # -> output/kids_main.rds (needs data_raw/full/*.dta)
 Rscript R/24_kids_blended.R        # -> output/kids_blended.rds (needs data_raw/rw/*.dta)
 Rscript R/23_kids_wealth_work.R    # -> output/kids_wealth_work.rds
 Rscript R/25_rep_inference.R       # -> output/kids_rep5.rds (needs data_raw/rw/*.dta, 2013-2025)
+Rscript R/26_top1_definitions.R    # -> output/kids_top1_defs.rds, definitions.html
+Rscript R/27_period_change_test.R  # -> output/kids_period_change.rds (needs data_raw/rw/*.dta, 1989-1998 too)
+Rscript R/28_bin_intervals.R       # -> output/kids_bin_ci.rds (chart bands)
+Rscript R/29_family_count_checks.R # -> output/kids_count_checks.rds (needs data_raw/full/*.dta)
 Rscript R/22_post_kids_graphics.R  # -> graphics/*.png, graphics/post_numbers.csv
 quarto render kids_methods.qmd     # this document
 ```
 
-Order matters: 07 first, 24 and 25 before 22 (22 reads 25's output), and 22 before rendering this file. Checks that a run worked: 02 prints families per wave (about 4,360 sample families and 135 million US families in 2025); 07 prints the main sample size (`r format(main[, uniqueN(case)], big.mark = ",")` families across 13 waves); 22 ends by reporting that it wrote `r nrow(nums)` numbers to `graphics/post_numbers.csv`.
+Order matters: 07 first; 24, 25 and 28 before 22 (22 reads their outputs); 26, 27 and 29 after 25 (they check their baselines against it); and everything before rendering this file. Checks that a run worked: 02 prints families per wave (about 4,360 sample families and 135 million US families in 2025); 07 prints the main sample size (`r format(main[, uniqueN(case)], big.mark = ",")` families across 13 waves); 22 ends by reporting that it wrote `r nrow(nums)` numbers to `graphics/post_numbers.csv`.
 
 R packages: `data.table`, `haven`, `fixest`, `ggplot2`, `scales`, `ragg`, `dplyr` (for `all_of` when selecting columns from `.dta` files).
 
@@ -376,5 +402,6 @@ R packages: `data.table`, `haven`, `fixest`, `ggplot2`, `scales`, `ragg`, `dplyr
 | `R/26_top1_definitions.R`, `definitions.html` | Robustness of the headline test to the definition of the top 1% |
 | `R/27_period_change_test.R` | Design-based test of the 1989-1998 vs. 2013-2025 change |
 | `R/28_bin_intervals.R` | Replicate-weight 95% intervals for each bin (chart bands) |
+| `R/29_family_count_checks.R` | Double-count and marriage-history checks (post footnote 2) |
 | `data_raw/` | Raw Fed files (zips kept as the record of what was downloaded) |
 | `docs/codebk*.txt` | Fed codebooks |

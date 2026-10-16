@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Mike Konczal">
-<meta name="dcterms.date" content="2026-10-15">
+<meta name="dcterms.date" content="2026-10-16">
 
 <title>Kids and the top 1%: how the numbers were built</title>
 <style>
@@ -3254,7 +3254,8 @@ window.Quarto = {
   <li><a href="#charts-4-and-4b-has-this-changed-over-time" id="toc-charts-4-and-4b-has-this-changed-over-time" class="nav-link" data-scroll-target="#charts-4-and-4b-has-this-changed-over-time"><span class="header-section-number">7.3</span> Charts 4 and 4b: has this changed over time?</a></li>
   <li><a href="#charts-5-and-5b-ranking-by-wealth-instead-of-income" id="toc-charts-5-and-5b-ranking-by-wealth-instead-of-income" class="nav-link" data-scroll-target="#charts-5-and-5b-ranking-by-wealth-instead-of-income"><span class="header-section-number">7.4</span> Charts 5 and 5b: ranking by wealth instead of income</a></li>
   <li><a href="#robustness-how-the-top-1-is-defined" id="toc-robustness-how-the-top-1-is-defined" class="nav-link" data-scroll-target="#robustness-how-the-top-1-is-defined"><span class="header-section-number">7.5</span> Robustness: how the top 1% is defined</a></li>
-  <li><a href="#work-hours-within-the-top-1-by-wealth" id="toc-work-hours-within-the-top-1-by-wealth" class="nav-link" data-scroll-target="#work-hours-within-the-top-1-by-wealth"><span class="header-section-number">7.6</span> Work hours within the top 1% by wealth</a></li>
+  <li><a href="#counting-checks-footnote-2-of-the-post" id="toc-counting-checks-footnote-2-of-the-post" class="nav-link" data-scroll-target="#counting-checks-footnote-2-of-the-post"><span class="header-section-number">7.6</span> Counting checks (footnote 2 of the post)</a></li>
+  <li><a href="#work-hours-within-the-top-1-by-wealth" id="toc-work-hours-within-the-top-1-by-wealth" class="nav-link" data-scroll-target="#work-hours-within-the-top-1-by-wealth"><span class="header-section-number">7.7</span> Work hours within the top 1% by wealth</a></li>
   </ul></li>
   <li><a href="#caveats" id="toc-caveats" class="nav-link" data-scroll-target="#caveats"><span class="header-section-number">8</span> Caveats</a></li>
   <li><a href="#reproducing-everything" id="toc-reproducing-everything" class="nav-link" data-scroll-target="#reproducing-everything"><span class="header-section-number">9</span> Reproducing everything</a>
@@ -3286,7 +3287,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 15, 2026</p>
+      <p class="date">October 16, 2026</p>
     </div>
   </div>
   
@@ -3478,6 +3479,7 @@ R/25_rep_inference.R -&gt; output/kids_rep5.rds              significance tests,
 R/26_top1_definitions.R -&gt; output/kids_top1_defs.rds     robustness to the top-1% definition; definitions.html
 R/27_period_change_test.R -&gt; output/kids_period_change.rds  1989-1998 vs. 2013-2025 change, replicate weights
 R/28_bin_intervals.R -&gt; output/kids_bin_ci.rds              replicate-weight bands for the income and wealth charts
+R/29_family_count_checks.R -&gt; output/kids_count_checks.rds  double-count and marriage-history checks (footnote 2)
 R/23_kids_wealth_work.R -&gt; output/kids_wealth_work.rds     work hours within the top 1% by wealth
 R/22_post_kids_graphics.R -&gt; graphics/*.png, graphics/post_numbers.csv</code></pre>
 <p><strong><code>R/02_build_db.R</code></strong> reads the 13 extract CSVs and stacks them into one table, <code>scf_linked.rds</code>. It renames the 1989 IDs (<code>X1</code>/<code>XX1</code>) to <code>Y1</code>/<code>YY1</code>, computes <code>implicate</code>, and checks that every wave has implicates 1-5 with equal rows and no duplicate IDs. It stops with an error if any check fails. Its one edit to the Fed’s values: the usual-income category variables are blanked in 1989 and 1992, because the usual-income dollar amount was not collected in those waves. It is a pooled cross-section, not a panel. Case 1001 in 2019 and case 1001 in 2022 are different families.</p>
@@ -3805,16 +3807,89 @@ T = \underbrace{\tfrac{1}{5}\textstyle\sum_m \widehat{V}_m}_{\text{within-implic
 </div>
 <p>15 of 15 gaps have 95% intervals that exclude zero. The definitions select heavily overlapping families from the same surveys, so these are checks that the choice of definition is not driving the result, not independent confirmations. Intervals are pointwise and unadjusted for multiple comparisons.</p>
 </section>
-<section id="work-hours-within-the-top-1-by-wealth" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="work-hours-within-the-top-1-by-wealth"><span class="header-section-number">7.6</span> Work hours within the top 1% by wealth</h2>
+<section id="counting-checks-footnote-2-of-the-post" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="counting-checks-footnote-2-of-the-post"><span class="header-section-number">7.6</span> Counting checks (footnote 2 of the post)</h2>
+<p><code>R/29_family_count_checks.R</code> reruns the headline test (top 1% vs. 90th-99th, share with 3+ children) under the counting and family-history checks cited in the post’s second footnote. Ranks always come from the full sample, so each check changes only which families, or which children, enter the comparison. The overlap corrections subtract the largest possible double count, <code>min(A, B)</code>, where A is roster children who do not usually live in the household (relationship code 4 with residence code 5) and B is <code>X5910</code>. “Currently married, first marriage” requires both partners to be currently married to each other (<code>X8023</code> = 1, <code>X105</code> = 1) and both to report a first marriage, so unlike <code>R/24</code>’s flag it excludes cohabiters. The older-family check keeps heads aged 50-64 whose spouse or partner, if present, is at least 45 (<code>X19</code>). The script checks that its baseline reproduces <code>R/25</code> and that the separate checks reproduce the independent audit (<code>audit/review_20261015/results/independent_inference.csv</code>).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cc <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;output/kids_count_checks.rds&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">baseline =</span> <span class="st">&quot;Baseline&quot;</span>, <span class="at">overlap_all =</span> <span class="st">&quot;Subtract maximum possible double count, all families&quot;</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">overlap_top =</span> <span class="st">&quot;Subtract it only in the top 1% (adverse case)&quot;</span>, <span class="at">strict_first =</span> <span class="st">&quot;Currently married, both in a first marriage&quot;</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">older =</span> <span class="st">&quot;Head 50-64, partner (if any) 45+&quot;</span>, <span class="at">strict_first_overlap_all =</span> <span class="st">&quot;First marriage + double-count correction, all families&quot;</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">strict_first_overlap_top =</span> <span class="st">&quot;First marriage + correction only in the top 1%&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>cf <span class="ot">&lt;-</span> <span class="cf">function</span>(z) <span class="fu">sprintf</span>(<span class="st">&quot;%+.1f (%.1f to %.1f)&quot;</span>, z<span class="sc">$</span>gap, z<span class="sc">$</span>lower, z<span class="sc">$</span>upper)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">Check =</span> lab[<span class="fu">unique</span>(cc<span class="sc">$</span>spec)],</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">Income gap, pts (95% CI)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sapply</span>(<span class="fu">unique</span>(cc<span class="sc">$</span>spec), <span class="cf">function</span>(s) <span class="fu">cf</span>(cc[rank <span class="sc">==</span> <span class="st">&quot;inc_rank&quot;</span> <span class="sc">&amp;</span> spec <span class="sc">==</span> s])),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">Wealth gap, pts (95% CI)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sapply</span>(<span class="fu">unique</span>(cc<span class="sc">$</span>spec), <span class="cf">function</span>(s) <span class="fu">cf</span>(cc[rank <span class="sc">==</span> <span class="st">&quot;nw_rank&quot;</span> <span class="sc">&amp;</span> spec <span class="sc">==</span> s])))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(ct)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 52%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Check</th>
+<th style="text-align: left;">Income gap, pts (95% CI)</th>
+<th style="text-align: left;">Wealth gap, pts (95% CI)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Baseline</td>
+<td style="text-align: left;">+9.1 (1.8 to 16.5)</td>
+<td style="text-align: left;">+12.9 (5.5 to 20.4)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Subtract maximum possible double count, all families</td>
+<td style="text-align: left;">+8.5 (1.0 to 15.9)</td>
+<td style="text-align: left;">+13.2 (5.5 to 20.8)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Subtract it only in the top 1% (adverse case)</td>
+<td style="text-align: left;">+7.8 (0.4 to 15.2)</td>
+<td style="text-align: left;">+12.3 (4.6 to 19.9)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Currently married, both in a first marriage</td>
+<td style="text-align: left;">+13.2 (3.9 to 22.6)</td>
+<td style="text-align: left;">+11.0 (1.6 to 20.4)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Head 50-64, partner (if any) 45+</td>
+<td style="text-align: left;">+12.0 (3.9 to 20.2)</td>
+<td style="text-align: left;">+15.2 (7.7 to 22.7)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">First marriage + double-count correction, all families</td>
+<td style="text-align: left;">+11.8 (2.4 to 21.3)</td>
+<td style="text-align: left;">+10.6 (0.9 to 20.4)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">First marriage + correction only in the top 1%</td>
+<td style="text-align: left;">+11.4 (2.0 to 20.9)</td>
+<td style="text-align: left;">+9.9 (0.3 to 19.6)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>All intervals exclude zero; the adverse combined wealth check only narrowly (lower bound 0.3). These checks address specific counting problems. They cannot identify births to one person or rule out every kind of blended family, for example children from earlier non-marital relationships.</p>
+</section>
+<section id="work-hours-within-the-top-1-by-wealth" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="work-hours-within-the-top-1-by-wealth"><span class="header-section-number">7.7</span> Work hours within the top 1% by wealth</h2>
 <p><code>R/23_kids_wealth_work.R</code> adds usual weekly hours on the main job for the head (<code>X4110</code>) and spouse/partner (<code>X4710</code>), summed, with 0 for those not working. Among families in the top 1% of wealth (pooled 2013-2025):</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ww<span class="sc">$</span>top1w_by_hours[, <span class="at">sample :=</span> <span class="st">&quot;All families&quot;</span>],</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>           ww<span class="sc">$</span>top1w_by_hours_excl_remarried[, <span class="at">sample :=</span> <span class="st">&quot;Excluding remarried couples&quot;</span>])</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>h[, .(sample, group, <span class="st">`</span><span class="at">3+ children (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(share3p, <span class="dv">1</span>), <span class="at">SE =</span> <span class="fu">round</span>(se3, <span class="dv">1</span>), <span class="at">families =</span> n_fam,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">median hours</span><span class="st">`</span> <span class="ot">=</span> med_hours, <span class="st">`</span><span class="at">median net worth ($M)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(med_nw_m, <span class="dv">1</span>))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ww<span class="sc">$</span>top1w_by_hours[, <span class="at">sample :=</span> <span class="st">&quot;All families&quot;</span>],</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>           ww<span class="sc">$</span>top1w_by_hours_excl_remarried[, <span class="at">sample :=</span> <span class="st">&quot;Excluding remarried couples&quot;</span>])</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>h[, .(sample, group, <span class="st">`</span><span class="at">3+ children (%)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(share3p, <span class="dv">1</span>), <span class="at">SE =</span> <span class="fu">round</span>(se3, <span class="dv">1</span>), <span class="at">families =</span> n_fam,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">median hours</span><span class="st">`</span> <span class="ot">=</span> med_hours, <span class="st">`</span><span class="at">median net worth ($M)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">round</span>(med_nw_m, <span class="dv">1</span>))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                        sample                 group 3+ children (%)    SE
@@ -3849,15 +3924,20 @@ T = \underbrace{\tfrac{1}{5}\textstyle\sum_m \widehat{V}_m}_{\text{within-implic
 <section id="reproducing-everything" class="level1" data-number="9">
 <h1 data-number="9"><span class="header-section-number">9</span> Reproducing everything</h1>
 <p>Run from the project root. The first two steps only need rerunning if the raw data change.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/01_download.R            <span class="co"># summary extracts -&gt; data_raw/xlsx/, writes data_raw/download_manifest.csv</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/02_build_db.R            <span class="co"># -&gt; data/scf_linked.rds</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/07_kids_income.R         <span class="co"># -&gt; output/kids_main.rds (needs data_raw/full/*.dta)</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/24_kids_blended.R        <span class="co"># -&gt; output/kids_blended.rds (needs data_raw/rw/*.dta)</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/23_kids_wealth_work.R    <span class="co"># -&gt; output/kids_wealth_work.rds</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/25_rep_inference.R       <span class="co"># -&gt; output/kids_rep5.rds (needs data_raw/rw/*.dta, 2013-2025)</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/22_post_kids_graphics.R  <span class="co"># -&gt; graphics/*.png, graphics/post_numbers.csv</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render kids_methods.qmd     <span class="co"># this document</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Order matters: 07 first, 24 and 25 before 22 (22 reads 25’s output), and 22 before rendering this file. Checks that a run worked: 02 prints families per wave (about 4,360 sample families and 135 million US families in 2025); 07 prints the main sample size (25,576 families across 13 waves); 22 ends by reporting that it wrote 337 numbers to <code>graphics/post_numbers.csv</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> data_raw/full data_raw/rw output   <span class="co"># before the hand downloads (section 2) and R/07</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/01_download.R            <span class="co"># summary extracts -&gt; data_raw/xlsx/, writes data_raw/download_manifest.csv</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/02_build_db.R            <span class="co"># -&gt; data/scf_linked.rds</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/07_kids_income.R         <span class="co"># -&gt; output/kids_main.rds (needs data_raw/full/*.dta)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/24_kids_blended.R        <span class="co"># -&gt; output/kids_blended.rds (needs data_raw/rw/*.dta)</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/23_kids_wealth_work.R    <span class="co"># -&gt; output/kids_wealth_work.rds</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/25_rep_inference.R       <span class="co"># -&gt; output/kids_rep5.rds (needs data_raw/rw/*.dta, 2013-2025)</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/26_top1_definitions.R    <span class="co"># -&gt; output/kids_top1_defs.rds, definitions.html</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/27_period_change_test.R  <span class="co"># -&gt; output/kids_period_change.rds (needs data_raw/rw/*.dta, 1989-1998 too)</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/28_bin_intervals.R       <span class="co"># -&gt; output/kids_bin_ci.rds (chart bands)</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/29_family_count_checks.R <span class="co"># -&gt; output/kids_count_checks.rds (needs data_raw/full/*.dta)</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/22_post_kids_graphics.R  <span class="co"># -&gt; graphics/*.png, graphics/post_numbers.csv</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render kids_methods.qmd     <span class="co"># this document</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Order matters: 07 first; 24, 25 and 28 before 22 (22 reads their outputs); 26, 27 and 29 after 25 (they check their baselines against it); and everything before rendering this file. Checks that a run worked: 02 prints families per wave (about 4,360 sample families and 135 million US families in 2025); 07 prints the main sample size (25,576 families across 13 waves); 22 ends by reporting that it wrote 337 numbers to <code>graphics/post_numbers.csv</code>.</p>
 <p>R packages: <code>data.table</code>, <code>haven</code>, <code>fixest</code>, <code>ggplot2</code>, <code>scales</code>, <code>ragg</code>, <code>dplyr</code> (for <code>all_of</code> when selecting columns from <code>.dta</code> files).</p>
 <section id="file-map" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="file-map"><span class="header-section-number">9.1</span> File map</h2>
@@ -3926,10 +4006,14 @@ T = \underbrace{\tfrac{1}{5}\textstyle\sum_m \widehat{V}_m}_{\text{within-implic
 <td>Replicate-weight 95% intervals for each bin (chart bands)</td>
 </tr>
 <tr class="even">
+<td><code>R/29_family_count_checks.R</code></td>
+<td>Double-count and marriage-history checks (post footnote 2)</td>
+</tr>
+<tr class="odd">
 <td><code>data_raw/</code></td>
 <td>Raw Fed files (zips kept as the record of what was downloaded)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>docs/codebk*.txt</code></td>
 <td>Fed codebooks</td>
 </tr>
