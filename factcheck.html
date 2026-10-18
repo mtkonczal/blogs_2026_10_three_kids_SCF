@@ -133,6 +133,8 @@ quarto render kids_methods.qmd</code></pre>
 #deepseek .ds-small{font-size:13px;color:var(--muted);line-height:1.55}
 #deepseek .ds-mono{font-variant-numeric:tabular-nums}
 #deepseek .ds-tag{display:inline-block;padding:1px 8px;border-radius:10px;font:600 12px/1.5 "Avenir Next","Segoe UI",Arial,sans-serif;background:var(--wash);color:var(--accent)}
+#deepseek .ds-rebuttals>li{margin:18px 0}
+#deepseek .ds-rebuttals>li::marker{font-weight:700;color:var(--ink)}
 </style>
 <aside class="c2-rail">
 <p class="c2-label">On this page</p>
@@ -149,6 +151,7 @@ quarto render kids_methods.qmd</code></pre>
 <li><a href="#ds-docs">Documentation precision</a></li>
 <li><a href="#ds-numbers">Reconstruction table</a></li>
 <li><a href="#ds-weakest">Three weakest points</a></li>
+<li><a href="#ds-rebuttals">Five easiest rebuttals</a></li>
 </ol>
 </aside>
 <details class="c2-mobile">
@@ -166,6 +169,7 @@ quarto render kids_methods.qmd</code></pre>
 <li><a href="#ds-docs">Documentation precision</a></li>
 <li><a href="#ds-numbers">Reconstruction table</a></li>
 <li><a href="#ds-weakest">Three weakest points</a></li>
+<li><a href="#ds-rebuttals">Five easiest rebuttals</a></li>
 </ol>
 </details>
 
@@ -173,7 +177,7 @@ quarto render kids_methods.qmd</code></pre>
 <p class="byline" id="ds-start"><strong>DeepSeek’s section begins here.</strong><br>I am DeepSeek V4.1 Flash, a large language model from DeepSeek. I wrote this tab on October 18, 2026, against commit <code>dd0e71f</code>. This was a first-pass audit: I read <code>blog_post_text.md</code>, the R pipeline and the Fed codebooks, and rebuilt the estimates from the raw CSV and Stata files before reading the Codex or Claude tabs. The short note at the end of the Cross-Fact Check tab is the only place where I engage their conclusions. I did not edit the post, the figures or the production specification.</p>
 
 <h2 id="ds-summary">Executive summary</h2>
-<p class="lede">I found no factual or numerical claim in the post that is wrong as written. Every headline number reproduces from the raw Survey of Consumer Finances files, usually to the third decimal, and both footnotes’ robustness claims reproduce under the specification the methods document describes. The remaining issues are wording and disclosure, not arithmetic. The methodology audit, the independent reconstruction and the three weakest points follow in that order.</p>
+<p class="lede">I found no factual or numerical claim in the post that is wrong as written. Every headline number reproduces from the raw Survey of Consumer Finances files, usually to the third decimal, and both footnotes’ robustness claims reproduce under the specification the methods document describes. The remaining issues are wording and disclosure, not arithmetic. The methodology audit, the independent reconstruction, the three weakest points and five easiest rebuttals follow in that order.</p>
 
 <div class="ds-callout ds-ok">
 <p><strong>What checks out.</strong> The 2025 SCF release and design; the 81%/1% stock sentence (81.46% and 1.14% of <code>EQUITY</code> by net worth); the child-count construction and its stated defects; the Doepke, Bar, Hazan–Zoabi, Haspel and <em>New York Times</em> citations; the income and wealth curves; the exactly-three decomposition; the historical levels; footnote 1’s 15 alternative definitions; and footnote 2’s seven counting specifications, including its statement that families remain ranked against the full age-eligible sample. The independent reconstruction of the 12 headline statistics matches production to 10<sup>−6</sup> on point estimates and to better than 0.001 on standard errors.</p>
@@ -326,6 +330,16 @@ quarto render kids_methods.qmd</code></pre>
 <li><p><strong>The wealth four-plus result is the thinnest number in the post.</strong> The post says “here it’s not just the third kid” and gives 19% versus 14% for four or more. The estimate is <span class="keynum">18.97%</span> versus <span class="keynum">13.76%</span>, a gap of <span class="keynum">5.20 points, SE 2.47, 95% CI 0.37 to 10.04, p = 0.035</span>. The direction is right and it is significant at the 5% level, but the lower bound is close to zero. The exactly-three wealth gap is much stronger: <span class="keynum">7.74 points</span> (0.93 to 14.55, p = 0.026). The four-plus result is doing real work in the “not just the third kid” sentence; present it with its interval or soften it to “somewhat more likely.”</p></li>
 </ol>
 </section>
+
+<h2 id="ds-rebuttals">Five easiest rebuttals</h2>
+<p>These are the objections I expect and the answers the evidence supports. They are not the three weaknesses above; they are the criticisms that look damaging at first but have a clean, already-estimated response.</p>
+<ol class="ds-rebuttals">
+<li><p><strong>“This is not fertility. It is a household roster count that includes stepchildren, adopted children, children-in-law and double counting.”</strong> The post says this in the text and the methods. The estimand is a current-family child count at midlife, not births to a particular woman. For the claim “families with three or more children are more common at the top,” the family count is the right unit; a birth history would answer a different question. The specific counting defects are checked: maximum overlap correction, strict current first-marriage, and the older sample. The gap survives those checks; the exactly-three/four-plus decomposition shows where it sits. The count is imperfect, but it is not an arbitrary proxy for the thing being claimed.</p></li>
+<li><p><strong>“Income and wealth are measured at 45–64, after the children are born. This is reverse causality or selection, not evidence that money causes births.”</strong> The post calls it a correlation and does not estimate a causal effect. The descriptive fact—top-1% families at midlife have more children—is still true. Childbearing can reduce earnings and wealth, especially for mothers, so reverse causality is at least as likely to work against the pattern as for it; it is not an obvious explanation for a positive top-1% gap. The mechanism and policy discussion is explicitly interpretation. The wealth ranking is measured later and is the stronger result, but it carries the same caveat.</p></li>
+<li><p><strong>“The top 1% is defined within five-year age bands, not overall; the cutoff is arbitrary, and the dollar labels are approximate. The result is a ranking artifact.”</strong> The age-band ranking is deliberate: it compares families at the same stage of life, not 50-year-olds at peak earnings with 62-year-olds near retirement. Footnote 1 reruns the gap with ten-year bands, one 45–64 ranking, a whole-population ranking, a pooled five-survey ranking, and top-2%/top-0.5% cutoffs. All 15 reported gaps are positive with 95% intervals excluding zero. The top-1% bin holds 1.01% of the weight, so it is not a knife-edge boundary. The dollar labels are approximate; the ranks are not.</p></li>
+<li><p><strong>“The SCF is a survey; the rich underreport or refuse; the public data are top-coded and perturbed; the top-1% cell is tiny, so a few families drive it.”</strong> The SCF’s list sample is drawn from IRS records specifically to oversample the wealthy, and the weights are designed to bring the list and area samples back to the population. The top-1% cell here has 1,390 distinct families across the five waves—1,322 in implicate 1, 198 to 313 per wave. That is not a handful. The standard errors use the Fed’s 999 replicate weights, re-estimate the top-1% cutoff in every replicate, and add imputation variance; the income gap’s 95% interval is 1.79 to 16.50 and the wealth gap’s is 5.50 to 20.39. The public-data edits are documented by the Fed. The <code>X5910</code> top-code at 10 affects three families in the 45–64 early sample and cannot change a 3+ indicator. The Forbes 400 exclusion, if anything, makes the estimate conservative at the very top.</p></li>
+<li><p><strong>“You didn’t control for education, marital status or race. The gap is just composition.”</strong> The headline is descriptive, so controls change the estimand; but the repository’s exploratory regressions with age and year plus race, education and marital status put the top-1% coefficient at 10.5 points (SE 4.0) for 3+ children, and 10.5 points (SE 4.8) among married couples. The 90th–99th coefficient in the same specification is 1.8 points (SE 3.3). Controls do not explain the top-1% advantage. These are approximate clustered standard errors, not the design-based headline tests, but the direction is clear.</p></li>
+</ol>
 
 <div class="handoff" id="ds-end"><p><strong>DeepSeek’s section ends here.</strong></p><p>DeepSeek V4.1 Flash wrote this tab. The post, figures and production specification were not edited. The short note on the Codex and Claude reviews is at the end of the Cross-Fact Check tab.</p></div>
 </div>
