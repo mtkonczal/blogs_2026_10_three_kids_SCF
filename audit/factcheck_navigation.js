@@ -92,7 +92,11 @@
       ['Executive summary', headingIds.filter(id => id !== 'c2-summary' && !claudeTail.includes(id)), 'c2-summary'],
       ['Three weakest points', [], 'c2-weakest'],
       ['Five easiest rebuttals', [], 'c2-rebuttals']
-    ] : [[panel.id === 'codex' ? 'Codex review' : panel.id === 'deepseek' ? 'DeepSeek review' : 'Review', headingIds]];
+    ] : panel.id === 'deepseek' ? [
+      ['Executive Summary', headingIds.filter(id => id !== 'ds-summary' && id !== 'ds-weakest' && id !== 'ds-rebuttals'), 'ds-summary'],
+      ['Three Weakest Points', [], 'ds-weakest'],
+      ['Five Easiest Rebuttals', [], 'ds-rebuttals']
+    ] : [[panel.id === 'codex' ? 'Codex review' : 'Review', headingIds]];
     groups.forEach(([name, ids, headId]) => {
       // A group whose sections are all absent is dropped rather than left as dead text.
       const present = ids.filter(id => document.getElementById(id));
@@ -113,7 +117,7 @@
       }
       group.append(title);
       if (!ids.length) { group.classList.add('rail-leaf'); nav.append(group); return; }
-      if (panel.id === 'other-ai') group.dataset.autoclose = '1';
+      if (panel.id === 'other-ai' || panel.id === 'deepseek') group.dataset.autoclose = '1';
       const list = document.createElement('ol');
       ids.forEach(id => {
         const target = document.getElementById(id); if (!target) return;
