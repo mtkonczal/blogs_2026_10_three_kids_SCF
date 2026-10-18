@@ -115,7 +115,7 @@ lab_dollar[1] <- paste0("<", fmt_d(inc_cuts[1]), "\n\n", pct_lab[1])
 x_title <- "Annual family income, 2025 dollars (and income percentile)"
 dollar_note <- "Dollar ranges are approximate: families are ranked against others whose head is the same age, in the same survey year."
 curve_plot <- function(b, ylab, title, fmt, top_lab_off, labels = lab_dollar, xlab = x_title,
-                       rank_note = "Usual income, including capital income.") {
+                       rank_note = "Usual income, including capital income.", compact_caption = FALSE) {
   b <- copy(b)[, top := inc_bin == "Top 1%"]
   ggplot(b, aes(inc_bin, est, group = 1)) +
     geom_ribbon(aes(ymin = est - 1.96 * se, ymax = est + 1.96 * se), fill = blue, alpha = .12) +
@@ -125,11 +125,15 @@ curve_plot <- function(b, ylab, title, fmt, top_lab_off, labels = lab_dollar, xl
     geom_text(data = b[top == TRUE], aes(label = sprintf(fmt, est)), color = red, fontface = "bold", nudge_y = top_lab_off, size = 4.2) +
     scale_x_discrete(labels = labels) +
     labs(title = title, x = xlab, y = ylab,
-         caption = paste("Families with a head aged 45-64, pooled 2013-2025 surveys.", paste0("\n", kids_note), paste0("\n", rank_note), paste0("\n", band_note), paste0("\n", dollar_note, "\n", src_note))) +
+         caption = if (compact_caption) paste0(
+           "Reference person aged 45-64; pooled 2013-2025. Age/year-specific ranks; dollar ranges approximate.\n",
+           "Children include living children at home or elsewhere, stepchildren and resident children-in-law.\n",
+           "Source: Federal Reserve Survey of Consumer Finances; Mike Konczal's calculations."
+         ) else paste("Families with a head aged 45-64, pooled 2013-2025 surveys.", paste0("\n", kids_note), paste0("\n", rank_note), paste0("\n", band_note), paste0("\n", dollar_note, "\n", src_note))) +
     theme_post + theme(axis.text.x = element_text(size = 8.5, lineheight = .9))
 }
 p <- curve_plot(b3, "Families with 3+ children (%)", "Families with 3+ kids are most common in the top 1%", "%.0f%%", 2.2,
-                rank_note = paste("Usual income, including capital income.", gap_note("inc_rank", "all_gap3", "pts"))) +
+                rank_note = paste("Usual income, including capital income.", gap_note("inc_rank", "all_gap3", "pts")), compact_caption = TRUE) +
   scale_y_continuous(labels = label_percent(scale = 1))
 save_png(p, "02_three_plus_kids_by_income.png")
 p <- curve_plot(bk, "Average number of children", "Average number of children by income", "%.2f", .05,
@@ -282,11 +286,11 @@ sig3 <- sprintf("Top 1%% vs. 90th-99th: %+.1f pts (SE %.1f); excluding remarried
                 r5("all_gap3")$est, r5("all_gap3")$se, r5("no_remarried_gap3")$est, r5("no_remarried_gap3")$se)
 sigk <- gap_note("nw_rank", "all_gapkids", "kids")
 p <- curve_plot(n3, "Families with 3+ children (%)", "Ranked by wealth, families with 3+ kids fall, then jump at the top 1%", "%.0f%%", 2.4,
-                labels = lab_nw, xlab = "Family net worth, 2025 dollars (and wealth percentile)", rank_note = paste("Ranked by net worth.", sig3)) +
+                labels = lab_nw, xlab = "Family net worth, 2025 dollars (and wealth percentile)", rank_note = paste("Ranked by net worth.", sig3), compact_caption = TRUE) +
   scale_y_continuous(labels = label_percent(scale = 1))
 save_png(p, "05_three_plus_kids_by_networth.png")
 p <- curve_plot(nk, "Average number of children", "Ranked by wealth, the top 1% also have more children on average", "%.2f", .06,
-                labels = lab_nw, xlab = "Family net worth, 2025 dollars (and wealth percentile)", rank_note = paste("Ranked by net worth.", sigk))
+                labels = lab_nw, xlab = "Family net worth, 2025 dollars (and wealth percentile)", rank_note = paste("Ranked by net worth.", sigk), compact_caption = TRUE)
 save_png(p, "05b_mean_kids_by_networth.png")
 
 nums <- rbindlist(nums)
