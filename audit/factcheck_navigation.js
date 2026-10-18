@@ -78,15 +78,42 @@
     const rail = document.createElement('details'); rail.open = wide.matches;
     const label = document.createElement('summary'); label.textContent = 'On this page'; rail.append(label);
     const nav = document.createElement('nav'); nav.setAttribute('aria-label', panel.id + ' review sections'); rail.append(nav); aside.append(rail); panel.prepend(aside); rails.set(panel, rail);
+    // A group is [label, child ids, optional id the label itself links to]. The Claude
+    // panel splits into three top-level parts so the eye has three stops rather than
+    // twelve; its supporting sections hang under the first and collapse when the reader
+    // is elsewhere (see updateCurrent).
+    const claudeTail = ['c2-weakest', 'c2-rebuttals'];
     const groups = panel.id === 'cross-check' ? [
       ['Claude’s cross-check', headingIds.filter(id => id !== 'x-codex' && id !== 'ds-crosscheck')],
       ['Codex’s cross-check', ['x-codex', ...headings.filter(h => h.id.startsWith('cx-') && h.id !== 'cx-final').map(h => h.id)]],
       ['Final recommendations', ['cx-final']],
       ['DeepSeek’s note', ['ds-crosscheck']]
-    ] : [[panel.id === 'codex' ? 'Codex review' : panel.id === 'other-ai' ? 'Claude review' : panel.id === 'deepseek' ? 'DeepSeek review' : 'Review', headingIds]];
-    groups.forEach(([name, ids]) => {
+    ] : panel.id === 'other-ai' ? [
+      ['Executive summary', headingIds.filter(id => id !== 'c2-summary' && !claudeTail.includes(id)), 'c2-summary'],
+      ['Three weakest points', [], 'c2-weakest'],
+      ['Five easiest rebuttals', [], 'c2-rebuttals']
+    ] : [[panel.id === 'codex' ? 'Codex review' : panel.id === 'deepseek' ? 'DeepSeek review' : 'Review', headingIds]];
+    groups.forEach(([name, ids, headId]) => {
+      // A group whose sections are all absent is dropped rather than left as dead text.
+      const present = ids.filter(id => document.getElementById(id));
+      if (!present.length && !(headId && document.getElementById(headId))) return;
+      ids = present;
       const group = document.createElement('details'); group.open = true; group.className = 'rail-group';
-      const title = document.createElement('summary'); title.textContent = name; group.append(title);
+      const title = document.createElement('summary');
+      if (headId && document.getElementById(headId)) {
+        const head = document.createElement('a'); head.href = `#${headId}`; head.textContent = name;
+        title.append(head);
+        // The text navigates; the rest of the summary still toggles the disclosure.
+        title.addEventListener('click', event => {
+          if (!event.target.closest('a')) return;
+          event.preventDefault(); event.stopPropagation(); navigate(headId);
+        });
+      } else {
+        title.textContent = name;
+      }
+      group.append(title);
+      if (!ids.length) { group.classList.add('rail-leaf'); nav.append(group); return; }
+      if (panel.id === 'other-ai') group.dataset.autoclose = '1';
       const list = document.createElement('ol');
       ids.forEach(id => {
         const target = document.getElementById(id); if (!target) return;
@@ -124,6 +151,7 @@
     event.preventDefault(); navigate(a.hash.slice(1));
   });
   let pending = false;
+  let openGroup;
   function updateCurrent() {
     pending = false;
     const panel = panels.find(p => !p.hidden); if (!panel) return;
@@ -131,6 +159,13 @@
     let current = links[0];
     links.forEach(a => { const t = document.getElementById(a.hash.slice(1)); if (t.getBoundingClientRect().top <= 150) current = a; });
     links.forEach(a => { if (a === current) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+    // Groups marked autoclose hold their sections open only while the reader is inside
+    // them. Re-applied only when the current group changes, so a manual toggle sticks.
+    const group = current?.closest('.rail-group') ?? null;
+    if (group !== openGroup) {
+      openGroup = group;
+      panel.querySelectorAll('.rail-group[data-autoclose]').forEach(g => { g.open = g === group; });
+    }
   }
   function scheduleCurrent() { if (!pending) { pending = true; requestAnimationFrame(updateCurrent); } }
   window.addEventListener('scroll', scheduleCurrent, {passive: true});

@@ -31,3 +31,12 @@
 }
 @media(max-width:600px){.review-section>summary{padding:13px}.review-section>summary h2,.review-section>summary h3{font-size:18px}.section-content{padding:0 13px 13px}}
 @media print{[role="tabpanel"]{display:block!important}.review-rail,.section-controls{display:none}.review-section{border-top:1px solid #ccc}.review-section>summary{list-style:none}.section-content{padding:0}.weakest-points{break-before:auto}}
+
+/* Rail group headings that are themselves section links: the label navigates and reads
+   as a heading, while the rest of the summary keeps its disclosure behaviour. */
+.review-rail .rail-group>summary>a{display:inline;padding:0;margin:0;border:0;background:none;color:inherit;font-weight:inherit}
+.review-rail .rail-group>summary>a:hover{color:var(--accent);background:none}
+.review-rail .rail-group>summary>a[aria-current]{color:var(--accent);background:none}
+/* A leaf group has no children, so it offers no disclosure triangle. */
+.review-rail .rail-leaf>summary{list-style:none}
+.review-rail .rail-leaf>summary::-webkit-details-marker{display:none}
