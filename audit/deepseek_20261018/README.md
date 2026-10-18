@@ -1,7 +1,7 @@
 # DeepSeek independent audit, October 18, 2026
 
 This folder contains the independent first-pass audit behind the **DeepSeek** tab in
-`../../factcheck.html`. It was run against commit `a33adab` and reads only the raw
+`../../factcheck.html`. It was run against commit `dd0e71f` (the draft that states families remain ranked against the full age-eligible sample in footnote 2) and reads only the raw
 summary extracts, full Stata files and replicate weights; it does not source the
 production estimators.
 
@@ -24,9 +24,9 @@ production estimators.
   than `0.001`. No headline calculation bug was found.
 - The income 3+ gap among families with 2+ children is 6.57 points (95% CI −1.41 to
   14.55); the wealth gap is 11.52 (4.04 to 18.99).
-- The first-marriage wealth gap is 10.65 with full-sample ranks (0.92 to 20.37) but
-  4.17 (−5.94 to 14.27) when ranks are re-estimated inside the first-marriage
-  subsample.
+- The first-marriage wealth gap is 10.65 with full-sample ranks (0.92 to 20.37), the
+  estimand the post now specifies. Re-ranking inside the first-marriage subsample
+  gives 4.17 (−5.94 to 14.27), a different estimand (top 1% of first-marriage couples).
 - The methods' “three families” `X5910` sentence is true in the 45–64 sample (two in
   1989, one in 1992), not the full files (40 and 50 family–implicate records, 8 and 10
   families).
