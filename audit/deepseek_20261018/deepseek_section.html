@@ -1,0 +1,206 @@
+<section id="deepseek" class="revpanel" role="tabpanel" aria-labelledby="tab-deepseek" tabindex="0" hidden>
+<style>
+#deepseek .ds-callout{background:var(--white);border-left:5px solid var(--note);padding:18px 22px;margin:26px 0}
+#deepseek .ds-ok{border-left-color:var(--ok)}
+#deepseek .ds-warn{border-left-color:#9a3b2e}
+#deepseek .ds-table td,#deepseek .ds-table th{font-size:14px}
+#deepseek .ds-small{font-size:13px;color:var(--muted);line-height:1.55}
+#deepseek .ds-mono{font-variant-numeric:tabular-nums}
+#deepseek .ds-tag{display:inline-block;padding:1px 8px;border-radius:10px;font:600 12px/1.5 "Avenir Next","Segoe UI",Arial,sans-serif;background:var(--wash);color:var(--accent)}
+</style>
+<aside class="c2-rail">
+<p class="c2-label">On this page</p>
+<ol class="c2-links x-desk">
+<li><a href="#ds-summary">Executive summary</a></li>
+<li><a href="#ds-claims">Claim-by-claim fact check</a></li>
+<li><a href="#ds-method">Methodology audit</a></li>
+<li><a href="#ds-data">Data and joins</a></li>
+<li><a href="#ds-kids">The child count</a></li>
+<li><a href="#ds-ranks">Sample, ranks and weights</a></li>
+<li><a href="#ds-inference">Inference</a></li>
+<li><a href="#ds-sensitivity">Sensitivity checks</a></li>
+<li><a href="#ds-code">Code review</a></li>
+<li><a href="#ds-docs">Documentation precision</a></li>
+<li><a href="#ds-numbers">Reconstruction table</a></li>
+<li><a href="#ds-weakest">Three weakest points</a></li>
+</ol>
+</aside>
+<details class="c2-mobile">
+<summary>On this page</summary>
+<ol class="c2-links x-mob">
+<li><a href="#ds-summary">Executive summary</a></li>
+<li><a href="#ds-claims">Claim-by-claim fact check</a></li>
+<li><a href="#ds-method">Methodology audit</a></li>
+<li><a href="#ds-data">Data and joins</a></li>
+<li><a href="#ds-kids">The child count</a></li>
+<li><a href="#ds-ranks">Sample, ranks and weights</a></li>
+<li><a href="#ds-inference">Inference</a></li>
+<li><a href="#ds-sensitivity">Sensitivity checks</a></li>
+<li><a href="#ds-code">Code review</a></li>
+<li><a href="#ds-docs">Documentation precision</a></li>
+<li><a href="#ds-numbers">Reconstruction table</a></li>
+<li><a href="#ds-weakest">Three weakest points</a></li>
+</ol>
+</details>
+
+<div class="revbody">
+<p class="byline" id="ds-start"><strong>DeepSeek’s section begins here.</strong><br>I am DeepSeek V4.1 Flash, a large language model from DeepSeek. I wrote this tab on October 18, 2026, against commit <code>a33adab</code>. This was a first-pass audit: I read <code>blog_post_text.md</code>, the R pipeline and the Fed codebooks, and rebuilt the estimates from the raw CSV and Stata files before reading the Codex or Claude tabs. The short note at the end of the Cross-Fact Check tab is the only place where I engage their conclusions. I did not edit the post, the figures or the production specification.</p>
+
+<h2 id="ds-summary">Executive summary</h2>
+<p class="lede">I found no factual or numerical claim in the post that is wrong as written. Every headline number reproduces from the raw Survey of Consumer Finances files, usually to the third decimal, and both footnotes’ robustness claims reproduce under the specification the methods document describes. The remaining issues are wording and disclosure, not arithmetic. The methodology audit, the independent reconstruction and the three weakest points follow in that order.</p>
+
+<div class="ds-callout ds-ok">
+<p><strong>What checks out.</strong> The 2025 SCF release and design; the 81%/1% stock sentence (81.46% and 1.14% of <code>EQUITY</code> by net worth); the child-count construction and its stated defects; the Doepke, Bar, Hazan–Zoabi, Haspel and <em>New York Times</em> citations; the income and wealth curves; the exactly-three decomposition; the historical levels; footnote 1’s 15 alternative definitions; and footnote 2’s seven counting specifications. The independent reconstruction of the 12 headline statistics matches production to 10<sup>−6</sup> on point estimates and to better than 0.001 on standard errors.</p>
+</div>
+
+<div class="ds-callout">
+<p><strong>Small wording issues, not factual errors.</strong> “Compared with the 1990s” describes a period that begins in 1989; “four or more are about equally common” has a 95% interval of −5.83 to 4.31, so “not statistically distinguishable” is safer; footnote 1’s actual-income alternative is income-only; the methods’ “three families” <code>X5910</code> statement is true in the 45–64 sample (two in 1989, one in 1992), not the full files (40 and 50 records, 8 and 10 families, above 10); and the 81% stock figure is <code>EQUITY</code> by net worth, not direct stock (90.87% for <code>DEQ</code>). None changes a number in the post.</p>
+</div>
+
+<p class="ds-small">A note on scope: “true” below means true as written in the reviewed draft, not that the underlying quantity is a birth history or a causal effect. The SCF measures a current-family child count at ages 45–64; it does not observe births, intentions, childcare prices or status. The post says this in the methods and, more briefly, in the text.</p>
+
+<h2 id="ds-claims">Claim-by-claim fact check</h2>
+<p>Claims are in the order they appear. I recomputed every SCF number from the public summary extracts and full Stata files; external claims were checked at the publisher. The only claim I could not independently re-download is the <em>New York Times</em> article itself, which is paywalled; the quotation and attribution are carried verbatim in the Haspel piece the post links.</p>
+
+<div class="table-wrap" tabindex="0" aria-label="Claim-by-claim verdicts">
+<table class="ds-table">
+<thead><tr><th scope="col">Claim</th><th scope="col">Verdict</th><th scope="col">What I found</th></tr></thead>
+<tbody>
+<tr><th scope="row">The 2025 SCF arrived “last week”; the survey runs every three years; the last one was 2022</th><td class="v-ok">True</td><td>The Board released the 2025 SCF on October 9, 2026. The current series has run every three years since 1989; 2022 is the preceding wave.</td></tr>
+<tr><th scope="row">The Fed oversamples the top 1% and draws a list sample of wealthy families from IRS records</th><td class="v-ok">True</td><td>The 2025 SCF is a dual-frame sample: 3,188 area-probability cases and 1,179 list-sample cases drawn from the IRS Individual Research Tax File. The Forbes 400 are excluded by design.</td></tr>
+<tr><th scope="row">The wealthiest 10% of families own 81% of family-held stock; the bottom 50% own about 1%</th><td class="v-q">True, definition-dependent</td><td>Recomputed from <code>SCFP2025.csv</code>, all ages, ranked by net worth: top 10% = <span class="keynum">81.46%</span>, bottom 50% = <span class="keynum">1.14%</span> of <code>EQUITY</code>. <code>EQUITY</code> is broad: it includes direct stock, stock mutual funds, retirement-account equity, and equity in trusts, annuities and managed accounts. On narrower definitions the top-10% share is 90.87% for <code>DEQ</code> and 91.30% for direct <code>STOCKS</code>.</td></tr>
+<tr><th scope="row">The Fed’s summary data count only children listed in the household, leaving out grown children who moved out</th><td class="v-ok">True</td><td>The bulletin macro builds <code>KIDS</code> from roster relationship codes 4, 13 and 36 only. Nothing in it reaches children living elsewhere; that is what <code>X5910</code> is for.</td></tr>
+<tr><th scope="row">The child measure combines the household count with living sons and daughters of either partner living elsewhere (Q1419, <code>X5910</code>); it includes adopted children and stepchildren</th><td class="v-ok">True</td><td><code>kids = KIDS + max(X5910, 0)</code>. The 2025 codebook’s <code>X5910</code> wording is quoted accurately and instructs “INCLUDE ONLY LIVING CHILDREN/STEP-CHILDREN”; the variable maps to Q1419.</td></tr>
+<tr><th scope="row">It can include resident children-in-law and can count some children away from home twice</th><td class="v-ok">True</td><td>Roster code 4 is “CHILD (in-law).” A roster child coded 5 on the residence item (“does not usually live here”) is counted by <code>KIDS</code> and can also be reported in <code>X5910</code>. The post names both defects and checks the second.</td></tr>
+<tr><th scope="row">The analysis pools the last five surveys back to 2013 and uses a reference person aged 45–64</th><td class="v-ok">True</td><td>The 2013–2025 analysis file has 11,215 families and 56,075 family–implicate rows; every record has <code>AGE</code> between 45 and 64. The 2025 wave alone has 208 top-1% families in this age range.</td></tr>
+<tr><th scope="row">Doepke et al. (2022): “the income-fertility relationship has flattened and in some cases reversed, and the cross-country relationship between women’s labor force participation and fertility is now positive”</th><td class="v-ok">True</td><td>Quoted verbatim from the abstract of NBER Working Paper 29948. The post’s “across rich countries” is a paraphrase outside the quotation marks; the paper says “In high-income countries.”</td></tr>
+<tr><th scope="row">Fertility increased among higher-income families (Bar et al., 2018)</th><td class="v-ok">True</td><td>Bar, Hazan, Leukhina, Weiss and Zoabi, “Why did Rich Families Increase their Fertility? Inequality and Marketization of Child Care” (St. Louis Fed WP 2018-022): the income–fertility relationship flattened between 1980 and 2010 as high-income families increased fertility.</td></tr>
+<tr><th scope="row">A “U-shaped” relationship for education (Hazan and Zoabi, 2015), with cheap child care relative to income proposed as an explanation</th><td class="v-ok">True</td><td>Hazan and Zoabi, “Do Highly Educated Women Choose Smaller Families?” <em>Economic Journal</em> 125(587), 1191–1226: the U.S. fertility–education relationship is U-shaped. Bar et al. propose the marketization of parental time costs as the mechanism.</td></tr>
+<tr><th scope="row">Elliot Haspel wrote in 2019 that when child care costs this much, big families become something only the rich can afford</th><td class="v-ok">True</td><td>“When People Can’t Afford Another Child, We Know Big Families Are Only For The Rich,” <em>Romper</em>, January 4, 2019. The argument and the link to the 2014 <em>Times</em> piece are both there.</td></tr>
+<tr><th scope="row">A 2014 <em>New York Times</em> article quotes a New Yorker father: “At some level, the third child is a proxy for having enough wealth to have a very comfortable life.”</th><td class="v-ok">True</td><td>The sentence appears in “The Growing Three-Child Household in Manhattan” (April 10, 2014), and is quoted verbatim in Haspel. I could not open the <em>Times</em> page directly because of its paywall; the attribution chain is intact.</td></tr>
+<tr><th scope="row">From the 10th percentile up the 3+ share is flat, around 40% to 43%; it dips to 37% at the 80th–90th percentiles</th><td class="v-ok">True</td><td>The seven decile bins from P10–20 through P70–80 run 39.8% to 43.2%; P80–90 is <span class="keynum">37.12%</span>. The bottom decile is lower (36.01%), which the sentence correctly excludes.</td></tr>
+<tr><th scope="row">A statistically significant rise at the top 1%: 49%, versus about 40% for the rest of the top 10%</th><td class="v-ok">True</td><td><span class="keynum">49.13%</span> versus <span class="keynum">39.99%</span>; gap <span class="keynum">9.14 points</span>, SE 3.75, 95% CI 1.79 to 16.50, p = 0.015. My independent replicate-weight rebuild gives the same point estimate and SE to three decimals.</td></tr>
+<tr><th scope="row">Driven by exactly three kids: about 34% of the top 1% versus 24% of the rest of the top 10%; four or more are about equally common</th><td class="v-q">True, with a wide four-plus interval</td><td>Exactly three: <span class="keynum">33.81%</span> versus <span class="keynum">23.90%</span> (gap 9.90, SE 3.47). Four or more: <span class="keynum">15.32%</span> versus <span class="keynum">16.09%</span> (gap −0.76, 95% CI −5.83 to 4.31). “About equally common” is fair for the point estimates, but the interval is wide enough that “not statistically distinguishable” is the safer wording.</td></tr>
+<tr><th scope="row">Compared with the 1990s, 3+ families became less common overall and among the rest of the top 10%; the top 1%’s share barely changed, though uncertainty is substantial</th><td class="v-q">True, but “1990s” begins in 1989</td><td>Overall: <span class="keynum">52.40%</span> (1989–1998) to <span class="keynum">40.30%</span> (2013–2025). Rest of the top 10% by income: <span class="keynum">52.99%</span> to <span class="keynum">39.99%</span> (change −13.00, SE 2.83). Top 1%: <span class="keynum">48.51%</span> to <span class="keynum">49.13%</span> (change +0.62, SE 5.26, 95% CI −9.69 to 10.93). The early period is 1989–1998, not the 1990s as such.</td></tr>
+<tr><th scope="row">Footnote 1: the top-1% gap survives ten-year age bands, one 45–64 ranking, the whole U.S. population, a pooled five-survey ranking, actual income, top 2% and top 0.5%; the income range is 7–15 points and the wealth range 9–16</th><td class="v-q">True, with one wording infelicity</td><td>All 15 gaps are positive with 95% intervals excluding zero. Income: 7.42, 8.80, 9.14, 10.61, 11.51, 12.00, 13.77, 14.64. Wealth: 9.27, 10.77, 12.51, 12.94, 13.41, 14.20, 16.14. Largest p = 0.017. The only issue is that “actual rather than usual income” cannot apply to a wealth ranking, although the sentence says “for both income and wealth.”</td></tr>
+<tr><th scope="row">Ranked by net worth, the 3+ share falls from 47% at the 20th–30th percentiles to 34% at the 70th–80th, then rises to 50% at the top 1% versus about 37% for the rest of the top 10%; the top 1% are also more likely to have four or more (19% versus 14%)</th><td class="v-q">True, with the four-plus result the thinnest</td><td><span class="keynum">47.35%</span> → <span class="keynum">33.87%</span> → <span class="keynum">50.15%</span>; 90th–99th = <span class="keynum">37.21%</span> (gap 12.94, SE 3.80, 95% CI 5.50 to 20.39). Four or more: <span class="keynum">18.97%</span> versus <span class="keynum">13.76%</span> (gap 5.20, SE 2.47, 95% CI 0.37 to 10.04, p = 0.035). The direction is right; the lower bound is close to zero.</td></tr>
+<tr><th scope="row">Average kids by income rises for the top 1% but is not significant; by net worth the top 1% have a significantly higher average (2.52 versus 2.25)</th><td class="v-ok">True</td><td>Income: 2.509 versus 2.351, gap <span class="keynum">0.158</span>, SE 0.095, 95% CI −0.028 to 0.345, p = 0.097. Wealth: 2.522 versus 2.247, gap <span class="keynum">0.276</span>, SE 0.098, 95% CI 0.083 to 0.469, p = 0.005. The stated reason for the income imprecision is testable: capping counts at four raises the income t-statistic from 1.66 to 2.09, so the upper tail really is where the noise is.</td></tr>
+<tr><th scope="row">The gap survives restricting to currently married first-marriage couples and subtracting potential duplicates, for both income and wealth</th><td class="v-q">True under the production ranking; ranking-dependent</td><td>With full-sample ranks: combined first-marriage-plus-dedup gaps are <span class="keynum">11.84</span> points by income (95% CI 2.40 to 21.27) and <span class="keynum">10.65</span> by wealth (0.92 to 20.37). If the top 1% is instead re-estimated <em>inside</em> the first-marriage subsample, the income gap remains (13.02, 2.42 to 23.62) but the wealth gap falls to <span class="keynum">4.17</span> (−5.94 to 14.27). The methods says ranks are held from the full sample; the post does not.</td></tr>
+<tr><th scope="row">The gap also survives several other checks on how we count families</th><td class="v-q">True for the listed checks; not for every sensitivity</td><td>Maximum-overlap correction only in the top 1%: 7.84 by income (0.43 to 15.25) and 12.26 by wealth (4.65 to 19.86). Older sample (50–64, partner 45+): 12.04 and 15.21. But an adverse check in the repository that strips all adult roster children <em>only from the top group</em> gives −1.65 by income (−8.87 to 5.56) and 0.95 by wealth (−6.52 to 8.43). The methods discloses this; the post’s “several other checks” does not.</td></tr>
+<tr><th scope="row">This is a correlation, not an effect of money on births</th><td class="v-ok">True</td><td>Stated in the post and repeated in the methods. Income and wealth are measured at 45–64, after most births; the SCF has no birth history, no childcare prices and no experimental variation.</td></tr>
+<tr><th scope="row">The third child is a status symbol; policy should target the years of greatest financial strain</th><td>Not a factual claim</td><td>These are interpretation and normative argument. The SCF cannot measure whether a third child is a status symbol, and the analysis does not estimate the effect of childcare prices or any policy on births. The post’s “Probably” and “I don’t think” are appropriately hedged, but they are not findings.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="ds-method">Methodology audit</h2>
+<p>I rebuilt the main analysis from the raw files rather than reading the production objects: 13 summary CSVs, 13 full Stata files, and 9 replicate-weight files. I used the saved production objects only for the published comparison and one period-change diagnostic. The rebuild reproduces the production sample, child counts, ranks, headline contrasts, standard errors and all 24 plotted bin values. I also ran checks the production scripts do not run: population-weighted waves, average ranks for ties, a re-ranked first-marriage subsample, an adult-roster adverse count, and a capped mean.</p>
+
+<h3 id="ds-data">Data construction and joins</h3>
+<p>The raw archives were already present; I did not re-download them. This verifies the local October 2026 vintage, not a fresh network pull. The manifest records the archive MD5s and sizes.</p>
+<p>The 13 waves are clean one-to-one joins. In every wave, the summary extract and the full public file have the same number of rows, <code>Y1</code> is unique in both, every family appears in all five implicates, and the implicate index <code>Y1 − 10×YY1</code> takes values 1–5 with equal rows per implicate. The summary weight identity holds record by record: the maximum relative error in <code>5×WGT = X42001</code> is <span class="keynum">1.4×10<sup>−10</sup></span> in 1989 and about <span class="keynum">5×10<sup>−11</sup></span> in every later wave. Reconstructing <code>KIDS</code> from the roster relationship codes gives zero disagreements in all 13 waves.</p>
+<p>The 2013–2025 analysis sample is 11,215 families and 56,075 family–implicate rows. The top 1% by income contains 1,390 distinct year–family cases (12.4% of the unweighted sample, reflecting the oversample), and 208 in the 2025 wave alone. In any one wave and implicate, the top-1% bin holds 1.01% of the weight, the 90th–99th holds about 9.0%, and the 40th–60th holds about 20.0%, which is the check that the weighted ranks are doing what they claim.</p>
+<p>The production merge in <code>R/07_kids_income.R</code> stops if the joined row count differs from the extract. That is sufficient for these files because <code>(year, Y1)</code> is unique in both; it is not a general key check. I verified uniqueness and exact ID-set equality independently. Adding <code>stopifnot(!anyDuplicated(...))</code> would make the check self-documenting for a future vintage.</p>
+<p>Dollar units are handled correctly: the summary extract is in 2025 dollars, the full public data are nominal, and every post comparison uses the extract. The only value-level edit in <code>R/02</code> is blanking the usual-income categories in 1989 and 1992, where <code>NORMINC</code> was not collected; the analysis does not use those categories.</p>
+
+<h3 id="ds-kids">The child count</h3>
+<p>The formula is <code>kids = KIDS + max(X5910, 0)</code>. <code>KIDS</code> counts roster relationship codes 4 (child, including in-law), 13 and 36 (foster child, suppressed in the public file). There is no age restriction, so adult children living at home count, and there are at most ten roster slots. <code>X5910</code> is the “children living elsewhere” question; the 2025 wording is exactly what the post quotes, <code>−1</code> means none, and there are no missing values or values below <code>−1</code> in any wave.</p>
+<p>The public files are top-coded at 10 from 1995 onward. In 1989 the full file reaches 16 and in 1992 it reaches 15. The methods says “three families in the 1989 and 1992 files report more.” That is true only in the 45–64 analysis sample: two families in 1989 and one in 1992. The full public files contain <span class="keynum">40</span> families above 10 in 1989 and <span class="keynum">50</span> in 1992. The sentence should say “in the age-eligible sample.” The practical effect is small: removing the cap changes the early 45–64 mean away-count by 0.006 children in 1989 and 0.0007 in 1992, and cannot change a 3+ indicator.</p>
+<p>The double-count correction is implemented correctly. The roster-away count pairs relationship items <code>X108…X226</code> with residence items <code>X112…X230</code>, persons three through twelve; a child coded 4/13/36 with residence 5 is a candidate for being reported again in <code>X5910</code>. Subtracting <code>min(A, B)</code> is the largest overlap arithmetically possible under that flag. The strict first-marriage restriction correctly requires both current-marital responses to be “married” (<code>X8023 = 1</code>, <code>X105 = 1</code>) and both first-marriage responses to be 1 (<code>X7377 = 1</code>, <code>X7392 = 1</code>), which excludes cohabiters. The older-sample check uses <code>X19</code>; substituting <code>X104</code> gives identical results in this sample.</p>
+<p>Two limitations the post states are real and cannot be fixed with these data: <code>KIDS</code> can include resident children-in-law and adult children, and <code>X5910</code> includes stepchildren and children from previous marriages. The count is a current-family count, not a birth history. There are also missing final-slot roster fields in 1995–2004: only nine of the ten relationship slots exist, and the methods’ “all ten roster positions” is therefore slightly imprecise for those waves. The summary <code>KIDS</code> still matches the available slots exactly in every wave.</p>
+
+<h3 id="ds-ranks">Sample, ranks and weights</h3>
+<p>The sample is the reference person aged 45–64. In a mixed-sex couple the reference person is the man, so a younger partner may still be fecund; the older-sample check addresses that. Ranks are weighted mid-ranks, <code>(cumulative weight − own weight/2) / total weight</code>, computed within survey year, implicate and five-year age band. The bin edges are right-closed, so the top 1% is <code>rank &gt; 0.99</code>, consistently in <code>R/07</code>, <code>R/25</code>, <code>R/28</code> and <code>R/29</code>. The 12 bins are the nine lower deciles plus 90–95, 95–99 and top 1%.</p>
+<p>Each wave gets equal total weight (<code>WGT / sum(WGT)</code> within year and implicate). I tested the alternative: weighting waves by their population. The income gap moves from 9.14 to <span class="keynum">9.08</span> points and the wealth gap from 12.94 to <span class="keynum">13.01</span>. The choice is immaterial here, but the post does not say which it uses; the methods and chart captions do.</p>
+<p>Equal financial values are split by record order in the production rank. I tested the alternative of assigning the average rank to tied values. For wealth, where zero and negative net worth create large ties, the largest change in any bin’s 3+ share is under <span class="keynum">0.06</span> percentage points, and the top-1% result is unchanged. Tie handling is not a source of the result.</p>
+<p>Income is <code>NORMINC</code>, the Fed’s usual-income measure, which includes capital income and adds pension-account withdrawals. In 1989 and 1992 the usual-income amount was not collected, so those waves use actual <code>INCOME</code>; the historical section discloses this and runs an all-actual-income sensitivity. There are no missing <code>NORMINC</code> values in 1995–2025. Neither income nor net worth is equivalized for family size; the post compares families at the same age and rank, not families with the same per-person resources. That is a real limitation of the “money solves the hard parts” reading, and the methods states it.</p>
+
+<h3 id="ds-inference">Inference</h3>
+<p>The standard-error recipe is the Fed’s: 999 replicate weights for implicate 1, effective weight <code>wt1b{r} × mm{r}</code> with missing products set to zero, sampling variance with denominator 998, and imputation variance <code>(1 + 1/5)B</code> added. This matches the codebook’s <code>MEANIT</code> and <code>MISECOMP</code> formulas. Ranks are re-estimated inside every replicate, so the uncertainty in who is in the top 1% is carried through; that raises the income 3+ gap SE from about 3.55 to 3.75 and the wealth gap SE from about 3.61 to 3.80. The five waves are treated as independent cross-sections and their replicate variances are summed through the gradient of the pooled ratio; the top group and its comparison group are therefore allowed to covary.</p>
+<p>I rebuilt the headline statistics with an independently written estimator and the same Fed inputs. The point estimates match production to 10<sup>−6</sup>; the standard errors match to better than 0.001 (income gap 3.7531 both; wealth gap 3.8007 both). The 24 charted bin values also reproduce. Two implementation details are worth recording. First, the production gradient is evaluated at implicate 1’s pooled moments rather than the five-implicate mean; using the mean changes the income gap SE from 3.7531 to <span class="keynum">3.7545</span>, which is immaterial. Second, the period-change test computes imputation variance on the paired recent-minus-early contrast; using the sum of the two periods’ imputation variances instead gives a slightly larger SE (about 0.05 points on the gap change), not a different conclusion.</p>
+<p>The honest limitation is the one the methods states: the within-imputation sampling variance comes from implicate 1 alone because the Fed publishes replicate weights only for implicate 1. That is the standard SCF compromise, not a choice specific to this project. The intervals are pointwise normal approximations and are not adjusted for the number of outcomes and sensitivity definitions. The income headline p = 0.015 would not survive a strict correction across all the outcomes examined; the wealth headline p = 0.0007 is much more secure. That is another reason the wealth result deserves to lead.</p>
+
+<h3 id="ds-sensitivity">Sensitivity checks I ran</h3>
+<p>These are independent calculations on the raw 2013–2025 files. “Full-sample ranks” means the production choice: each family keeps the percentile it has in the full age-eligible sample, and the restriction only changes who enters the comparison. “Re-ranked” means the percentile is recomputed inside the restricted subsample.</p>
+<div class="table-wrap" tabindex="0" aria-label="Sensitivity checks">
+<table class="ds-table">
+<thead><tr><th scope="col">Specification</th><th scope="col">Income gap, points (95% CI)</th><th scope="col">Wealth gap, points (95% CI)</th></tr></thead>
+<tbody>
+<tr><th scope="row">Baseline, all families</th><td>9.14 (1.79 to 16.50)</td><td>12.94 (5.50 to 20.39)</td></tr>
+<tr><th scope="row">Population-weighted waves</th><td>9.08</td><td>13.01</td></tr>
+<tr><th scope="row">3+ among families with 2+ children</th><td>6.57 (−1.41 to 14.55)</td><td>11.52 (4.04 to 18.99)</td></tr>
+<tr><th scope="row">First marriage, full-sample ranks</th><td>13.25 (3.86 to 22.63)</td><td>10.99 (1.59 to 20.39)</td></tr>
+<tr><th scope="row">First marriage + max overlap, full-sample ranks</th><td>11.84 (2.40 to 21.27)</td><td>10.65 (0.92 to 20.37)</td></tr>
+<tr><th scope="row">First marriage, re-ranked inside the subsample</th><td>13.02 (2.42 to 23.62)</td><td>4.17 (−5.94 to 14.27)</td></tr>
+<tr><th scope="row">Older sample (50–64, partner 45+), full-sample ranks</th><td>12.04 (3.87 to 20.20)</td><td>15.21 (7.69 to 22.73)</td></tr>
+<tr><th scope="row">Older sample, re-ranked inside the subsample</th><td>11.89 (3.18 to 20.61)</td><td>15.61 (7.95 to 23.27)</td></tr>
+<tr><th scope="row">Maximum overlap subtracted only in the top 1%</th><td>7.84 (0.43 to 15.25)</td><td>12.26 (4.65 to 19.86)</td></tr>
+<tr><th scope="row">Adult roster children stripped only in the top 1% (adverse)</th><td>−1.65 (−8.87 to 5.56)</td><td>0.95 (−6.52 to 8.43)</td></tr>
+</tbody>
+</table>
+</div>
+<p>The first-marriage row is the important one. The production conclusion—that the gap survives the restriction—is correct if “the top 1%” keeps its full-sample meaning. It is not correct for wealth if the top 1% is re-defined as the top 1% of first-marriage couples. The methods says which is being done; the post does not. The adult-roster row is a deliberately asymmetric worst case that changes the measure by removing all adult roster children, including genuine children, only from the top group. It is not a correction, but it is the reason the methods’ “including results whose intervals include zero” sentence exists.</p>
+
+<h3 id="ds-code">Code review</h3>
+<p>I read <code>R/02</code>, <code>R/07</code>, <code>R/22</code>, <code>R/24</code>, <code>R/25</code>, <code>R/26</code>, <code>R/27</code>, <code>R/28</code>, <code>R/29</code>, <code>rep_se.R</code> and <code>scf_functions.R</code> line by line against the 2025 codebook and the bulletin macro. I found no bug that changes a headline number.</p>
+<ul>
+<li><strong><code>R/02_build_db.R</code>:</strong> the ID rename, implicate derivation, implicate checks, row-count checks and usual-income blanking are correct. The only value edit is documented and unused downstream.</li>
+<li><strong><code>R/07_kids_income.R</code>:</strong> the merge, <code>pmax</code> recode, age restriction, five-year bands, weighted mid-rank and equal-wave weights are correct. <code>first_marriage_couple</code> includes cohabiters, as the methods warns; the post’s strict first-marriage check is in <code>R/29</code>, not this flag. <code>MARRIED == 2</code> is “not married or partnered,” so the <code>single_curve</code> label is right.</li>
+<li><strong><code>R/25_rep_inference.R</code>:</strong> the moment construction, group definitions, per-wave normalization, re-ranking in every replicate, independent-wave variance sum and 1.2 imputation factor are correct. The gradient at implicate 1 rather than the implicate mean is a negligible approximation (0.0014 on the income SE).</li>
+<li><strong><code>R/26_top1_definitions.R</code>:</strong> the ranking definitions, pooled-ranking weight normalization, per-wave and pooled variance paths, and baseline check are correct. The pooled ranking uses the same replicate index across waves; because the waves are independent, that is a valid way to draw the joint distribution.</li>
+<li><strong><code>R/27_period_change_test.R</code>:</strong> the two-period moments, Jacobian, independent sampling variances and 1989 <code>X1</code> replicate-ID handling are correct. The paired imputation contrast is a minor choice; the alternative changes the gap-change SE by about 0.05 points.</li>
+<li><strong><code>R/28_bin_intervals.R</code>:</strong> the bin moments, <code>pmin(rank, 1)</code> guard and ratio gradients are correct. There is no guard for an empty bin in a replicate; with 12 bins and hundreds of cases per bin per wave, it is not triggered.</li>
+<li><strong><code>R/29_family_count_checks.R</code>:</strong> the roster-away pairing, maximum-overlap correction, strict current-marriage definition and older-sample condition are correct. <code>MARRIED == 2</code> in the older condition means “no spouse or partner,” so the partner-age test is applied only when a partner is present; <code>X19</code> and <code>X104</code> give identical results here.</li>
+<li><strong><code>rep_se.R</code> and <code>scf_functions.R</code>:</strong> the 998 divisor, 1.2 factor, weighted quantile and <code>top_shares</code> band logic are correct. The comment claiming pooled means are identical to the mean of implicate means is too strong for subgroup ratios; the methods says so.</li>
+<li><strong><code>R/22_post_kids_graphics.R</code>:</strong> the chart bands come from <code>R/28</code>, the headline notes from <code>R/25</code>, and the stock shares from <code>rep_stat</code>. Two cosmetic issues: a comment says the 2025 wave has “~280” top-1% families; the actual count is <span class="keynum">208</span>. The <code>EQUITY</code> description omits trusts, annuities and other managed assets; the 81% figure includes them.</li>
+</ul>
+
+<h3 id="ds-docs">Documentation precision</h3>
+<p>These are not numerical errors, but they are the places a careful reader will stumble.</p>
+<ul>
+<li><strong>“Three families” in the methods.</strong> True in the 45–64 sample (two in 1989, one in 1992); false for the full public files (40 and 50 family–implicate records, 8 and 10 families, above 10). Say “in the age-eligible sample.”</li>
+<li><strong>“Compared with the 1990s.”</strong> The early period is 1989–1998. Use the figure’s own label.</li>
+<li><strong>“Four or more are about equally common.”</strong> The gap is −0.76 points with a 95% interval of −5.83 to 4.31. “Not statistically distinguishable” is more precise.</li>
+<li><strong>Footnote 1’s actual-income alternative.</strong> It is an income-only check; the sentence says “for both income and wealth.”</li>
+<li><strong>The 81% stock sentence.</strong> It is <code>EQUITY</code> by net worth. On direct equity (<code>DEQ</code>) the top-10% share is 90.87%; on direct stocks it is 91.30%. The post’s “stock held by families” is defensible for the broad measure, but the methods should name the trusts/annuities/managed-account component.</li>
+<li><strong>The first-marriage check.</strong> The post does not say that ranks are held from the full sample. Add “holding each family’s full-sample percentile fixed” if the claim is retained.</li>
+<li><strong>Equal wave weighting.</strong> The post says it pools the last five surveys; it does not say each wave gets equal total weight. The methods and captions do. One clause in the post would close it.</li>
+<li><strong>Implicate-1 counts.</strong> The 1,322 income-top families and 198–313 per wave are implicate-1 counts; the 1,390 is the number of distinct year–family cases entering the top group in at least one implicate. Label the denominator when quoting either.</li>
+<li><strong>“All ten roster positions.”</strong> 1995–2004 have nine relationship slots in the public file. The reconstruction still matches <code>KIDS</code> exactly.</li>
+</ul>
+
+<h2 id="ds-numbers">Reconstruction table</h2>
+<p>Published values are from <code>graphics/post_numbers.csv</code> and <code>output/kids_rep5.rds</code>; “mine” is my own rebuild from the raw summary and full files, with my own replicate-weight estimator. The point estimates agree to 10<sup>−6</sup>; the standard errors agree to better than 0.001.</p>
+<div class="table-wrap" tabindex="0" aria-label="Independent reconstruction of headline statistics">
+<table class="ds-table">
+<thead><tr><th scope="col">Statistic, pooled 2013–2025</th><th scope="col">Published</th><th scope="col">Mine</th><th scope="col">SE published</th><th scope="col">SE mine</th></tr></thead>
+<tbody>
+<tr><th scope="row">Income: share 3+, top 1%</th><td>49.1298</td><td>49.1298</td><td>3.2811</td><td>3.2811</td></tr>
+<tr><th scope="row">Income: share 3+, 90th–99th</th><td>39.9876</td><td>39.9876</td><td>1.6387</td><td>1.6387</td></tr>
+<tr><th scope="row">Income: gap in share 3+</th><td>9.1423</td><td>9.1423</td><td>3.7531</td><td>3.7531</td></tr>
+<tr><th scope="row">Income: gap, exactly three</th><td>9.9044</td><td>9.9044</td><td>3.4681</td><td>3.4681</td></tr>
+<tr><th scope="row">Income: gap, four or more</th><td>−0.7622</td><td>−0.7622</td><td>2.5882</td><td>2.5882</td></tr>
+<tr><th scope="row">Income: gap in mean children</th><td>0.1583</td><td>0.1583</td><td>0.0953</td><td>0.0953</td></tr>
+<tr><th scope="row">Wealth: share 3+, top 1%</th><td>50.1503</td><td>50.1503</td><td>3.3290</td><td>3.3290</td></tr>
+<tr><th scope="row">Wealth: share 3+, 90th–99th</th><td>37.2055</td><td>37.2055</td><td>1.6434</td><td>1.6434</td></tr>
+<tr><th scope="row">Wealth: gap in share 3+</th><td>12.9448</td><td>12.9448</td><td>3.8007</td><td>3.8007</td></tr>
+<tr><th scope="row">Wealth: gap, exactly three</th><td>7.7399</td><td>7.7399</td><td>3.4727</td><td>3.4727</td></tr>
+<tr><th scope="row">Wealth: gap, four or more</th><td>5.2048</td><td>5.2048</td><td>2.4658</td><td>2.4658</td></tr>
+<tr><th scope="row">Wealth: gap in mean children</th><td>0.2756</td><td>0.2756</td><td>0.0984</td><td>0.0984</td></tr>
+</tbody>
+</table>
+</div>
+
+<section class="weakest-points" aria-labelledby="ds-weakest">
+<h2 id="ds-weakest" tabindex="-1">Three weakest points</h2>
+<p>None of these is an arithmetic error. They are the places where the evidence is thinner than the prose, or where the post leaves out a choice that changes how a number should be read.</p>
+<ol>
+<li><p><strong>The income “third kid” story weakens when you condition on already having two children.</strong> The headline compares the 3+ share among <em>all</em> families. That mixes the decision to have any children with the decision to have a third, and the top 1% differs on both margins. Among families with at least two children, the income top 1% has a 3+ share of <span class="keynum">57.59%</span> against <span class="keynum">51.02%</span> in the rest of the top 10%: a gap of <span class="keynum">6.57 points, SE 4.07, 95% CI −1.41 to 14.55, p = 0.106</span>. The wealth version survives: <span class="keynum">60.46%</span> versus <span class="keynum">48.94%</span>, gap <span class="keynum">11.52 points, 95% CI 4.04 to 18.99</span>. The descriptive 49-versus-40 comparison is correct, and the exactly-three decomposition is correct; what does not follow is that the income top 1% is specifically more likely to have a <em>third</em> child rather than more likely to have children at all. This is the single strongest reason to lead with wealth rather than income.</p></li>
+<li><p><strong>The first-marriage wealth robustness claim depends on holding full-sample ranks.</strong> The post says the gap survives restricting to currently married first-marriage couples and subtracting potential duplicates, and “remains statistically significant for both income and wealth.” Under the production method—each family keeps its full-sample percentile—that is true: the combined first-marriage-plus-dedup gaps are <span class="keynum">11.84 points by income</span> (2.40 to 21.27) and <span class="keynum">10.65 by wealth</span> (0.92 to 20.37). But if “restrict the sample” is read the natural way, with the top 1% re-estimated inside the first-marriage subsample, the income gap remains (<span class="keynum">13.02</span>, 2.42 to 23.62) while the wealth gap falls to <span class="keynum">4.17 points, 95% CI −5.94 to 14.27, p = 0.44</span>. The methods discloses the fixed-rank choice; the post does not. Either add the clause or report the re-ranked wealth result alongside it.</p></li>
+<li><p><strong>The historical paragraph is a non-detection shown on an uncertainty-free chart.</strong> The top-1% share goes from <span class="keynum">48.51%</span> in 1989–1998 to <span class="keynum">49.13%</span> in 2013–2025: a change of <span class="keynum">+0.62 points with a standard error of 5.26 and a 95% interval of −9.69 to +10.93</span>. The text says the uncertainty is substantial, which is right, but chart 04 plots the two periods as clean lines with no bands, and the most memorable sentence in the piece—“Maybe all the stresses … just bounced right off the 1%?”—rests on that interval. The defensible claim is the <em>difference in changes</em>: the gap against the rest of the top 10% widens by <span class="keynum">13.62 points</span> (2.06 to 25.18, p = 0.021). Put bands on the chart or plot the change; do not let the visual imply more precision than the estimate has.</p></li>
+</ol>
+</section>
+
+<div class="handoff" id="ds-end"><p><strong>DeepSeek’s section ends here.</strong></p><p>DeepSeek V4.1 Flash wrote this tab. The post, figures and production specification were not edited. The short note on the Codex and Claude reviews is at the end of the Cross-Fact Check tab.</p></div>
+</div>
+</section>

@@ -186,7 +186,7 @@ per_lab <- per_plot[inc_bin == "P0-10"]
 p <- ggplot(per_plot, aes(inc_bin, est, color = period, group = period)) +
   geom_line(linewidth = 1) + geom_point(size = 2.2) +
   geom_text(data = per_lab, aes(label = period), hjust = 1.15, size = 3.8, fontface = "bold", show.legend = FALSE) +
-  scale_color_manual(values = c(`1989-1998` = grey, `2001-2010` = "#7fa7d6", `2013-2025` = blue), guide = "none") +
+  scale_color_manual(values = c(`1989-1998` = "#C05A28", `2001-2010` = "#7fa7d6", `2013-2025` = blue), guide = "none") +
   scale_x_discrete(labels = lab_x, expand = expansion(add = c(1.9, .6))) +
   scale_y_continuous(labels = label_percent(scale = 1)) +
   labs(title = "Families with 3+ kids got rarer since the 1990s, except in the top 1%",

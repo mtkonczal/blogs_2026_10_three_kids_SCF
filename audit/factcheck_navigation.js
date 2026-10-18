@@ -9,6 +9,15 @@
     button.setAttribute('aria-controls', 'cross-check');
     button.setAttribute('aria-selected', 'false'); bar.append(button);
   }
+  if (document.getElementById('deepseek') && !document.getElementById('tab-deepseek')) {
+    const button = document.createElement('button');
+    button.id = 'tab-deepseek'; button.type = 'button'; button.role = 'tab';
+    button.textContent = 'DeepSeek'; button.tabIndex = -1;
+    button.setAttribute('aria-controls', 'deepseek');
+    button.setAttribute('aria-selected', 'false');
+    const cross = document.getElementById('tab-cross');
+    if (cross) bar.insertBefore(button, cross); else bar.append(button);
+  }
   const tabs = [...bar.querySelectorAll('[role="tab"]')];
   const wide = matchMedia('(min-width:1000px)');
   const rails = new Map();
@@ -70,10 +79,11 @@
     const label = document.createElement('summary'); label.textContent = 'On this page'; rail.append(label);
     const nav = document.createElement('nav'); nav.setAttribute('aria-label', panel.id + ' review sections'); rail.append(nav); aside.append(rail); panel.prepend(aside); rails.set(panel, rail);
     const groups = panel.id === 'cross-check' ? [
-      ['Claude’s cross-check', headingIds.filter(id => id !== 'x-codex')],
+      ['Claude’s cross-check', headingIds.filter(id => id !== 'x-codex' && id !== 'ds-crosscheck')],
       ['Codex’s cross-check', ['x-codex', ...headings.filter(h => h.id.startsWith('cx-') && h.id !== 'cx-final').map(h => h.id)]],
-      ['Final recommendations', ['cx-final']]
-    ] : [[panel.id === 'codex' ? 'Codex review' : 'Claude review', headingIds]];
+      ['Final recommendations', ['cx-final']],
+      ['DeepSeek’s note', ['ds-crosscheck']]
+    ] : [[panel.id === 'codex' ? 'Codex review' : panel.id === 'other-ai' ? 'Claude review' : panel.id === 'deepseek' ? 'DeepSeek review' : 'Review', headingIds]];
     groups.forEach(([name, ids]) => {
       const group = document.createElement('details'); group.open = true; group.className = 'rail-group';
       const title = document.createElement('summary'); title.textContent = name; group.append(title);
