@@ -111,6 +111,23 @@ weakest_points_html = """
 <li><p><strong>The exactly-three category does not measure a transition to a third birth.</strong> The income gap is concentrated in families counted as having exactly three children. That does not establish that wealthy two-child families are especially likely to have another child. Conditioning on a count of at least two gives an income comparison of <strong>57.6% versus 51.0%</strong>, with a <strong>6.6-point gap and 95% interval of −1.4 to 14.5</strong>. The wealth comparison is significant. This limits the behavioral interpretation of the income result, while the main 49%-versus-40% comparison is supported.</p></li>
 <li><p><strong>The financial-insulation mechanism is not identified.</strong> Income and wealth are measured largely after childbearing. Selection, inheritance, partnership patterns and effects of children on earnings can influence the relationship. The historical top-income group’s estimated change has an interval spanning roughly <strong>a 10-point decline to an 11-point increase</strong>. The widening relative gap is supported, but an unchanged top-group share or insulation from childbearing pressures cannot be established. The policy argument is an interpretation of the pattern rather than an estimated treatment effect.</p></li>
 </ol></section>
+
+<section aria-labelledby="easiest-rebuttals">
+<h2 id="easiest-rebuttals" tabindex="-1">5 Easiest Rebuttals</h2>
+<ol>
+<li><p><strong>“You are just finding that rich parents still have children at home, while poorer parents’ children have moved out.”</strong></p>
+<p>The measure includes living children who have moved out. It adds the household roster count to X5910, the survey question about sons and daughters of either partner living elsewhere, including children from previous marriages and adopted children. It remains an imperfect family child count rather than an individual birth history; the post discloses possible overlap and resident children-in-law and tests specific counting corrections.</p></li>
+<li><p><strong>“This is just rich people remarrying and adding their spouses’ children together.”</strong></p>
+<p>That cannot fully explain the reported comparison. Among currently married couples in which both spouses report a first marriage, the gap remains positive and statistically significant using the original full-population income and wealth ranking universe, including after the specified duplicate-count correction. This does not eliminate every blended-family concern. Re-ranking only within first-marriage couples answers a different question and gives a smaller, imprecise wealth gap.</p></li>
+<li><p><strong>“The SCF oversamples rich people, so of course it makes big rich families look more common.”</strong></p>
+<p>The estimates use survey weights, not raw sample proportions. The top percentile represents approximately 1% of its weighted ranking population, despite containing far more than 1% of sample observations. Oversampling wealthy families does not mechanically create a higher child-count share within that group. The uncertainty calculations use the Fed’s replicate weights and account for multiple imputation.</p></li>
+<li><p><strong>“You manufactured the result by choosing a convenient definition of the top 1%.”</strong></p>
+<p>The main ranking compares families within five-year age bands and survey years. The positive gap also appears with broader age groups, national rankings, pooled-year rankings, alternative top-group cutoffs, and actual rather than usual income for the income comparison. Across the reported definitions, the gaps run about 7–15 percentage points by income and 9–16 by wealth. These are overlapping sensitivity checks, not independent replications or evidence that every possible sample restriction preserves the result.</p></li>
+<li><p><strong>“You have not proved that money causes a third child, so there is no finding here.”</strong></p>
+<p>The finding is descriptive: three-plus family child counts are more common in the top percentile than in the rest of the top decile under the stated definitions. The analysis does not identify a causal effect of money on births or observe transitions from a second child to a third. Affordability is a proposed explanation, and the policy conclusion is an argument informed by the pattern rather than an estimated treatment effect.</p></li>
+</ol>
+</section>
+
 """
 review_sections = [
     ('overall-assessment', 'Overall assessment'),
@@ -122,6 +139,7 @@ review_sections = [
     ('wording-changes', 'Wording and interpretation'),
     ('verification-scope', 'Verification and reproducibility'),
     ('weakest-points', 'Three Weakest Points'),
+    ('easiest-rebuttals', '5 Easiest Rebuttals'),
 ]
 contents_links = ''.join('<li><a href="#' + key + '">' + escape(label) + '</a></li>' for key, label in review_sections)
 contents_navigation = '<aside class="contents-rail"><details id="section-contents" open><summary>On this page</summary><nav aria-label="On this page"><p class="contents-label">On this page</p><ol class="contents-links">' + contents_links + '</ol></nav></details></aside>'
