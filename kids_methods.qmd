@@ -2,7 +2,7 @@
 title: "Kids and the top 1%: how the numbers were built"
 subtitle: "A guide to the SCF microdata, the sample, and every estimate in `blog_post_text.md`"
 author: "Mike Konczal"
-date: today
+date: 2026-10-16
 format:
   html:
     toc: true
@@ -21,8 +21,8 @@ execute:
 
 ```{r setup}
 #| include: false
-# Every number in this document is read from files the pipeline writes, so rerunning
-# the scripts (section 9) and re-rendering keeps text and estimates in sync.
+# Estimates are read from pipeline outputs. Survey definitions are checked against
+# the Fed codebooks; source links and verification scope are explicit below.
 suppressPackageStartupMessages({ library(data.table); library(haven) })
 nums <- fread("graphics/post_numbers.csv")
 num <- function(k) { v <- nums[item == k, value]; if (length(v) != 1) stop("post_numbers.csv: missing or duplicate item ", k); v }
@@ -32,7 +32,6 @@ p1 <- function(x) sprintf("%.1f", x)
 d2 <- function(x) sprintf("%.2f", x)
 usd <- function(x) ifelse(x >= 1e6, sprintf("$%.1f million", x / 1e6), sprintf("$%s", format(round(x / 1e3) * 1e3, big.mark = ",")))
 main <- readRDS("output/kids_main.rds")
-bl <- readRDS("output/kids_blended.rds")
 r5 <- readRDS("output/kids_rep5.rds")   # significance tests, pooled 2013-2025 (R/25_rep_inference.R)
 z5 <- function(rk, st) { z <- r5[rank == rk & stat == st]; if (nrow(z) != 1) stop("kids_rep5.rds: missing ", rk, " ", st); z }
 v5 <- function(rk, st) z5(rk, st)$est
@@ -40,7 +39,6 @@ v5 <- function(rk, st) z5(rk, st)$est
 g5 <- function(rk, st, d = 1) { z <- z5(rk, st); f <- paste0("%.", d, "f")
   sprintf(paste0("%+.", d, "f (SE ", f, "; 95%% CI ", f, " to ", f, ")"), z$est, z$se, z$lower, z$upper) }
 excl0 <- function(rk, st) { z <- z5(rk, st); if (z$lower > 0 || z$upper < 0) "the 95% interval excludes zero" else "the 95% interval includes zero" }
-ww <- readRDS("output/kids_wealth_work.rds")
 rec <- main[period == "2013-2025"]
 n_rec <- rec[, uniqueN(case)]
 n_top1 <- rec[inc_bin == "Top 1%", uniqueN(case)]
@@ -48,22 +46,22 @@ built <- nums$built_at[1]
 ```
 
 ::: {.callout-note}
-## What this is
+## Scope: the post and its two footnotes
 
-This document explains, from the ground up, how the children-by-income numbers in `blog_post_text.md` were produced: what the Survey of Consumer Finances (SCF) is, where its files live, the quirks of working with its microdata, how the sample and the children count are defined, how standard errors are computed, and which script produces which chart. Numbers below are pulled from `graphics/post_numbers.csv` (built `r built`) and the `output/` files.
+This is the methods companion to [the post](blog_post_text.md). It documents the stock-ownership statistic, the four figures actually embedded in the post, the income and wealth comparisons, the historical comparison, and the ranking and child-count checks in its footnotes. It also explains the microdata database well enough to reconstruct those results. Numerical tables read the saved analysis files; `graphics/post_numbers.csv` was built `r built`. The [separate fact check](factcheck.html) assesses the post's external sources and distinguishes empirical findings from interpretation.
 :::
 
 # The SCF in one page
 
-The Survey of Consumer Finances is a household survey run by the Federal Reserve Board every three years. It is the main source for the distribution of US household wealth. The modern, comparable series starts in 1989, so there are 13 waves through 2025. Each wave interviews roughly 3,000 to 6,500 families about their balance sheets (assets and debts), their income, and their demographics.
+The Survey of Consumer Finances is a family-finance survey sponsored by the Federal Reserve Board and conducted by NORC. It runs every three years and is a principal source for measuring the distribution of US family wealth. The 2025 results were [released on October 9, 2026](https://www.federalreserve.gov/newsevents/pressreleases/other20261009a.htm), so the post's "last week" is accurate as of October 16, 2026. The modern, comparable series starts in 1989, so there are 13 waves through 2025. Each wave interviews roughly 3,000 to 6,500 families about their balance sheets (assets and debts), their income, and their demographics.
 
 Three features of its design matter for this project.
 
 **It oversamples the rich, on purpose.** The SCF uses two samples. One is a standard area-probability sample of US households. The other is a "list sample" drawn from IRS Statistics of Income tax records, which heavily oversamples high-income and high-wealth families. People on the Forbes 400 list are excluded. Weights bring the combined sample back to the population. This is why the SCF can say something about the top 1%: a standard household survey of a few thousand families would have a few dozen of them at most.
 
-**"Family" and "head" have specific meanings.** The unit is the *primary economic unit* (PEU): the core individual or couple who own or rent the home, plus everyone financially dependent on them. It is almost always the same as the household. The Fed labels one person the "reference person," and calls them the "head" in its publications. The 2025 codebook defines the reference person as the single core individual in a PEU without a core couple, and in a couple as "the male in a mixed-sex couple or the older individual in the case of a same-sex couple." When this document says "head aged 45-64," it means that person's age.
+**"Family" and "head" have specific meanings.** The unit is the *primary economic unit* (PEU): the core individual or couple who own or rent the home, plus everyone financially dependent on them. A household can contain financially independent people outside its PEU, so "family" and "household" are not interchangeable statistical universes. The Fed labels one person the "reference person," and calls them the "head" in its publications. The 2025 codebook defines the reference person as the single core individual in a PEU without a core couple, and in a couple as "the male in a mixed-sex couple or the older individual in the case of a same-sex couple." When this document says "head aged 45-64," it means that person's age.
 
-**Timing.** Balance-sheet questions refer to the interview date. Income questions refer to the *previous calendar year*: the 2025 survey asks about 2024 income.
+**Timing.** Balance sheets refer to the interview date. Actual annual income refers to the *previous calendar year*: the 2025 survey asks about 2024 income. Usual income is a normal-year alternative to that actual amount, not income observed during 2025.
 
 # Where the data live
 
@@ -71,11 +69,13 @@ Everything is published at the Fed's SCF page, <https://www.federalreserve.gov/e
 
 | File | What it is | Fed file name (2025 example) | Where it lives here | Used for |
 |---|---|---|---|---|
-| **Summary extract** | About 350 cleaned, Fed-constructed variables per family (net worth, income, `KIDS`, age, marital status, race, education...) in a consistent format across waves. Dollar values are restated in 2025 dollars for every wave. | `scfp2025excel.zip` (one CSV inside, despite the name) | `data_raw/zips/`, unzipped to `data_raw/xlsx/SCFP{YEAR}.csv` | Income, net worth, age, children at home, weights, stock holdings |
-| **Full public data set** | Every question as asked, about 5,000+ raw variables named `X1`, `X5910`, etc. Dollar values are nominal. | `scf2025s.zip` (Stata `.dta` inside); older waves are `scf89s.zip` ... `scf2016s.zip` | `data_raw/full/p{YY}i6.dta` (1992 is `p92i4.dta`) | Children living elsewhere (`X5910`), prior marriages, work status and hours, wage income |
+| **Summary extract** | Roughly 350 cleaned, Fed-constructed variables per family (net worth, income, `KIDS`, age, marital status, race, education...) in a consistent format across waves. Dollar values are restated in 2025 dollars for every wave. | `scfp2025excel.zip` (one CSV inside, despite the name) | `data_raw/zips/`, unzipped to `data_raw/xlsx/SCFP{YEAR}.csv` | Income, net worth, age, children at home, weights, stock holdings |
+| **Full public data set** | Every question as asked, about 5,000+ raw variables named `X1`, `X5910`, etc. Dollar values are nominal. | `scf2025s.zip` (Stata `.dta` inside); 1989-2001 use two-digit years (`scf89s.zip` through `scf01s.zip`); 2004 onward use four digits | `data_raw/full/p{YY}i6.dta` (1992 is `p92i4.dta`) | Children living elsewhere (`X5910`), marriage histories, household relationships and residence, partner age |
 | **Replicate weights** | 999 bootstrap replicate weights for computing sampling standard errors. | `scf2025rw1s.zip` | `data_raw/rw/p{YY}_rw1.dta` (1989-1998 and 2013-2025) | Standard errors on the headline gaps |
 
-The **codebook** for each wave documents every `X` variable: exact question wording, codes, and disclosure edits. It is a plain-text file at `https://www.federalreserve.gov/econres/files/codebk{YEAR}.txt`. Copies for 2013, 2019, 2022 and 2025 are in `docs/`. To look up a variable, search the codebook for its name at the start of a line, for example `grep -n "^X5910" docs/codebk2025.txt`.
+The **codebook** for each wave documents every `X` variable: exact question wording, codes, and disclosure edits. It is a plain-text file at `https://www.federalreserve.gov/econres/files/codebk{YEAR}.txt`. Local copies for 2013, 2019, 2022 and 2025 are in `docs/`; these re-downloadable files are excluded from Git. For a fresh checkout, create `docs/` and download the desired codebooks from the Fed before looking up variables. To look up a variable, search the codebook for its name at the start of a line, for example `grep -n "^X5910" docs/codebk2025.txt`.
+
+The folder name `xlsx/` is historical: these inputs are CSV files, not Excel workbooks. An `.rds` file is a serialized R object, not a database server or an SQL database. Here it stores a `data.table` that can be read with `readRDS()`.
 
 The full-data files are large (about 0.2-0.3 GB each as `.dta`, 2.9 GB for all 13 waves). `R/01_download.R` fetches only the summary extracts. The full-data and replicate-weight files were downloaded by hand. To fetch them from scratch (run from the project root):
 
@@ -98,7 +98,7 @@ for f in data_raw/rw/*.zip; do unzip -o "$f" -d data_raw/rw; done
 
 When respondents skip a question or answer with a range, the Fed fills in the missing value by statistical imputation. Rather than release one guess, it releases **five complete copies of the data set** ("implicates"), each with a different random draw for the imputed values. So a file with 4,360 families has 21,800 rows.
 
-Two ID variables tie this together: `YY1` is the family's case number and `Y1` = 10 × `YY1` + implicate number (1 to 5). Here is one 2025 family across its five implicates. Age and the number of children at home were answered and are the same in every row; net worth and income contain imputed components and differ.
+Two ID variables tie this together: `YY1` is the family's case number and `Y1` = 10 × `YY1` + implicate number (1 to 5). Here is one 2025 family across its five implicates. Net worth and income differ in this example. Some demographic values can also differ across implicates; identical values do not by themselves establish that an answer was observed rather than imputed.
 
 ```{r}
 #| label: implicates
@@ -107,9 +107,9 @@ ex <- sx[year == 2025, if (uniqueN(NETWORTH) == 5 && uniqueN(INCOME) > 1) .SD, b
 ex[, .(year, YY1, Y1, implicate, AGE, KIDS, NETWORTH = round(NETWORTH), INCOME = round(INCOME), WGT = round(WGT))]
 ```
 
-The weight also differs slightly across implicates, because the Fed computes it separately for each one. That is another reason to always carry `WGT` row by row rather than attaching one weight per family.
+The released weight can also differ slightly across implicates. That is another reason to always carry `WGT` row by row rather than attaching one weight per family.
 
-The project's convention (in `R/scf_functions.R`) is to compute point estimates on the **pooled** file: all five implicates stacked, each weighted. For means this is very close to, but not exactly the same as, averaging the five implicate-level estimates: weights, and for subgroups such as income bins group membership, differ slightly across implicates. For the 3+ shares by income bin the difference is under 0.01 points. The spread *across* implicates is imputation uncertainty, and it enters the standard errors (section 6).
+The database stacks all five implicates and preserves each row's weight. Some descriptive calculations take a weighted mean on that pooled file; the headline inference and principal chart points average the five implicate-level estimates. These differ slightly when subgroup membership or weights vary. The largest audited difference among recent income-bin 3+ shares is below 0.01 percentage point. The spread across implicates enters the imputation component of the standard errors, as explained below.
 
 ## Weights are essential, and the extract's weight is pre-divided by 5
 
@@ -120,11 +120,11 @@ Because of the oversample, unweighted SCF statistics are meaningless for populat
 sx[, .(sample_families = uniqueN(YY1), rows = .N, us_families_millions = round(sum(WGT) / 1e6, 1)), by = year][order(year)]
 ```
 
-The oversample is visible in our own analysis sample. Pooling 2013-2025, families in the top 1% of income (for their age) are **`r n_top1`** of the **`r format(n_rec, big.mark = ",")`** families in the sample, or `r p0(100 * n_top1 / n_rec)` of the unweighted cases, though they represent 1% of families once weighted. That is what makes a top-1% estimate possible at all.
+The oversample is visible in our own analysis sample. Pooling 2013-2025, families in the top 1% of income (for their age) are **`r n_top1`** of the **`r format(n_rec, big.mark = ",")`** families in the sample, or `r p0(100 * n_top1 / n_rec)` of the unweighted cases, though their weighted share is approximately 1% within each age-band ranking. That is what makes a top-1% estimate possible at all.
 
 ## Dollar units differ between the two data sets
 
-The summary extract restates every wave in the dollars of the newest survey (2025 dollars, deflated by the Fed with CPI-U-RS). The full public data are in nominal dollars. In this project **all dollar amounts used in comparisons come from the extract** (`INCOME`, `NORMINC`, `NETWORTH`, `EQUITY`). From the full data we take only counts (children), codes (marital history, work status), hours, and wages used within a single wave (ranks and ratios), where nominal units do not matter.
+The summary extract restates every wave in the dollars of the newest survey (2025 dollars, deflated by the Fed with CPI-U-RS). The full public data are in nominal dollars. In this project **all dollar amounts used in comparisons come from the extract** (`INCOME`, `NORMINC`, `NETWORTH`, `EQUITY`). The post's child-count and marriage checks take only counts, codes and ages from the full data. They do not join nominal raw dollars to real extract dollars. Annual income is a flow; net worth is assets minus debts, a stock. Neither is equivalized for family size.
 
 ## Unasked questions are often coded 0, not missing
 
@@ -141,102 +141,127 @@ f25[y1 %% 10 == 1, .N, by = .(x5910)][order(x5910)]
 
 To protect respondents, the public data are altered before release: some values are top-coded (`X5910` at 10), rounded, or perturbed, and some variables are withheld. Published Fed tables use the internal data, so public-file estimates can differ slightly, especially means of skewed variables at the very top.
 
-# Building the analysis file
+# How the microdata database works
 
-The pipeline joins the summary extract to the full public data, family-implicate by family-implicate, on `Y1`.
+## Three files, three different jobs
 
+The summary extract supplies the harmonized financial and demographic variables. The full public file supplies the detailed family questions that the extract omits. Replicate weights supply alternative sample weights for uncertainty calculations; they do not add families or observations of births.
+
+The linkage is **survey year × family × implicate**. `YY1` identifies a family only within a survey year. `Y1` identifies its particular imputed record within that year. The first implicate of family 1001, for example, has `Y1 = 10011`; the fifth has `Y1 = 10015`. These are illustrative identifiers. `R/02_build_db.R` renames the 1989 identifiers `X1`/`XX1` to `Y1`/`YY1`, and derives `implicate = Y1 - 10 * YY1`.
+
+| Object | One row represents | Correct key | What it contains |
+|---|---|---|---|
+| `data_raw/xlsx/SCFP{YEAR}.csv` | A family in one implicate of one wave | `Y1` within the file | Fed summary variables, including `WGT`, `KIDS`, `AGE`, `NORMINC`, `INCOME`, `NETWORTH`, `EQUITY` |
+| `data_raw/full/p{YY}i6.dta` (1992: `i4`) | The same family-implicate record | `y1` or 1989 `X1`, within the wave | Raw question responses, including `X5910` |
+| `data/scf_linked.rds` | A summary-extract record with year attached | `(year, Y1)`, equivalently `(year, YY1, implicate)` | The 13 extracts stacked on a common schema |
+| `output/kids_main.rds` | An eligible family-implicate record | `(year, Y1)` | Ages 45-64, joined child count, ranks, bins and normalized weights |
+| `data_raw/rw/p{YY}_rw1.dta` | A family in implicate 1 | `y1` or 1989 `X1`, within the wave | 999 weight/multiplicity pairs |
+
+Joining on `YY1` alone would match each of five summary rows to five raw rows and create 25 rows per family. Joining on `Y1` without year would mix unrelated families across waves. The production merge uses `(year, Y1)` and retains the summary extract's weight. The independent raw-data audit additionally checks key uniqueness, identical ID sets, and the row-by-row relationship `5 * WGT = X42001` up to numerical precision.
+
+## Stacking is harmonization, not following families over time
+
+`R/02_build_db.R` reads all 13 CSVs, normalizes the identifier names and column types, drops the nonnumeric `WILSH` placeholder, and fills absent columns with `NA` when stacking. It checks implicates 1-5, equal row counts across implicates within each full wave, and no duplicate `Y1` within a wave. The resulting file has **`r format(nrow(sx), big.mark = ",")` rows and `r ncol(sx)` columns**. It is a repeated cross-section. A matching case number in 2019 and 2022 does not identify the same family.
+
+The substantive harmonization is explicit: usual-income categories are blanked where the usual-income amount was not collected (1989 and 1992), rather than treating populated category codes as comparable data. Financial variables keep the Fed's released 2025-dollar conversion. The code does not re-deflate them.
+
+`R/07_kids_income.R` reads selected columns from each full public file, normalizes raw names to lower case, adds year, and merges them onto the extract. It stops if the joined row count differs from the extract. It then constructs `kids`, applies the age restriction, computes ranks within each year/implicate/age band, and saves the analysis file. Selecting a few columns avoids loading every raw question into memory.
+
+The age restriction is applied to each implicate's `AGE`. If an imputed age crosses a sample boundary, a family need not have all five records in the restricted sample. This is why five times a count of unique families need not equal its analysis-row count. Reported family counts use `uniqueN(case)`, with `case = paste(year, YY1)`, and count a family if it is eligible in any implicate.
+
+## The path from raw responses to the post
+
+```text
+Fed summary CSVs -> R/02 -> data/scf_linked.rds
+                                   + full public responses -> R/07 -> output/kids_main.rds
+                                                                        |
+                     + replicate weights -> R/25 -> headline contrasts   |
+                                           R/26 -> ranking checks       |
+                                           R/27 -> period changes       |
+                                           R/28 -> bin intervals        |
+                     + raw roster/marital items -> R/29 -> counting checks
+                                                                        |
+                                           R/22 -> figures and post_numbers.csv
 ```
-R/01_download.R  -> data_raw/xlsx/SCFP{YEAR}.csv           summary extracts, 13 waves
-R/02_build_db.R  -> data/scf_linked.rds                    extracts stacked: 312,540 family-implicate rows
-R/07_kids_income.R  -> output/kids_main.rds                adds X5910 etc. from data_raw/full/*.dta, builds the sample
-R/24_kids_blended.R -> output/kids_blended.rds             remarried-couple robustness
-R/25_rep_inference.R -> output/kids_rep5.rds              significance tests, pooled 2013-2025
-R/26_top1_definitions.R -> output/kids_top1_defs.rds     robustness to the top-1% definition; definitions.html
-R/27_period_change_test.R -> output/kids_period_change.rds  1989-1998 vs. 2013-2025 change, replicate weights
-R/28_bin_intervals.R -> output/kids_bin_ci.rds              replicate-weight bands for the income and wealth charts
-R/29_family_count_checks.R -> output/kids_count_checks.rds  double-count and marriage-history checks (footnote 2)
-R/23_kids_wealth_work.R -> output/kids_wealth_work.rds     work hours within the top 1% by wealth
-R/22_post_kids_graphics.R -> graphics/*.png, graphics/post_numbers.csv
-```
 
-**`R/02_build_db.R`** reads the 13 extract CSVs and stacks them into one table, `scf_linked.rds`. It renames the 1989 IDs (`X1`/`XX1`) to `Y1`/`YY1`, computes `implicate`, and checks that every wave has implicates 1-5 with equal rows and no duplicate IDs. It stops with an error if any check fails. Its one edit to the Fed's values: the usual-income category variables are blanked in 1989 and 1992, because the usual-income dollar amount was not collected in those waves. It is a pooled cross-section, not a panel. Case 1001 in 2019 and case 1001 in 2022 are different families.
-
-**`R/07_kids_income.R`** reads a handful of raw variables from each wave's full file (handling the 1989 file's uppercase names and `X1` ID), merges them onto the extract by year and `Y1`, and checks that no rows are lost in the merge. It then defines everything below.
+`R/01_download.R` records the summary archive URL, MD5, size, file modification time and manifest-recording time in `data_raw/download_manifest.csv`. Modification and recording times are not proof of a fresh download: existing archives are reused unless `--force` is requested, which selects a datestamped raw-data directory. Other input hashes and independently checked source provenance are retained under `audit/`. Raw archives, codebooks and derived RDS files are excluded from Git, so a clone requires the downloads and rebuild steps below.
 
 # Definitions
 
 ## Children
 
 $$
-\text{kids} \;=\; \underbrace{\texttt{KIDS}}_{\text{children living at home}} \;+\; \underbrace{\max(\texttt{X5910},\,0)}_{\text{children living elsewhere}}
+\text{kids} \;=\; \underbrace{\texttt{KIDS}}_{\text{roster children}} \;+\; \underbrace{\max(\texttt{X5910},\,0)}_{\text{children living elsewhere}}
 $$
 
-- `KIDS` (summary extract): the number of household-roster members coded as a child of the reference person or spouse/partner. In the public file that roster code (4) is labeled "CHILD (in-law)", so `KIDS` also counts children-in-law living in the household. The roster also lists financially dependent children who do not usually live there (for example, college students), and they are counted too.
+- `KIDS` (summary extract): the number of household-roster members coded as a child of the reference person or spouse/partner. The Fed construction counts relationship codes 4, 13 and 36. In the recent public file, code 4 is labeled "CHILD (in-law)"; thus `KIDS` can include resident children-in-law. The independent audit reconstructs `KIDS` from all ten roster positions, with zero disagreements across the 13 waves. The roster also lists financially dependent children who do not usually live there (for example, college students), and they are counted too.
 - `X5910` (full data, asked in every wave since 1989): *"Altogether, including children from previous marriages and adopted children, how many sons and daughters do you (or your spouse/partner) have who do not live with you?"* Interviewers are told to include only living children and stepchildren. It is top-coded at 10 in the recent public files; three families in the 1989 and 1992 files report more (up to 16), which cannot change the 3+ share and barely moves the early-period means.
 
 The SCF never asks "how many children have you ever had." The sum above is the closest available measure. It counts adopted children and stepchildren, it counts children-in-law at home, and it misses children who have died. It is a count of children associated with the current family, not of births to one person.
 
-**Possible double count.** A dependent child who is on the roster but away from home (relationship code 4, with residence code 5, "does not usually live here") can be reported again in `X5910` as a child who does not live with the respondent. About 2.4% of top-1% families have both a roster-away child and `X5910` > 0. `R/29_family_count_checks.R` subtracts the maximum possible overlap, the smaller of those two counts, either from both groups or only from the top 1%. Both rankings retain positive, statistically significant gaps under these specified overlap corrections; the full table is in the counting-checks section below. These scenarios address possible duplication captured by the residence flags, not all child-count measurement error.
+**Possible double count.** A dependent child who is on the roster but away from home (relationship codes 4, 13 or 36, with residence code 5, "does not usually live here") can be reported again in `X5910` as a child who does not live with the respondent. Having both kinds of entries establishes possible overlap, not which children overlap. `R/29_family_count_checks.R` subtracts the maximum possible overlap, the smaller of those two counts, either from both groups or only from the top 1%. Both rankings retain positive, statistically significant gaps under these specified overlap corrections; the full table is in the counting-checks section below. These scenarios address possible duplication captured by the residence flags, not all child-count measurement error.
 
 ## Sample: families with a head aged 45 to 64
 
-Restricting to heads aged 45-64 means most families have finished having children and most children have not yet died. The count is still a family child count, not completed fertility (see above). The age is the reference person's, which in a mixed-sex couple is the man's, so a younger partner may still have children. The older-family check in `R/29_family_count_checks.R`, restricting to heads aged 50-64 with a partner aged at least 45 when present, also finds significant income and wealth gaps. The trade-off is that income and wealth are measured *after* the children arrive (section 8).
+Restricting to heads aged 45-64 reduces the problem of observing families before childbearing is complete, while `X5910` recovers living children who have left the household. It cannot establish that childbearing is complete for either partner. The count is still a family child count, not completed fertility (see above). The age is the reference person's, which in a mixed-sex couple is the man's, so a younger partner may still have children. The older-family check in `R/29_family_count_checks.R`, restricting to heads aged 50-64 with a partner aged at least 45 when present, also finds significant income and wealth gaps. The trade-off is that income and wealth are measured *after* the children arrive (see Interpretation below).
 
 ## Income and wealth ranks
 
-- **Income measure.** `NORMINC`, the family's "usual" income: respondents are asked whether last year's income was unusually high or low, and if so, what it would have been in a normal year. Using it keeps a one-off capital gain or a bad year from moving a family into or out of the top 1%. The usual-income dollar amount behind `NORMINC` was not collected in 1989 and 1992 (1992 asks only whether income was unusually high or low, `X7650`), so those waves use actual `INCOME`. Both include all sources: wages, business income, interest, dividends, capital gains, rents, transfers.
+- **Income measure.** `NORMINC`, the family's "usual" income: respondents are asked whether last year's income was unusually high or low, and if so, what it would have been in a normal year. Using it is intended to reduce rank changes caused by unusually high or low annual income; it does not eliminate transitory measurement error. The usual-income dollar amount behind `NORMINC` was not collected in 1989 and 1992 (1992 asks only whether income was unusually high or low, `X7650`), so those waves use actual `INCOME`. These are broad family-income measures, including wages, business income, interest, dividends, capital gains, rents and some transfers.
 - **Ranking within age band.** Each family gets a weighted percentile rank (the midpoint of its cumulative weight) among families **in the same survey year, implicate, and 5-year age band of the head** (45-49, 50-54, 55-59, 60-64). This compares families at the same stage of life: a 62-year-old near retirement is ranked against other 60-64-year-olds, not against 50-year-olds at peak earnings. Net worth (`NETWORTH`) is ranked the same way.
-- **Bins.** Ten deciles, with the top decile split into 90th-95th, 95th-99th and the top 1%.
+- **Bins and ties.** Twelve displayed bins: nine lower deciles and the top decile split into 90th-95th, 95th-99th and top 1%. Midpoint ranks assign whole records to bins, so weighted bin sizes are approximate. Equal financial values can be split by their deterministic record order rather than receiving a common tied rank. Replicate calculations sort by year and `Y1` before re-ranking.
 - **Dollar labels on the charts.** The x-axis labels show the income at each percentile cutoff among all heads 45-64 (pooled 2013-2025, 2025 dollars). Because the ranks are within age band and survey year, these are approximate: 58-87% of each bin's families fall inside its labeled range, best at the top. The top-1% cutoff is about **`r usd(num("income_cutoff_P99_2013_25"))`** of usual income; the median top-1% family has about **`r usd(num("median_usual_income_top1bin_2013_25"))`**.
 
 ## Pooling waves
 
-The 2025 wave has only `r num("n_top1_families_2025")` top-1% families in this age range, too few for stable estimates. The main estimates pool the five most recent surveys, **2013, 2016, 2019, 2022 and 2025**. The over-time chart uses three periods: 1989-1998, 2001-2010 and 2013-2025.
+The 2025 wave has only `r num("n_top1_families_2025")` top-1% families in this age range, too few for stable estimates. The main estimates pool the five most recent surveys, **2013, 2016, 2019, 2022 and 2025**. The post's historical chart compares 1989-1998 (four surveys) with 2013-2025 (five surveys). The database also retains 2001-2010, which is not displayed in the post.
 
 Within a period each **wave gets equal total weight** (`w = WGT / sum(WGT)` within each year and implicate). Without this, later waves would count for more simply because the population grew.
 
 # Estimation and standard errors
 
-**Point estimates.** Weighted shares and means on the pooled implicates, using `w`.
+## What is averaged, and over which denominator?
 
-**Approximate standard errors (now used only for the married-couple bin numbers and the period regression table; the chart bands use replicate weights, below).** For each implicate separately, a weighted regression of the outcome on bin dummies (`fixest::feols`, standard errors clustered on family, which within one implicate amounts to heteroskedasticity-robust errors). The five results are combined with **Rubin's rules**:
+The post reports weighted family shares, not the share of children living in each income group. For each wave $t$, implicate $m$ and family record $i$, define $a_{itm}=\mathrm{WGT}_{itm}/\sum_{i\in S_{tm}}\mathrm{WGT}_{itm}$, where $S_{tm}$ is the age-eligible sample. This gives each wave equal weight before pooling. For group $G$, the pooled-period share within an implicate is
 
 $$
-\bar{\theta} = \tfrac{1}{5}\textstyle\sum_m \hat{\theta}_m, \qquad
-T = \underbrace{\tfrac{1}{5}\textstyle\sum_m \widehat{V}_m}_{\text{within-implicate}} + \left(1+\tfrac{1}{5}\right)\underbrace{\tfrac{1}{4}\textstyle\sum_m (\hat{\theta}_m - \bar{\theta})^2}_{\text{between-implicate}}, \qquad \text{SE} = \sqrt{T}.
+\hat p_{Gm}=100\frac{\sum_t\sum_{i\in S_{tm}}a_{itm}\,1\{i\in G\}\,1\{\mathrm{kids}_{itm}\ge3\}}{\sum_t\sum_{i\in S_{tm}}a_{itm}\,1\{i\in G\}}.
 $$
 
-These ignore the SCF's stratified sample design, so they are approximate.
+Replace the final indicator in the numerator with `kids` for a mean, and omit the factor 100. Each wave has equal weight in the underlying sample; pooled group shares are ratios of summed moments, not an unweighted average of wave-specific group shares. Small differences in realized group mass can give different contributions to the subgroup denominator. In restricted-family checks, weights retain their full eligible-sample normalization and the numerator and denominator select the stated subgroup.
 
-**Replicate-weight standard errors (the significance claims).** The Fed's replicate-weight file gives 999 alternative weights for each family, each mimicking a redraw of the sample. `R/rep_se.R` follows the Fed's recipe:
+**The inference outputs average the five implicate-specific ratios:** $\hat p_G=\frac15\sum_m\hat p_{Gm}$. The principal chart points in `R/22` are also averages of implicate-specific bin estimates; `R/28` verifies that their points agree with its estimates. Some descriptive calculations, including the historical chart and the initial `R/07` tables, instead pool all five sets of weighted records and take one ratio. These conventions are very close here, but are not algebraically identical when subgroup denominators vary across implicates. The existing income-bin audit finds a largest discrepancy below 0.01 percentage point. This distinction is documented rather than silently changing an estimator. In particular, a comment in `R/scf_functions.R` saying pooled means are identical to the mean of implicate means is too strong for subgroup means.
 
-1. Compute the statistic on implicate 1 with each of the 999 replicate weights (replicate weight *r* = `wt1b`*r* × `mm`*r*).
-2. Sampling variance $V_s = \frac{1}{998}\sum_r (\hat{\theta}_r - \bar{\theta}_r)^2$.
-3. Add imputation variance: $\text{SE} = \sqrt{V_s + 1.2\,B}$, where $B$ is the variance of the statistic across the five implicates.
+## Sampling error and imputation error are different
 
-The headline significance tests (`R/25_rep_inference.R`) apply this recipe to all five pooled waves, 2013-2025, so they test the same estimates the charts show. Three details go beyond a single-wave calculation:
+The [Fed's standard-error documentation](https://www.federalreserve.gov/econres/files/Standard_Error_Documentation.pdf) requires accounting for both. The five implicates express uncertainty about missing responses; they are not five independent surveys. The 999 supplied bootstrap replicates express uncertainty from the complex sample design.
 
-- **Pooled estimator.** Each wave's weights are scaled to sum to one, so every survey counts equally, as in the charts. A pooled share is a ratio of moments summed across waves, and the point estimates equal the charted levels.
-- **Ranks re-estimated in every replicate.** "Top 1%" is itself an estimated percentile. Each replicate recomputes the income (or wealth) ranks within age band before assigning families to groups; holding ranks fixed would ignore that uncertainty, and for the main comparisons here it gives smaller standard errors.
-- **Independent waves.** Each wave's replicate variance is computed separately and combined through the derivative of the pooled ratio (delta method). The imputation term $1.2B$ is computed on the pooled statistic across the five implicates.
+`R/25_rep_inference.R` uses the first implicate for sampling variance. In each wave and replicate $r$, the effective weight is `wt1b{r} * mm{r}`; missing products are set to zero. Raw replicate IDs are matched to the first-implicate `Y1` IDs, including the 1989 `X1` naming exception where applicable. Within each replicate, weights are normalized again and financial ranks are recomputed within age band before group membership is assigned.
 
-**Chart bands.** `R/28_bin_intervals.R` applies the same recipe to every percentile bin on the income and wealth charts: replicate weights for all five waves, ranks re-estimated in each replicate (so uncertainty about which families fall in each bin is included), and imputation variance. Its top-1% values and SEs reproduce `R/25` exactly. The bands are pointwise intervals for each bin, not tests of differences between bins.
+For a single-wave statistic, sampling variance is the sample variance of 999 replicate estimates, with denominator 998. For the pooled statistics, `R/25` applies a delta-method gradient to each wave's replicate numerator/denominator moments, then sums variance contributions across waves, treating the surveys as independent cross-sections. This preserves the covariance between the top group and its comparison group. It is why subtracting two separately computed standard errors, or inspecting overlapping chart bands, is not a test of their difference.
 
-Intervals are normal approximations. The five-wave estimates and standard errors in `R/25` are cross-checked by `audit/audit_checks.R`. Single-wave replicate-weight results for 2019, 2022 and 2025 (`R/rep_se.R`, ranks held fixed) are included only to show wave-to-wave noise; they are not the headline inference.
+If $B=\frac14\sum_{m=1}^5(\hat\theta_m-\bar\theta)^2$ is the between-implicate variance of the **contrast itself**, the reported standard error is
+
+$$
+\operatorname{SE}(\hat\theta)=\sqrt{V_s+(1+1/5)B}.
+$$
+
+Intervals use $\hat\theta\pm1.96\operatorname{SE}$; p-values are two-sided normal approximations. "Statistically significant" in the post means a pointwise 95% interval excludes zero. These intervals are not adjusted for the many outcomes and sensitivity definitions examined.
+
+`R/28_bin_intervals.R` uses the same procedure for each charted bin. `R/27_period_change_test.R` adds independent sampling variance across the two periods and computes imputation variance on the recent-minus-early contrast. `R/26_top1_definitions.R` redefines the ranking population as stated in each row. Its ranking pooled across years depends jointly on all waves: production uses joint replicate moment draws, and the independent audit additionally perturbs each wave separately and re-estimates the common ranks.
+
+The exploratory regressions in `R/07` and single-wave calculations with fixed ranks are not the source of the post's headline significance claims. Those claims use `R/25` through `R/29`.
 
 # Every chart and number in the post
 
-## Chart 1: who owns the stock market (2025)
+## Stock ownership in the introduction (2025)
 
-![](graphics/01_stock_ownership_2025.png)
+All families in 2025 (not just ages 45-64), sorted by net worth. `EQUITY` from the extract is stock held directly *and* indirectly through mutual funds and retirement accounts. The bottom 50% by wealth own **`r p1(num("equity_share Ranked by wealth Bottom 50%"))`%** of stock (SE `r se_of("equity_share Ranked by wealth Bottom 50%")`); the wealthiest 10% own **`r p0(num("equity_share Ranked by wealth Top 10%"))`**. This is a share of families' direct and indirect stock holdings, not a share of all corporate equity outstanding. The ranking population is all ages; the fertility comparisons below use ages 45-64.
 
-All families in 2025 (not just ages 45-64), sorted by net worth. `EQUITY` from the extract is stock held directly *and* indirectly through mutual funds and retirement accounts. The bottom 50% by wealth own **`r p1(num("equity_share Ranked by wealth Bottom 50%"))`%** of stock (SE `r se_of("equity_share Ranked by wealth Bottom 50%")`); the wealthiest 10% own **`r p0(num("equity_share Ranked by wealth Top 10%"))`**. `r p0(num("stock_owners_pct_2025"))` of families own any stock. Ranking by stock holdings instead of wealth gives a top-10% share of `r p0(num("equity_share Ranked by stock holdings Top 10%"))`, which is why the post says "wealthiest 10%." Standard errors use 2025 replicate weights.
-
-## Charts 2 and 3: children by income, 2013-2025
+## Income figure and the exactly-three comparison, 2013-2025
 
 ![](graphics/02_three_plus_kids_by_income.png)
 
-![](graphics/03_mean_kids_by_income.png)
 
 | Income group | 3+ children | SE | Average children | SE |
 |---|---|---|---|---|
@@ -251,31 +276,16 @@ All families in 2025 (not just ages 45-64), sorted by net worth. `EQUITY` from t
 Standard errors in the table are replicate-weight SEs for each bin (`R/28_bin_intervals.R`; percentage points and children), the same ones that draw the chart bands. The formal tests use replicate weights on the pooled 2013-2025 sample (`R/25_rep_inference.R`):
 
 - Top 1% vs. 90th-99th, share with 3+ children: **`r g5("inc_rank", "all_gap3")` points**; `r excl0("inc_rank", "all_gap3")`.
-- Where the gap sits: `r p0(v5("inc_rank", "all_top_exact3"))` of the top 1% have exactly three children, against `r p0(v5("inc_rank", "all_aff_exact3"))` of the 90th-99th (gap `r g5("inc_rank", "all_gap_exact3")` points). Four or more: `r p0(v5("inc_rank", "all_top_4plus"))` vs. `r p0(v5("inc_rank", "all_aff_4plus"))` (gap `r g5("inc_rank", "all_gap_4plus")`). The excess is at the third child.
-- Top 1% vs. the middle (40th-60th): `r g5("inc_rank", "all_gapmid3")` points. The lower end of the interval is `r d2(z5("inc_rank", "all_gapmid3")$lower)`, borderline at best given the many comparisons examined, so the post compares the 1% with the affluent rather than with everyone.
-- Average children, top 1% vs. 90th-99th: `r g5("inc_rank", "all_gapkids", 2)`; `r excl0("inc_rank", "all_gapkids")`. The post reports the two averages without claiming a difference.
+- Where the gap sits: `r p0(v5("inc_rank", "all_top_exact3"))` of the top 1% have exactly three children, against `r p0(v5("inc_rank", "all_aff_exact3"))` of the 90th-99th (gap `r g5("inc_rank", "all_gap_exact3")` points). Four or more: `r p0(v5("inc_rank", "all_top_4plus"))` vs. `r p0(v5("inc_rank", "all_aff_4plus"))` (gap `r g5("inc_rank", "all_gap_4plus")`). The excess is concentrated in the exactly-three category; this does not measure a transition to a third birth.
+- Average children, top 1% vs. 90th-99th: `r g5("inc_rank", "all_gapkids", 2)`; `r excl0("inc_rank", "all_gapkids")`. The estimated average is higher, but the interval includes zero, as the post states.
 
-The pattern is not stable wave to wave: in 2025 alone the gap is `r sprintf("%+.0f", num("rw 2025 gap_top1_p90_99"))` points (SE `r round(se_of("rw 2025 gap_top1_p90_99"))`), in 2022 it is `r sprintf("%+.0f", num("rw 2022 gap_top1_p90_99"))` (SE `r round(se_of("rw 2022 gap_top1_p90_99"))`). Pooling is necessary.
-
-**Blended families.** A natural worry is that rich men remarry and combine children from several relationships. The public SCF cannot identify stepchildren directly, but it does record whether each partner's marriage was their first (`X7377`, `X7392`). `R/24_kids_blended.R` drops couples where either partner has been married more than once (code 2 on either question), keeping each family's rank from the full sample. Those couples report more children on average (`r d2(bl$couples_overall$remarried)` vs. `r d2(bl$couples_overall$first_marr)` for first-marriage couples). Without them, the gap holds under both rankings in the five-wave replicate-weight tests: by income, `r g5("inc_rank", "no_remarried_gap3")` points; by wealth, `r g5("nw_rank", "no_remarried_gap3")` points. Among couples where both partners report a first marriage, the income gap is `r g5("inc_rank", "first_marriage_gap3")` points. The remarried flag is a proxy: the summary `MARRIED` flag includes cohabiting couples, so a divorced person married only once and now living with a new partner is not dropped, and it misses children from earlier non-marital relationships, so this rules out remarriage as the explanation, not every kind of blended family.
-
-## Charts 4 and 4b: has this changed over time?
+## Historical figure: 1989-1998 versus 2013-2025
 
 ![](graphics/04_three_plus_kids_by_period.png)
 
-![](graphics/04b_mean_kids_by_period.png)
+The figure compares age-eligible repeated cross-sections, with the same within-year, within-implicate, five-year-age-band ranks. It is not a panel following the same families or a time series of births. The overall share with 3+ children declines from `r p1(100 * weighted.mean(main[period == "1989-1998", kids >= 3], main[period == "1989-1998", w]))`% to `r p1(100 * weighted.mean(rec$kids >= 3, rec$w))`%.
 
-Same sample and definitions, run separately for 1989-1998, 2001-2010 and 2013-2025, using all 13 waves. Chart 4, in the post, compares only the two endpoints, 1989-1998 and 2013-2025; chart 4b (not in the post) shows all three periods. Ranks are within each wave, so these charts use percentile labels, not dollars (real incomes at a given percentile differ across periods). The top 1% share with 3+ children is `r p0(num("share3p 1989-1998 Top 1%"))`, `r p0(num("share3p 2001-2010 Top 1%"))` and `r p0(num("share3p 2013-2025 Top 1%"))` across the three periods; the middle (50th-60th) goes from `r p0(num("share3p 1989-1998 P50-60"))` to `r p0(num("share3p 2013-2025 P50-60"))`.
-
-A regression of 3+ children on a top-1% dummy, with age and year fixed effects, among the top 10% only, gives the top-1% gap relative to the 90th-99th in each period:
-
-| Period | Gap (points) | SE (approx.) |
-|---|---|---|
-| 1989-1998 | `r sprintf("%+.1f", num("gap_top1_vs_p90_99_ageyear 1989-1998"))` | `r p1(se_of("gap_top1_vs_p90_99_ageyear 1989-1998"))` |
-| 2001-2010 | `r sprintf("%+.1f", num("gap_top1_vs_p90_99_ageyear 2001-2010"))` | `r p1(se_of("gap_top1_vs_p90_99_ageyear 2001-2010"))` |
-| 2013-2025 | `r sprintf("%+.1f", num("gap_top1_vs_p90_99_ageyear 2013-2025"))` | `r p1(se_of("gap_top1_vs_p90_99_ageyear 2013-2025"))` |
-
-The regression SEs above are approximate. `R/27_period_change_test.R` gives the design-based test of the change between 1989-1998 and 2013-2025, using the same estimator as `R/25`: replicate weights for all nine waves, ranks re-estimated in every replicate, each wave weighted equally within its period, independent waves, and imputation variance on the period difference itself. Its 2013-2025 gaps reproduce `R/25` exactly. Because the early period mixes income measures (actual income in 1989 and 1992, when the usual-income amount was not collected), it also ranks by actual income in every wave, and by net worth.
+`R/27_period_change_test.R` directly tests the change, rather than inferring it from one period being significant and another not. The table shows levels in percent and changes in percentage points, with 95% intervals. Because usual-income amounts were not collected in 1989 and 1992, the production-income series mixes actual and usual income in its early period. The all-actual-income sensitivity preserves an income definition across periods; net worth supplies another check.
 
 ```{r}
 #| label: period-change
@@ -289,17 +299,17 @@ pt <- rbindlist(lapply(unique(pc$rank), function(r) { z <- pc[rank == r]; g <- f
 knitr::kable(pt)
 ```
 
-Under all three rankings the gap widened significantly. That widening comes from the 90th-99th, whose 3+ share fell about 13 points; the top 1% share shows no detectable change, though its interval is wide (roughly plus or minus 10 points). Intervals are pointwise.
+Under all three rankings the gap widened significantly. The 90th-99th share fell roughly 13-14 points; the top 1% share shows no detectable change, though its interval is wide (roughly plus or minus 10 points). Intervals are pointwise.
 
-## Charts 5 and 5b: ranking by wealth instead of income
+## The two wealth figures
 
 ![](graphics/05_three_plus_kids_by_networth.png)
 
 ![](graphics/05b_mean_kids_by_networth.png)
 
-Identical to charts 2 and 3, but families are ranked by net worth within age band. The top-1% wealth cutoff is about **`r usd(num("networth_cutoff_P99_2013_25"))`**. The share with 3+ children peaks at `r p0(num("share3p_networth_2013_25 P20-30"))` in the 20th-30th percentile (about `r usd(num("networth_cutoff_P20_2013_25"))` to `r usd(num("networth_cutoff_P30_2013_25"))`), falls to `r p0(num("share3p_networth_2013_25 P70-80"))` in the 70th-80th (about `r usd(num("networth_cutoff_P70_2013_25"))` to `r usd(num("networth_cutoff_P80_2013_25"))`), then is `r p0(num("share3p_networth_2013_25 Top 1%"))` at the top 1%. Average children follow the same shape: `r d2(num("mean_kids_networth_2013_25 P20-30"))`, `r d2(num("mean_kids_networth_2013_25 P70-80"))`, and `r d2(num("mean_kids_networth_2013_25 Top 1%"))`.
+The sample, family child count and inference are the same as for income; families are instead ranked by net worth within year, implicate and age band. The top-1% wealth cutoff is about **`r usd(num("networth_cutoff_P99_2013_25"))`**. The share with 3+ children peaks at `r p0(num("share3p_networth_2013_25 P20-30"))` in the 20th-30th percentile (about `r usd(num("networth_cutoff_P20_2013_25"))` to `r usd(num("networth_cutoff_P30_2013_25"))`), falls to `r p0(num("share3p_networth_2013_25 P70-80"))` in the 70th-80th (about `r usd(num("networth_cutoff_P70_2013_25"))` to `r usd(num("networth_cutoff_P80_2013_25"))`), then is `r p0(num("share3p_networth_2013_25 Top 1%"))` at the top 1%. Average children follow the same shape: `r d2(num("mean_kids_networth_2013_25 P20-30"))`, `r d2(num("mean_kids_networth_2013_25 P70-80"))`, and `r d2(num("mean_kids_networth_2013_25 Top 1%"))`.
 
-Replicate-weight tests on the pooled 2013-2025 sample, top 1% vs. 90th-99th by wealth: `r g5("nw_rank", "all_gap3")` points for the share with 3+ children (`r excl0("nw_rank", "all_gap3")`), and `r g5("nw_rank", "all_gapkids", 2)` for average children. Excluding remarried couples: `r g5("nw_rank", "no_remarried_gap3")` points. The wealth result is at least as strong as the income one. An earlier three-wave test (2019-2025) made it look weaker because it left out 2013 and 2016, the waves with the largest wealth gaps.
+Replicate-weight tests on the pooled 2013-2025 sample, top 1% vs. 90th-99th by wealth: `r g5("nw_rank", "all_gap3")` points for the share with 3+ children (`r excl0("nw_rank", "all_gap3")`), and `r g5("nw_rank", "all_gapkids", 2)` for average children. The top-1% and 90th-99th means are `r d2(v5("nw_rank", "all_topkids"))` and `r d2(v5("nw_rank", "all_affkids"))`. Four-or-more-child shares are `r p1(v5("nw_rank", "all_top_4plus"))`% and `r p1(v5("nw_rank", "all_aff_4plus"))`%; their difference is `r g5("nw_rank", "all_gap_4plus")` points.
 
 ## Robustness: how the top 1% is defined
 
@@ -319,7 +329,7 @@ knitr::kable(tab[, -"id"], col.names = c("Definition", names(tab)[3:4]))
 
 ## Counting checks (footnote 2 of the post)
 
-`R/29_family_count_checks.R` reruns the headline test (top 1% vs. 90th-99th, share with 3+ children) under the counting and family-history checks cited in the post's second footnote. Ranks always come from the full sample, so each check changes only which families, or which children, enter the comparison. The overlap corrections subtract the largest possible double count, `min(A, B)`, where A is roster children who do not usually live in the household (relationship code 4 with residence code 5) and B is `X5910`. "Currently married, first marriage" requires both partners to be currently married to each other (`X8023` = 1, `X105` = 1) and both to report a first marriage, so unlike `R/24`'s flag it excludes cohabiters. The older-family check keeps heads aged 50-64 whose spouse or partner, if present, is at least 45 (`X19`). The script checks that its baseline reproduces `R/25` and that the separate checks reproduce the independent audit (`audit/review_20261015/results/independent_inference.csv`).
+`R/29_family_count_checks.R` reruns the headline test (top 1% vs. 90th-99th, share with 3+ children) under the counting and family-history checks cited in the post's second footnote. Ranks come from the full age-eligible sample before the extra restriction, and are re-estimated from that sample in every replicate. Thus these checks change which families or children enter the comparison, without redefining wealth or income ranks inside the restricted subgroup. The overlap corrections subtract the largest possible double count, `min(A, B)`, where A is roster children who do not usually live in the household (relationship codes 4, 13 or 36 with residence code 5) and B is `X5910`. "Currently married, first marriage" requires both partners to be currently married to each other (`X8023` = 1, `X105` = 1) and both to report a first marriage, so unlike `R/24`'s flag it excludes cohabiters. The older-family check keeps heads aged 50-64 whose spouse or partner, if present, is at least 45 (`X19`). The script checks that its baseline reproduces `R/25` and that the separate checks reproduce the independent audit (`audit/review_20261015/results/independent_inference.csv`).
 
 ```{r}
 #| label: count-checks
@@ -337,29 +347,17 @@ knitr::kable(ct)
 
 All intervals exclude zero; the adverse combined wealth check only narrowly (lower bound `r sprintf("%.1f", cc[rank == "nw_rank" & spec == "strict_first_overlap_top", lower])`). These checks address specific counting problems. They cannot identify births to one person or rule out every kind of blended family, for example children from earlier non-marital relationships.
 
-## Work hours within the top 1% by wealth
+# Interpretation and limits
 
-`R/23_kids_wealth_work.R` adds usual weekly hours on the main job for the head (`X4110`) and spouse/partner (`X4710`), summed, with 0 for those not working. Among families in the top 1% of wealth (pooled 2013-2025):
+The outcome is an imperfect current-family child count. It includes adopted children, stepchildren and resident children-in-law, excludes deceased children, and can overlap across roster and elsewhere responses. It does not recover births to a particular woman or the probability that a two-child parent subsequently has a third birth. "Exactly three" describes the composition of the cross-section, not a birth transition.
 
-```{r}
-#| label: hours
-h <- rbind(ww$top1w_by_hours[, sample := "All families"],
-           ww$top1w_by_hours_excl_remarried[, sample := "Excluding remarried couples"])
-h[, .(sample, group, `3+ children (%)` = round(share3p, 1), SE = round(se3, 1), families = n_fam,
-      `median hours` = med_hours, `median net worth ($M)` = round(med_nw_m, 1))]
-```
+The strict current-first-marriage and overlap checks support the particular robustness claims in footnote 2. They cannot rule out children from earlier non-marital relationships, misclassification of resident adult children, or every form of differential reporting. Broader measurement sensitivities are retained in [the audit documentation](audit/README.md), including results whose intervals include zero. Those sensitivities change the measure or population and do not justify a claim that every conceivable correction preserves significance.
 
-The difference (under 40 minus 40+ hours) is `r sprintf("%+.1f", ww$top1w_hours_gap[sample == "All families", est])` points (SE `r p1(ww$top1w_hours_gap[sample == "All families", se])`), or `r sprintf("%+.1f", ww$top1w_hours_gap[sample != "All families", est])` (SE `r p1(ww$top1w_hours_gap[sample != "All families", se])`) without remarried couples. Hours are measured at 45-64, long after most children were born.
+The estimates associate child counts with income and wealth measured at ages 45-64. Childbearing can itself affect later earnings and wealth, and family formation, preferences, inheritance and other omitted factors can affect both. There is no design here identifying the causal effect of money, childcare prices, or a policy on births. Nor does the survey measure whether a third child is a status symbol. The post's proposed mechanism and policy argument are interpretations, not estimated effects.
 
-# Caveats
+The top-1% income share changes little between the early and recent periods, but its change interval is wide. Failure to detect a change does not establish an unchanged population share or show that rich families were insulated from every childbearing pressure. Income and wealth rankings also select different families. Their results are related checks on the same surveys, not independent replications.
 
-- **Reverse causation.** Income, wealth and hours are measured when the head is 45-64, after the children. Children can lower family earnings (especially mothers'), which would push large families down the income ranks in the middle of the distribution more than at the top, where wages are a smaller share of income. The post treats the results as correlations.
-- **Children count.** Includes stepchildren, adopted children and children-in-law at home; excludes children who died; can double-count a dependent child away from home (see Definitions). "Remarried couple" is a proxy for possible stepchildren, not a direct measure: it misses children from earlier non-marital relationships. Never-married cohabiting partners count as not remarried, but they are excluded from the stricter "first-marriage couple" group, which requires both partners to report a first marriage. Cohabiting partners who were married once before report that marriage as their first, so they count as not remarried and can fall in the "first-marriage couple" group.
-- **Family counts.** Reported numbers of families count a family in a bin if it falls there in any implicate, so they slightly overstate per-implicate cell sizes. Estimates are unaffected.
-- **Age-band ranks.** "Top 1%" means top 1% among families whose head is the same age, in the same survey year. Dollar labels on charts are approximate. Other definitions of the top group give the same result (see the robustness section).
-- **Public-data edits** (top-coding, rounding, perturbation) mainly affect the very top.
-- **Chart bands.** Pointwise 95% intervals for each group, from replicate weights with ranks re-estimated (`R/28_bin_intervals.R`). Overlapping bands do not mean a gap is insignificant: the top 1% vs. 90th-99th gaps are tested directly (`R/25_rep_inference.R`).
-- **Who is the head.** In mixed-sex couples the reference person is the man, so "head aged 45-64" is the man's age. For families where the woman is younger, her childbearing may be less complete.
+Dollar labels describe pooled financial cutoffs in 2025 dollars and are approximate because the actual bins are age- and year-specific. Counts of sample families are unweighted case counts; percentages and means use survey weights. The chart bands are pointwise bin intervals; the reported gaps are tested directly. Public-data disclosure edits and the omission of the Forbes 400 limit interpretation at the extreme top.
 
 # Reproducing everything
 
@@ -370,8 +368,6 @@ mkdir -p data_raw/full data_raw/rw output   # before the hand downloads (section
 Rscript R/01_download.R            # summary extracts -> data_raw/xlsx/, writes data_raw/download_manifest.csv
 Rscript R/02_build_db.R            # -> data/scf_linked.rds
 Rscript R/07_kids_income.R         # -> output/kids_main.rds (needs data_raw/full/*.dta)
-Rscript R/24_kids_blended.R        # -> output/kids_blended.rds (needs data_raw/rw/*.dta)
-Rscript R/23_kids_wealth_work.R    # -> output/kids_wealth_work.rds
 Rscript R/25_rep_inference.R       # -> output/kids_rep5.rds (needs data_raw/rw/*.dta, 2013-2025)
 Rscript R/26_top1_definitions.R    # -> output/kids_top1_defs.rds, definitions.html
 Rscript R/27_period_change_test.R  # -> output/kids_period_change.rds (needs data_raw/rw/*.dta, 1989-1998 too)
@@ -381,7 +377,7 @@ Rscript R/22_post_kids_graphics.R  # -> graphics/*.png, graphics/post_numbers.cs
 quarto render kids_methods.qmd     # this document
 ```
 
-Order matters: 07 first; 24, 25 and 28 before 22 (22 reads their outputs); 26, 27 and 29 after 25 (they check their baselines against it); and everything before rendering this file. Checks that a run worked: 02 prints families per wave (about 4,360 sample families and 135 million US families in 2025); 07 prints the main sample size (`r format(main[, uniqueN(case)], big.mark = ",")` families across 13 waves); 22 ends by reporting that it wrote `r nrow(nums)` numbers to `graphics/post_numbers.csv`.
+Order matters: 02 before 07; 25 and 28 before 22; 26, 27 and 29 after 25 (they check their baselines against it); and all required outputs before rendering. The broader graphics script also writes supplementary figures and exploratory numbers absent from the post. They are not additional evidence claimed by this companion. Work-hours and the older remarriage-proxy scripts are not dependencies of this document. Checks that a run worked: 02 prints families per wave (about 4,360 sample families and 135 million US families in 2025); 07 prints the main sample size (`r format(main[, uniqueN(case)], big.mark = ",")` families across 13 waves); 22 ends by reporting that it wrote `r nrow(nums)` numbers to `graphics/post_numbers.csv`.
 
 R packages: `data.table`, `haven`, `fixest`, `ggplot2`, `scales`, `ragg`, `dplyr` (for `all_of` when selecting columns from `.dta` files).
 
@@ -396,8 +392,6 @@ R packages: `data.table`, `haven`, `fixest`, `ggplot2`, `scales`, `ragg`, `dplyr
 | `R/01_download.R`, `R/02_build_db.R` | Summary-extract download and stacking |
 | `R/07_kids_income.R` | Merge with full data; children count; sample; ranks |
 | `R/22_post_kids_graphics.R` | All charts and `post_numbers.csv` |
-| `R/23_kids_wealth_work.R` | Work hours within the top 1% by wealth |
-| `R/24_kids_blended.R` | Remarried-couple robustness |
 | `R/25_rep_inference.R` | Significance tests: replicate weights, pooled 2013-2025, ranks re-estimated |
 | `R/26_top1_definitions.R`, `definitions.html` | Robustness of the headline test to the definition of the top 1% |
 | `R/27_period_change_test.R` | Design-based test of the 1989-1998 vs. 2013-2025 change |
@@ -405,3 +399,9 @@ R packages: `data.table`, `haven`, `fixest`, `ggplot2`, `scales`, `ragg`, `dplyr
 | `R/29_family_count_checks.R` | Double-count and marriage-history checks (post footnote 2) |
 | `data_raw/` | Raw Fed files (zips kept as the record of what was downloaded) |
 | `docs/codebk*.txt` | Fed codebooks |
+
+## Verification trail and external context
+
+The dated audit files preserve separate implementations of the estimators, rather than merely reprinting production tables. `audit/review_20261015/independent_checks.R` reconstructs counts, weights and ranks from the raw CSV and Stata files and checks them against production. The band audit independently checks all 48 bin estimates and standard errors. The revision audit checks alternative ranks, historical changes, and an independent-wave variance calculation for ranks pooled across years. See [audit/README.md](audit/README.md) for commands and the distinction between primary claims and supplementary sensitivities.
+
+The post's economic framing comes from [Doepke et al. (2022), author-hosted working paper](https://tertilt.vwl.uni-mannheim.de/research/HandbookFertility_WP_NBER.pdf), and [Bar et al. (2018)](https://s3.amazonaws.com/real.stlouisfed.org/wp/2018/2018-022.pdf). These papers motivate the exercise; this SCF count is not a replication of their fertility measures. The specific literature attributions, Haspel article, and New York Times quotation are assessed in [factcheck.html](factcheck.html).

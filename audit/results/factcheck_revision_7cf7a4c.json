@@ -1,0 +1,96 @@
+{
+  "review_date": "2026-10-16",
+  "previous_review_commit": "f081bc0118f9dfff00fb7ed62dff2fb95a19c2e7",
+  "previous_review_md5": "b4631fbaaafadc58db5c5f6bcd23b55d",
+  "reviewed_commit": "7cf7a4c964976b79e64cd5ec120bdc133dde6d93",
+  "reviewed_md5": "9a8bac3c4cd16ba70befe215fc228b62",
+  "working_copy_matches_commit": true,
+  "unchanged_audited_input_and_script_files": [
+    "data/scf_linked.rds",
+    "output/kids_main.rds",
+    "data_raw/xlsx/SCFP1989.csv",
+    "data_raw/xlsx/SCFP1992.csv",
+    "data_raw/xlsx/SCFP1995.csv",
+    "data_raw/xlsx/SCFP1998.csv",
+    "data_raw/xlsx/SCFP2001.csv",
+    "data_raw/xlsx/SCFP2004.csv",
+    "data_raw/xlsx/SCFP2007.csv",
+    "data_raw/xlsx/SCFP2010.csv",
+    "data_raw/xlsx/SCFP2013.csv",
+    "data_raw/xlsx/SCFP2016.csv",
+    "data_raw/xlsx/SCFP2019.csv",
+    "data_raw/xlsx/SCFP2022.csv",
+    "data_raw/xlsx/SCFP2025.csv",
+    "data_raw/full/p89i6.dta",
+    "data_raw/full/p92i4.dta",
+    "data_raw/full/p95i6.dta",
+    "data_raw/full/p98i6.dta",
+    "data_raw/full/p01i6.dta",
+    "data_raw/full/p04i6.dta",
+    "data_raw/full/p07i6.dta",
+    "data_raw/full/p10i6.dta",
+    "data_raw/full/p13i6.dta",
+    "data_raw/full/p16i6.dta",
+    "data_raw/full/p19i6.dta",
+    "data_raw/full/p22i6.dta",
+    "data_raw/full/p25i6.dta",
+    "data_raw/rw/p89_rw1.dta",
+    "data_raw/rw/p92_rw1.dta",
+    "data_raw/rw/p95_rw1.dta",
+    "data_raw/rw/p98_rw1.dta",
+    "data_raw/rw/p13_rw1.dta",
+    "data_raw/rw/p16_rw1.dta",
+    "data_raw/rw/p19_rw1.dta",
+    "data_raw/rw/p22_rw1.dta",
+    "data_raw/rw/p25_rw1.dta",
+    "R/01_download.R",
+    "R/02_build_db.R",
+    "R/07_kids_income.R",
+    "R/22_post_kids_graphics.R",
+    "R/23_kids_wealth_work.R",
+    "R/24_kids_blended.R",
+    "R/25_rep_inference.R",
+    "R/26_top1_definitions.R",
+    "R/27_period_change_test.R",
+    "R/28_bin_intervals.R",
+    "R/29_family_count_checks.R",
+    "R/rep_se.R",
+    "R/scf_functions.R"
+  ],
+  "text_diff": "diff --git a/blog_post_text.md b/blog_post_text.md\nindex ee605ce..d9fa6ad 100644\n--- a/blog_post_text.md\n+++ b/blog_post_text.md\n@@ -6,9 +6,9 @@ So let's get to kids. Measuring this is going to be tough because, while we get\n \n For kids, I combine the SCF's household child count with its count of living sons and daughters of either partner who live elsewhere. This includes adopted children and stepchildren. It can also include resident children-in-law and count some children away from home twice, so it is an imperfect family child count, not a direct measure of births. I check these counting concerns below.\n \n-Now, the generic, textbook view is that with more income, you have fewer kids. That's what we've seen historically across countries. However, there's a “new era” of economics and fertility research that finds, across rich countries, “the income-fertility relationship has flattened and in some cases reversed, and the cross-country relationship between women's labor force participation and fertility is now positive” [(Doepke et al., 2022)](https://www.nber.org/papers/w29948). People have been writing about this for some time. Economists are increasingly finding a “U-shaped” figure in income (and, in some work, education) for fertility, with some proposing that buying child care cheaply relative to their incomes helps explain it [(Bar et al., 2018)](https://doi.org/10.20955/wp.2018.022). The child and family policy expert Elliot Haspel [wrote in 2019](https://www.romper.com/life/when-people-cant-afford-another-child-we-know-big-families-are-only-for-the-rich-15649230) that when child care costs as much as it does, big families become something only the rich can afford. He finds a remarkable quote from a [2014 *New York Times* article](https://www.nytimes.com/2014/04/10/fashion/The-Growing-Three-Child-Household-in-Manhattan.html) where a New Yorker father says \"At some level, the third child is a proxy for having enough wealth to have a very comfortable life.\"\n+Now, the generic, textbook view is that with more income, you have fewer kids. That's what we've seen historically across countries. However, there's a “new era” of economics and fertility research that finds, across rich countries, “the income-fertility relationship has flattened and in some cases reversed, and the cross-country relationship between women's labor force participation and fertility is now positive” [(Doepke et al., 2022)](https://www.nber.org/papers/w29948). People have been writing about this for some time. Economists are increasingly finding that higher incomes increased fertility [(Bar et al., 2018)](https://doi.org/10.20955/wp.2018.022), and even a “U-shaped” relationship for education [(Hazan and Zoabi, 2015)](https://doi.org/10.1111/ecoj.12148), with some proposing that buying child care cheaply relative to their incomes helps explain it. The child and family policy expert Elliot Haspel [wrote in 2019](https://www.romper.com/life/when-people-cant-afford-another-child-we-know-big-families-are-only-for-the-rich-15649230) that when child care costs as much as it does, big families become something only the rich can afford. He finds a remarkable quote from a [2014 *New York Times* article](https://www.nytimes.com/2014/04/10/fashion/The-Growing-Three-Child-Household-in-Manhattan.html) where a New Yorker father says \"At some level, the third child is a proxy for having enough wealth to have a very comfortable life.\"\n \n-Much of this work uses Census data like the American Community Survey; I want to try to extend it to the SCF here. So let's do a graph where the x-axis is all mid-life families, grouped by usual income (including capital income) relative to others their age, and the y-axis is the percent of families with a child count of at least three. Across much of the income scale it's pretty flat, around 40 to 43%, and it dips to 37% at the 80th–90th percentiles. But it has a statistically significant rise at the top 1%: 49%, compared with about 40% for the rest of the top 10%.\n+Much of this work uses Census data like the American Community Survey; I want to try to extend it to the SCF here. So let's do a graph where the x-axis is all mid-life families, grouped by usual income (including capital income) relative to others their age, and the y-axis is the percent of families with a child count of at least three. From the 10th percentile up it's pretty flat, around 40 to 43%, and it dips to 37% at the 80th–90th percentiles. But it has a statistically significant rise at the top 1%: 49%, compared with about 40% for the rest of the top 10%.\n \n ![Families with 3+ children by income](graphics/02_three_plus_kids_by_income.png)\n \n@@ -22,13 +22,13 @@ The top-1% gap is robust to many different ways of defining the 1%.[^1] Also, be\n \n ![Families with 3+ children by net worth](graphics/05_three_plus_kids_by_networth.png)\n \n-Average number of kids by income increases for the 1%, but not in a statistically significant way; the average is noisier, since a few very large families move it a lot. However, ranked by net worth, the top 1% do have a significantly higher average (2.5 versus 2.25 kids), as you can see here:\n+Average number of kids by income increases for the 1%, but not in a statistically significant way; the average is noisier, since a few very large families move it a lot. However, ranked by net worth, the top 1% do have a significantly higher average (2.52 versus 2.25 kids), as you can see here:\n \n ![Average number of children by net worth](graphics/05b_mean_kids_by_networth.png)\n \n Remarriage and children counted twice are obvious worries here. But the gap survives even when I restrict the sample to currently married couples in which both spouses report a first marriage and subtract potential duplicate children. It remains statistically significant for both income and wealth. The gap also survives several other checks on how we count families.[^2]\n \n-This is a correlation, but it's the one you'd expect if money solves the hard parts of raising kids. When you're in the 1%, a lot of the practical difficulties of childcare, of smoothing your income to get through the difficult few years, are probably not as big a problem. I don't think we can make everyone the 1%, but some of the things their money gives them like stability and support are things we could provide for young families right now. Why aren't we doing it?\n+This is a correlation, but it’s the one you’d expect if money solves the hard parts of raising kids. When you’re in the 1%, a lot of the practical difficulties, like paying for childcare or smoothing your income through the hardest few years, probably aren’t as big a problem. I don’t think we can make everyone the 1%, but some of what their money buys them, like stability and support, are things we could provide for families right now. We need to think seriously about a policy agenda for families with young kids, one that targets the years when they’re under the most financial strain.\n \n [^1]: The charts rank families against others whose head is in the same five-year age band (45–49 through 60–64) in the same survey year. But the gap between the top 1% and the rest of the top 10% stays positive and statistically significant, for both income and wealth, if we instead use ten-year age bands, rank all families with a head aged 45 to 64 together, rank against the whole U.S. population, pool all five surveys into one ranking, or use actual rather than usual income. It also holds comparing the top 2% with the 90th–98th percentiles, and the top 0.5% with the 90th–99.5th. Across these, the gap runs from 7 to 15 points by income and 9 to 16 points by wealth.\n \n",
+  "sources_checked": [
+    {
+      "title": "Hazan and Zoabi (2015), Do Highly Educated Women Choose Smaller Families?",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/ecoj.12148",
+      "scope": "Publisher abstract and journal citation; supports a cross-sectional education-fertility U shape in the US."
+    },
+    {
+      "title": "Bar et al. (2018), Why did Rich Families Increase their Fertility?",
+      "url": "https://s3.amazonaws.com/real.stlouisfed.org/wp/2018/2018-022.pdf",
+      "scope": "Abstract, empirical discussion and section 4.4.2; describes fertility increases among high-income families and models marketization costs, not a generic causal effect of raising income."
+    }
+  ],
+  "changes": [
+    {
+      "area": "Income curve",
+      "status": "Resolved",
+      "assessment": "From the 10th percentile up excludes the 36.01% bottom decile. The stated dip and upper-tail rise supply the exceptions to the otherwise roughly flat pattern."
+    },
+    {
+      "area": "Literature",
+      "status": "Citation improved; one wording issue remains",
+      "assessment": "The new Hazan and Zoabi reference directly supports the education U shape. Replace higher incomes increased fertility with fertility increased among higher-income families to avoid turning the Bar result into a generic causal income claim."
+    },
+    {
+      "area": "Wealth mean",
+      "status": "Verified precision improvement",
+      "assessment": "2.52217 and 2.24653 round to 2.52 and 2.25. The previous 2.5 was correct at one decimal; this is greater precision rather than correction of an erroneous estimate."
+    },
+    {
+      "area": "Policy conclusion",
+      "status": "Clearer framing; identification limit remains",
+      "assessment": "Targeting financial strain in the early parenting years is clearer policy advocacy. The paragraph still proposes a mechanism rather than identifying a causal effect; the three methodological weaknesses remain."
+    }
+  ],
+  "repository_head_at_review": "eaf7d04b39bcba26f46121015fca951a58b9d20c"
+}

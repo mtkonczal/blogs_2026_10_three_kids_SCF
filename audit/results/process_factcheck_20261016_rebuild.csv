@@ -1,0 +1,19 @@
+file,matches,comparison
+data/scf_linked.rds,TRUE,"Values, excluding build timestamps"
+output/kids_main.rds,TRUE,"Values, excluding build timestamps"
+output/kids_income.rds,TRUE,"Values, excluding build timestamps"
+output/kids_blended.rds,TRUE,"Values, excluding build timestamps"
+output/kids_wealth_work.rds,TRUE,"Values, excluding build timestamps"
+output/kids_rep5.rds,TRUE,"Values, excluding build timestamps"
+output/kids_top1_defs.rds,TRUE,"Values, excluding build timestamps"
+output/kids_period_change.rds,TRUE,"Values, excluding build timestamps"
+output/kids_bin_ci.rds,TRUE,"Values, excluding build timestamps"
+output/kids_count_checks.rds,TRUE,"Values, excluding build timestamps"
+graphics/post_numbers.csv,TRUE,"Values, excluding build timestamps"
+graphics/01_stock_ownership_2025.png,TRUE,Byte-for-byte PNG MD5
+graphics/02_three_plus_kids_by_income.png,TRUE,Byte-for-byte PNG MD5
+graphics/03_mean_kids_by_income.png,TRUE,Byte-for-byte PNG MD5
+graphics/04_three_plus_kids_by_period.png,TRUE,Byte-for-byte PNG MD5
+graphics/04b_mean_kids_by_period.png,TRUE,Byte-for-byte PNG MD5
+graphics/05_three_plus_kids_by_networth.png,TRUE,Byte-for-byte PNG MD5
+graphics/05b_mean_kids_by_networth.png,TRUE,Byte-for-byte PNG MD5

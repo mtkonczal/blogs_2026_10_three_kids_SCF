@@ -1,0 +1,3796 @@
+{
+  "reviewed_date": "2026-10-16",
+  "model": "GPT-6.1 Sol (high reasoning)",
+  "blog_md5": "9a8bac3c4cd16ba70befe215fc228b62",
+  "reviewed_commit": "7cf7a4c964976b79e64cd5ec120bdc133dde6d93",
+  "repository_head": "eaf7d04b39bcba26f46121015fca951a58b9d20c",
+  "reviewed_blog_blob": "d9fa6adb959f81c1664490d15281644a2de508b2",
+  "working_copy_matches_commit": true,
+  "checks": [
+    {
+      "check": "inc_rank all_gap3 independent estimate",
+      "maximum_absolute_error": 7.105427357601002e-15,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "inc_rank all_gap3 independent SE",
+      "maximum_absolute_error": 9.539036227579345e-13,
+      "tolerance": 1e-06
+    },
+    {
+      "check": "inc_rank all_gap_exact3 independent estimate",
+      "maximum_absolute_error": 3.552713678800501e-15,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "inc_rank all_gap_exact3 independent SE",
+      "maximum_absolute_error": 8.29603052920902e-12,
+      "tolerance": 1e-06
+    },
+    {
+      "check": "inc_rank all_gap_4plus independent estimate",
+      "maximum_absolute_error": 9.992007221626409e-16,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "inc_rank all_gap_4plus independent SE",
+      "maximum_absolute_error": 6.144418307485466e-12,
+      "tolerance": 1e-06
+    },
+    {
+      "check": "inc_rank all_gapkids independent estimate",
+      "maximum_absolute_error": 3.05311331771918e-16,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "inc_rank all_gapkids independent SE",
+      "maximum_absolute_error": 7.333300633405315e-13,
+      "tolerance": 1e-06
+    },
+    {
+      "check": "nw_rank all_gap3 independent estimate",
+      "maximum_absolute_error": 3.907985046680551e-14,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "nw_rank all_gap3 independent SE",
+      "maximum_absolute_error": 4.176525791876884e-11,
+      "tolerance": 1e-06
+    },
+    {
+      "check": "nw_rank all_gap_exact3 independent estimate",
+      "maximum_absolute_error": 2.664535259100376e-15,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "nw_rank all_gap_exact3 independent SE",
+      "maximum_absolute_error": 1.871569565992104e-11,
+      "tolerance": 1e-06
+    },
+    {
+      "check": "nw_rank all_gap_4plus independent estimate",
+      "maximum_absolute_error": 4.440892098500626e-15,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "nw_rank all_gap_4plus independent SE",
+      "maximum_absolute_error": 7.865263995654459e-12,
+      "tolerance": 1e-06
+    },
+    {
+      "check": "nw_rank all_gapkids independent estimate",
+      "maximum_absolute_error": 1.665334536937735e-16,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "nw_rank all_gapkids independent SE",
+      "maximum_absolute_error": 1.541516914116414e-12,
+      "tolerance": 1e-06
+    },
+    {
+      "check": "Stock share: bottom half",
+      "maximum_absolute_error": 1.110223024625157e-15,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "Stock share: top tenth",
+      "maximum_absolute_error": 1.56319401867222e-13,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "Stored summary archives agree with recorded MD5",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "All-wave roster child count disagreements",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "independent_bands.csv point estimates",
+      "maximum_absolute_error": 1.4210854715202e-14,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "independent_bands.csv standard errors",
+      "maximum_absolute_error": 4.88498130835069e-15,
+      "tolerance": 1e-07
+    },
+    {
+      "check": "independent_definitions.csv point estimates",
+      "maximum_absolute_error": 3.5527136788005e-15,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "independent_definitions.csv standard errors",
+      "maximum_absolute_error": 0,
+      "tolerance": 1e-07
+    },
+    {
+      "check": "independent_period_change.csv point estimates",
+      "maximum_absolute_error": 7.105427357601e-15,
+      "tolerance": 1e-08
+    },
+    {
+      "check": "independent_period_change.csv standard errors",
+      "maximum_absolute_error": 3.4114266966867e-10,
+      "tolerance": 1e-07
+    },
+    {
+      "check": "Fresh rebuild: data/scf_linked.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: output/kids_main.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: output/kids_income.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: output/kids_blended.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: output/kids_wealth_work.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: output/kids_rep5.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: output/kids_top1_defs.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: output/kids_period_change.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: output/kids_bin_ci.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: output/kids_count_checks.rds",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: graphics/post_numbers.csv",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: graphics/01_stock_ownership_2025.png",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: graphics/02_three_plus_kids_by_income.png",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: graphics/03_mean_kids_by_income.png",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: graphics/04_three_plus_kids_by_period.png",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: graphics/04b_mean_kids_by_period.png",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: graphics/05_three_plus_kids_by_networth.png",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    },
+    {
+      "check": "Fresh rebuild: graphics/05b_mean_kids_by_networth.png",
+      "maximum_absolute_error": 0,
+      "tolerance": 0
+    }
+  ],
+  "rebuild": [
+    {
+      "file": "data/scf_linked.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "output/kids_main.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "output/kids_income.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "output/kids_blended.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "output/kids_wealth_work.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "output/kids_rep5.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "output/kids_top1_defs.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "output/kids_period_change.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "output/kids_bin_ci.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "output/kids_count_checks.rds",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "graphics/post_numbers.csv",
+      "matches": true,
+      "comparison": "Values, excluding build timestamps"
+    },
+    {
+      "file": "graphics/01_stock_ownership_2025.png",
+      "matches": true,
+      "comparison": "Byte-for-byte PNG MD5"
+    },
+    {
+      "file": "graphics/02_three_plus_kids_by_income.png",
+      "matches": true,
+      "comparison": "Byte-for-byte PNG MD5"
+    },
+    {
+      "file": "graphics/03_mean_kids_by_income.png",
+      "matches": true,
+      "comparison": "Byte-for-byte PNG MD5"
+    },
+    {
+      "file": "graphics/04_three_plus_kids_by_period.png",
+      "matches": true,
+      "comparison": "Byte-for-byte PNG MD5"
+    },
+    {
+      "file": "graphics/04b_mean_kids_by_period.png",
+      "matches": true,
+      "comparison": "Byte-for-byte PNG MD5"
+    },
+    {
+      "file": "graphics/05_three_plus_kids_by_networth.png",
+      "matches": true,
+      "comparison": "Byte-for-byte PNG MD5"
+    },
+    {
+      "file": "graphics/05b_mean_kids_by_networth.png",
+      "matches": true,
+      "comparison": "Byte-for-byte PNG MD5"
+    }
+  ],
+  "stock": {
+    "bottom50": 1.135568308823211,
+    "top10": 81.46145437376984
+  },
+  "headline": [
+    {
+      "rank": "inc_rank",
+      "stat": "all_top3",
+      "est": 49.129849602573074,
+      "se": 3.281062001045308,
+      "lower": 42.698968080524274,
+      "upper": 55.560731124621874
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_aff3",
+      "est": 39.987578355837194,
+      "se": 1.638651128652333,
+      "lower": 36.775822143678624,
+      "upper": 43.199334567995763
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_mid3",
+      "est": 42.259287297857824,
+      "se": 1.198426649265976,
+      "lower": 39.910371065296509,
+      "upper": 44.608203530419139
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_gap3",
+      "est": 9.142271246735877,
+      "se": 3.753081569523294,
+      "lower": 1.786231370470222,
+      "upper": 16.498311123001532
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_gapmid3",
+      "est": 6.870562304715243,
+      "se": 3.482178995795985,
+      "lower": 0.04549147295511258,
+      "upper": 13.695633136475372
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_topkids",
+      "est": 2.508969572178959,
+      "se": 0.08247073103666537,
+      "lower": 2.347326939347095,
+      "upper": 2.670612205010824
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_affkids",
+      "est": 2.350713924895546,
+      "se": 0.04512292280530342,
+      "lower": 2.262272996197151,
+      "upper": 2.43915485359394
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_gapkids",
+      "est": 0.1582556472834133,
+      "se": 0.09527164767410157,
+      "lower": -0.02847678215782579,
+      "upper": 0.3449880767246524
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_top_exact3",
+      "est": 33.805507852294127,
+      "se": 3.148341736712113,
+      "lower": 27.634758048338384,
+      "upper": 39.976257656249871
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_aff_exact3",
+      "est": 23.901061025135881,
+      "se": 1.363103324384786,
+      "lower": 21.2293785093417,
+      "upper": 26.572743540930063
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_gap_exact3",
+      "est": 9.904446827158257,
+      "se": 3.468106167021394,
+      "lower": 3.106958739796324,
+      "upper": 16.701934914520187
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_top_4plus",
+      "est": 15.324341750278936,
+      "se": 2.200362993470955,
+      "lower": 11.011630283075865,
+      "upper": 19.637053217482006
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_aff_4plus",
+      "est": 16.086517330701327,
+      "se": 1.229520660021338,
+      "lower": 13.676656837059504,
+      "upper": 18.496377824343149
+    },
+    {
+      "rank": "inc_rank",
+      "stat": "all_gap_4plus",
+      "est": -0.762175580422392,
+      "se": 2.588167387908554,
+      "lower": -5.834983660723159,
+      "upper": 4.310632499878375
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_top3",
+      "est": 50.150320534072648,
+      "se": 3.329009463956647,
+      "lower": 43.625461984717617,
+      "upper": 56.675179083427679
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_aff3",
+      "est": 37.205532538389711,
+      "se": 1.64337848232188,
+      "lower": 33.98451071303883,
+      "upper": 40.426554363740593
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_mid3",
+      "est": 40.720056937965239,
+      "se": 1.199171133184633,
+      "lower": 38.369681516923357,
+      "upper": 43.070432359007121
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_gap3",
+      "est": 12.944787995682939,
+      "se": 3.800727692296985,
+      "lower": 5.495361718780848,
+      "upper": 20.394214272585028
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_gapmid3",
+      "est": 9.430263596107412,
+      "se": 3.633666225623582,
+      "lower": 2.308277793885192,
+      "upper": 16.552249398329632
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_topkids",
+      "est": 2.522172153326141,
+      "se": 0.0852923664103456,
+      "lower": 2.354999115161864,
+      "upper": 2.689345191490419
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_affkids",
+      "est": 2.246529011293324,
+      "se": 0.04516697174371891,
+      "lower": 2.158001746675635,
+      "upper": 2.335056275911013
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_gapkids",
+      "est": 0.2756431420328171,
+      "se": 0.09841908666779718,
+      "lower": 0.08274173216393468,
+      "upper": 0.4685445519016996
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_top_exact3",
+      "est": 31.18111221157066,
+      "se": 3.022880724314632,
+      "lower": 25.256265991913981,
+      "upper": 37.105958431227336
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_aff_exact3",
+      "est": 23.441166885140454,
+      "se": 1.516008387213146,
+      "lower": 20.469790446202687,
+      "upper": 26.412543324078221
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_gap_exact3",
+      "est": 7.739945326430202,
+      "se": 3.472700156319834,
+      "lower": 0.933453020043328,
+      "upper": 14.546437632817078
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_top_4plus",
+      "est": 18.969208322501991,
+      "se": 2.149470304283939,
+      "lower": 14.756246526105471,
+      "upper": 23.182170118898512
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_aff_4plus",
+      "est": 13.764365653249254,
+      "se": 1.056207564874476,
+      "lower": 11.694198826095281,
+      "upper": 15.834532480403226
+    },
+    {
+      "rank": "nw_rank",
+      "stat": "all_gap_4plus",
+      "est": 5.204842669252734,
+      "se": 2.465820838741105,
+      "lower": 0.3718338253201692,
+      "upper": 10.037851513185299
+    }
+  ],
+  "definitions": [
+    {
+      "id": "base",
+      "label": "Current definition",
+      "expl": "Ranked within survey year and 5-year age band of the head (45-49, 50-54, 55-59, 60-64). Top 1% vs. 90th-99th.",
+      "pop": "s",
+      "cell": "age5",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "income",
+      "top_share": 49.129849602573074,
+      "aff_share": 39.987578355837194,
+      "gap": 9.142271246735881,
+      "se": 3.753081569522344,
+      "lower": 1.786231370472087,
+      "upper": 16.498311122999674,
+      "p": 0.01485326039481038,
+      "top_cases": 1322
+    },
+    {
+      "id": "base",
+      "label": "Current definition",
+      "expl": "Ranked within survey year and 5-year age band of the head (45-49, 50-54, 55-59, 60-64). Top 1% vs. 90th-99th.",
+      "pop": "s",
+      "cell": "age5",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "wealth",
+      "top_share": 50.150320534072648,
+      "aff_share": 37.205532538389711,
+      "gap": 12.944787995682939,
+      "se": 3.80072769233874,
+      "lower": 5.495361718699008,
+      "upper": 20.394214272666868,
+      "p": 0.0006595334941398987,
+      "top_cases": 1397
+    },
+    {
+      "id": "age10",
+      "label": "Wider age bands",
+      "expl": "Ranked within survey year and 10-year age band (45-54, 55-64).",
+      "pop": "s",
+      "cell": "age10",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "income",
+      "top_share": 51.208421205683393,
+      "aff_share": 39.210168292436684,
+      "gap": 11.998252913246715,
+      "se": 3.828132958616549,
+      "lower": 4.495112314358279,
+      "upper": 19.501393512135152,
+      "p": 0.001723051665629203,
+      "top_cases": 1319
+    },
+    {
+      "id": "age10",
+      "label": "Wider age bands",
+      "expl": "Ranked within survey year and 10-year age band (45-54, 55-64).",
+      "pop": "s",
+      "cell": "age10",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "wealth",
+      "top_share": 50.714865270049096,
+      "aff_share": 37.307981262812746,
+      "gap": 13.40688400723635,
+      "se": 3.248351676129641,
+      "lower": 7.040114722022254,
+      "upper": 19.773653292450447,
+      "p": 3.670660191217933e-05,
+      "top_cases": 1382
+    },
+    {
+      "id": "age4564",
+      "label": "One ranking for all 45-64",
+      "expl": "Ranked within survey year against all families with a head aged 45-64, ignoring age bands.",
+      "pop": "s",
+      "cell": "none",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "income",
+      "top_share": 50.74982483998356,
+      "aff_share": 39.244710911686134,
+      "gap": 11.505113928297424,
+      "se": 3.623998795141765,
+      "lower": 4.402076289819566,
+      "upper": 18.608151566775284,
+      "p": 0.001499907793051295,
+      "top_cases": 1311
+    },
+    {
+      "id": "age4564",
+      "label": "One ranking for all 45-64",
+      "expl": "Ranked within survey year against all families with a head aged 45-64, ignoring age bands.",
+      "pop": "s",
+      "cell": "none",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "wealth",
+      "top_share": 52.697886706895702,
+      "aff_share": 36.553409907092103,
+      "gap": 16.144476799803599,
+      "se": 3.44298460172572,
+      "lower": 9.396226980421186,
+      "upper": 22.892726619186011,
+      "p": 2.744179553551933e-06,
+      "top_cases": 1395
+    },
+    {
+      "id": "allpop",
+      "label": "Whole population",
+      "expl": "Ranked within survey year against all US families of every age, then the 45-64 families are kept. The top 1% is the national top 1%.",
+      "pop": "all",
+      "cell": "none",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "income",
+      "top_share": 48.192212580852569,
+      "aff_share": 39.397177040951654,
+      "gap": 8.795035539900912,
+      "se": 3.189058777020041,
+      "lower": 2.544480336941631,
+      "upper": 15.045590742860192,
+      "p": 0.00581778785553924,
+      "top_cases": 1573
+    },
+    {
+      "id": "allpop",
+      "label": "Whole population",
+      "expl": "Ranked within survey year against all US families of every age, then the 45-64 families are kept. The top 1% is the national top 1%.",
+      "pop": "all",
+      "cell": "none",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "wealth",
+      "top_share": 47.332545218380893,
+      "aff_share": 36.567342920800129,
+      "gap": 10.765202297580762,
+      "se": 3.224134854869095,
+      "lower": 4.445897982037336,
+      "upper": 17.084506613124187,
+      "p": 0.0008409783812122952,
+      "top_cases": 1538
+    },
+    {
+      "id": "pooled",
+      "label": "Pooled across 2013-2025",
+      "expl": "One ranking of all heads aged 45-64 across the five surveys combined (2025 dollars, each survey weighted equally). A common pooled ranking in 2025 dollars.",
+      "pop": "s",
+      "cell": "none",
+      "pooled": true,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "income",
+      "top_share": 53.299527346303321,
+      "aff_share": 39.533714125329915,
+      "gap": 13.76581322097341,
+      "se": 3.689612833568821,
+      "lower": 6.534172067178521,
+      "upper": 20.997454374768299,
+      "p": 0.0001907483663033043,
+      "top_cases": 1316
+    },
+    {
+      "id": "pooled",
+      "label": "Pooled across 2013-2025",
+      "expl": "One ranking of all heads aged 45-64 across the five surveys combined (2025 dollars, each survey weighted equally). A common pooled ranking in 2025 dollars.",
+      "pop": "s",
+      "cell": "none",
+      "pooled": true,
+      "incvar": "inc_measure",
+      "topcut": 0.99,
+      "rank": "wealth",
+      "top_share": 50.920077796163028,
+      "aff_share": 36.723930270063505,
+      "gap": 14.196147526099521,
+      "se": 3.631015121918092,
+      "lower": 7.079357887140062,
+      "upper": 21.31293716505898,
+      "p": 9.241421945089042e-05,
+      "top_cases": 1385
+    },
+    {
+      "id": "actual",
+      "label": "Actual income",
+      "expl": "Current age-band ranking, but on last year's actual income instead of usual income. Income only.",
+      "pop": "s",
+      "cell": "age5",
+      "pooled": false,
+      "incvar": "INCOME",
+      "topcut": 0.99,
+      "rank": "income",
+      "top_share": 49.691641546488675,
+      "aff_share": 39.085930551652865,
+      "gap": 10.605710994835814,
+      "se": 3.841780647266973,
+      "lower": 3.075820926192547,
+      "upper": 18.135601063479079,
+      "p": 0.005769109246153807,
+      "top_cases": 1298
+    },
+    {
+      "id": "top2",
+      "label": "Top 2%",
+      "expl": "Current age-band ranking, top 2% vs. 90th-98th.",
+      "pop": "s",
+      "cell": "age5",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.98,
+      "rank": "income",
+      "top_share": 46.842629382600819,
+      "aff_share": 39.425551640211104,
+      "gap": 7.417077742389719,
+      "se": 3.094312232351329,
+      "lower": 1.352225766981114,
+      "upper": 13.481929717798323,
+      "p": 0.01652975865667753,
+      "top_cases": 1688
+    },
+    {
+      "id": "top2",
+      "label": "Top 2%",
+      "expl": "Current age-band ranking, top 2% vs. 90th-98th.",
+      "pop": "s",
+      "cell": "age5",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.98,
+      "rank": "wealth",
+      "top_share": 45.908502977919788,
+      "aff_share": 36.636506980883553,
+      "gap": 9.271995997036242,
+      "se": 3.411951589942573,
+      "lower": 2.5845708807488,
+      "upper": 15.959421113323685,
+      "p": 0.006577613291712612,
+      "top_cases": 1742
+    },
+    {
+      "id": "top05",
+      "label": "Top 0.5%",
+      "expl": "Current age-band ranking, top 0.5% vs. 90th-99.5th.",
+      "pop": "s",
+      "cell": "age5",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.995,
+      "rank": "income",
+      "top_share": 54.806746240794034,
+      "aff_share": 40.166397602653213,
+      "gap": 14.640348638140827,
+      "se": 4.260246328911446,
+      "lower": 6.290265833474393,
+      "upper": 22.99043144280726,
+      "p": 0.0005892761602991644,
+      "top_cases": 1032
+    },
+    {
+      "id": "top05",
+      "label": "Top 0.5%",
+      "expl": "Current age-band ranking, top 0.5% vs. 90th-99.5th.",
+      "pop": "s",
+      "cell": "age5",
+      "pooled": false,
+      "incvar": "inc_measure",
+      "topcut": 0.995,
+      "rank": "wealth",
+      "top_share": 50.382913943921565,
+      "aff_share": 37.868796165474372,
+      "gap": 12.514117778447195,
+      "se": 3.71652805883672,
+      "lower": 5.229722783127225,
+      "upper": 19.798512773767165,
+      "p": 0.0007594860028522049,
+      "top_cases": 1091
+    }
+  ],
+  "counting": [
+    {
+      "rank": "inc_rank",
+      "spec": "baseline",
+      "top": 49.129849602573081,
+      "aff": 39.987578355837201,
+      "gap": 9.142271246735872,
+      "se": 3.753081569522345,
+      "lower": 1.786231370472076,
+      "upper": 16.498311122999667,
+      "p": 0.01485326039481051
+    },
+    {
+      "rank": "inc_rank",
+      "spec": "overlap_all",
+      "top": 47.827485997850296,
+      "aff": 39.355509208553883,
+      "gap": 8.471976789296416,
+      "se": 3.788975316032433,
+      "lower": 1.045585169872848,
+      "upper": 15.898368408719985,
+      "p": 0.02535474516802066
+    },
+    {
+      "rank": "inc_rank",
+      "spec": "overlap_top",
+      "top": 47.827485997850296,
+      "aff": 39.987578355837201,
+      "gap": 7.839907642013094,
+      "se": 3.78023168917206,
+      "lower": 0.4306535312358566,
+      "upper": 15.24916175279033,
+      "p": 0.03808650691664951
+    },
+    {
+      "rank": "inc_rank",
+      "spec": "strict_first",
+      "top": 50.731297987289942,
+      "aff": 37.484427756821717,
+      "gap": 13.246870230468227,
+      "se": 4.78769631660025,
+      "lower": 3.862985449931736,
+      "upper": 22.630755011004716,
+      "p": 0.005659960653677265
+    },
+    {
+      "rank": "inc_rank",
+      "spec": "older",
+      "top": 52.014447212138407,
+      "aff": 39.977404681805169,
+      "gap": 12.037042530333238,
+      "se": 4.165943156998919,
+      "lower": 3.871793942615357,
+      "upper": 20.202291118051122,
+      "p": 0.003859876588023763
+    },
+    {
+      "rank": "inc_rank",
+      "spec": "strict_first_overlap_all",
+      "top": 48.890658187656882,
+      "aff": 37.055280065805505,
+      "gap": 11.83537812185137,
+      "se": 4.814198822099793,
+      "lower": 2.399548430535777,
+      "upper": 21.271207813166964,
+      "p": 0.0139545387595519
+    },
+    {
+      "rank": "inc_rank",
+      "spec": "strict_first_overlap_top",
+      "top": 48.890658187656882,
+      "aff": 37.484427756821717,
+      "gap": 11.406230430835169,
+      "se": 4.818589217256453,
+      "lower": 1.961795565012521,
+      "upper": 20.850665296657816,
+      "p": 0.017926601187057
+    },
+    {
+      "rank": "nw_rank",
+      "spec": "baseline",
+      "top": 50.150320534072655,
+      "aff": 37.205532538389704,
+      "gap": 12.94478799568294,
+      "se": 3.800727692338745,
+      "lower": 5.495361718699,
+      "upper": 20.394214272666879,
+      "p": 0.0006595334941399084
+    },
+    {
+      "rank": "nw_rank",
+      "spec": "overlap_all",
+      "top": 49.461396511763141,
+      "aff": 36.29570725711617,
+      "gap": 13.165689254646969,
+      "se": 3.914920536691915,
+      "lower": 5.492445002730816,
+      "upper": 20.838933506563123,
+      "p": 0.0007711381316192109
+    },
+    {
+      "rank": "nw_rank",
+      "spec": "overlap_top",
+      "top": 49.461396511763141,
+      "aff": 37.205532538389704,
+      "gap": 12.255863973373426,
+      "se": 3.881690842795634,
+      "lower": 4.647749921493983,
+      "upper": 19.863978025252869,
+      "p": 0.001592090846400616
+    },
+    {
+      "rank": "nw_rank",
+      "spec": "strict_first",
+      "top": 49.962944509064577,
+      "aff": 38.975462229013814,
+      "gap": 10.987482280050761,
+      "se": 4.794712740480763,
+      "lower": 1.589845308708465,
+      "upper": 20.385119251393057,
+      "p": 0.02192971648637146
+    },
+    {
+      "rank": "nw_rank",
+      "spec": "older",
+      "top": 52.04697727177431,
+      "aff": 36.837178223784655,
+      "gap": 15.209799047989657,
+      "se": 3.835842019198934,
+      "lower": 7.691548690359746,
+      "upper": 22.728049405619569,
+      "p": 7.334098345054967e-05
+    },
+    {
+      "rank": "nw_rank",
+      "spec": "strict_first_overlap_all",
+      "top": 48.918690925403148,
+      "aff": 38.272759204082242,
+      "gap": 10.645931721320908,
+      "se": 4.963455649754704,
+      "lower": 0.9175586478016875,
+      "upper": 20.374304794840128,
+      "p": 0.03196381283441979
+    },
+    {
+      "rank": "nw_rank",
+      "spec": "strict_first_overlap_top",
+      "top": 48.918690925403148,
+      "aff": 38.975462229013814,
+      "gap": 9.94322869638933,
+      "se": 4.933466290768949,
+      "lower": 0.273634766482191,
+      "upper": 19.61282262629647,
+      "p": 0.04385594851058752
+    }
+  ],
+  "period": [
+    {
+      "period": "early",
+      "stat": "top",
+      "est": 48.510003533256743,
+      "se": 3.963200765253013,
+      "rank": "income (production)",
+      "lower": 40.742130033360837,
+      "upper": 56.277877033152649,
+      "p": 1.897810346630208e-34
+    },
+    {
+      "period": "early",
+      "stat": "aff",
+      "est": 52.990650036253136,
+      "se": 2.428484334646654,
+      "rank": "income (production)",
+      "lower": 48.230820740345692,
+      "upper": 57.75047933216058,
+      "p": 1.483532281955477e-105
+    },
+    {
+      "period": "early",
+      "stat": "gap",
+      "est": -4.480646502996393,
+      "se": 4.611392653690044,
+      "rank": "income (production)",
+      "lower": -13.518976104228878,
+      "upper": 4.557683098236092,
+      "p": 0.3312261202470855
+    },
+    {
+      "period": "recent",
+      "stat": "top",
+      "est": 49.129849602573074,
+      "se": 3.281062000977725,
+      "rank": "income (production)",
+      "lower": 42.698968080656734,
+      "upper": 55.560731124489415,
+      "p": 1.089742195913664e-50
+    },
+    {
+      "period": "recent",
+      "stat": "aff",
+      "est": 39.987578355837194,
+      "se": 1.63865112887551,
+      "rank": "income (production)",
+      "lower": 36.775822143241193,
+      "upper": 43.199334568433194,
+      "p": 1.599378051338568e-131
+    },
+    {
+      "period": "recent",
+      "stat": "gap",
+      "est": 9.142271246735879,
+      "se": 3.753081569569223,
+      "rank": "income (production)",
+      "lower": 1.786231370380201,
+      "upper": 16.498311123091558,
+      "p": 0.01485326039605978
+    },
+    {
+      "period": "change",
+      "stat": "top",
+      "est": 0.6198460693163312,
+      "se": 5.257739341774502,
+      "rank": "income (production)",
+      "lower": -9.685323040561693,
+      "upper": 10.925015179194355,
+      "p": 0.9061531322266889
+    },
+    {
+      "period": "change",
+      "stat": "aff",
+      "est": -13.003071680415939,
+      "se": 2.831848270401793,
+      "rank": "income (production)",
+      "lower": -18.553494290403453,
+      "upper": -7.452649070428425,
+      "p": 4.395950034111916e-06
+    },
+    {
+      "period": "change",
+      "stat": "gap",
+      "est": 13.622917749732272,
+      "se": 5.8979687556895,
+      "rank": "income (production)",
+      "lower": 2.062898988580852,
+      "upper": 25.182936510883692,
+      "p": 0.0209012060601304
+    },
+    {
+      "period": "early",
+      "stat": "top",
+      "est": 52.066583240984713,
+      "se": 3.566227777512889,
+      "rank": "actual income",
+      "lower": 45.076776797059452,
+      "upper": 59.056389684909973,
+      "p": 2.812410587026499e-48
+    },
+    {
+      "period": "early",
+      "stat": "aff",
+      "est": 53.529950604313925,
+      "se": 2.517998893069302,
+      "rank": "actual income",
+      "lower": 48.594672773898097,
+      "upper": 58.465228434729752,
+      "p": 2.725865927749256e-100
+    },
+    {
+      "period": "early",
+      "stat": "gap",
+      "est": -1.463367363329216,
+      "se": 4.502121681167275,
+      "rank": "actual income",
+      "lower": -10.287525858417075,
+      "upper": 7.360791131758643,
+      "p": 0.7451511795522798
+    },
+    {
+      "period": "recent",
+      "stat": "top",
+      "est": 49.691641546488675,
+      "se": 3.267051586946919,
+      "rank": "actual income",
+      "lower": 43.288220436072713,
+      "upper": 56.095062656904638,
+      "p": 3.038457140292169e-52
+    },
+    {
+      "period": "recent",
+      "stat": "aff",
+      "est": 39.085930551652872,
+      "se": 1.758892862719772,
+      "rank": "actual income",
+      "lower": 35.63850054072212,
+      "upper": 42.533360562583624,
+      "p": 2.109829055214209e-109
+    },
+    {
+      "period": "recent",
+      "stat": "gap",
+      "est": 10.605710994835816,
+      "se": 3.84178064720891,
+      "rank": "actual income",
+      "lower": 3.075820926306351,
+      "upper": 18.135601063365279,
+      "p": 0.005769109245416874
+    },
+    {
+      "period": "change",
+      "stat": "top",
+      "est": -2.374941694496029,
+      "se": 4.847385736624077,
+      "rank": "actual income",
+      "lower": -11.87581773827922,
+      "upper": 7.125934349287164,
+      "p": 0.6241743822503849
+    },
+    {
+      "period": "change",
+      "stat": "aff",
+      "est": -14.444020052661063,
+      "se": 3.107265633079012,
+      "rank": "actual income",
+      "lower": -20.534260693495927,
+      "upper": -8.353779411826199,
+      "p": 3.344119972323681e-06
+    },
+    {
+      "period": "change",
+      "stat": "gap",
+      "est": 12.069078358165033,
+      "se": 5.880695632803388,
+      "rank": "actual income",
+      "lower": 0.5429149178703927,
+      "upper": 23.595241798459675,
+      "p": 0.04013842332310941
+    },
+    {
+      "period": "early",
+      "stat": "top",
+      "est": 51.085684213202043,
+      "se": 3.455014117740888,
+      "rank": "net worth",
+      "lower": 44.313856542429903,
+      "upper": 57.857511883974183,
+      "p": 1.804783932570375e-49
+    },
+    {
+      "period": "early",
+      "stat": "aff",
+      "est": 50.284187835826707,
+      "se": 2.640227691395389,
+      "rank": "net worth",
+      "lower": 45.109341560691746,
+      "upper": 55.459034110961667,
+      "p": 7.173835148943691e-81
+    },
+    {
+      "period": "early",
+      "stat": "gap",
+      "est": 0.801496377375338,
+      "se": 4.391442195081982,
+      "rank": "net worth",
+      "lower": -7.805730324985346,
+      "upper": 9.408723079736022,
+      "p": 0.8551799587563002
+    },
+    {
+      "period": "recent",
+      "stat": "top",
+      "est": 50.150320534072641,
+      "se": 3.329009463944521,
+      "rank": "net worth",
+      "lower": 43.625461984741378,
+      "upper": 56.675179083403904,
+      "p": 2.766793737354322e-51
+    },
+    {
+      "period": "recent",
+      "stat": "aff",
+      "est": 37.205532538389704,
+      "se": 1.643378482411562,
+      "rank": "net worth",
+      "lower": 33.984510712863042,
+      "upper": 40.426554363916367,
+      "p": 1.763927968658178e-113
+    },
+    {
+      "period": "recent",
+      "stat": "gap",
+      "est": 12.944787995682935,
+      "se": 3.800727692334328,
+      "rank": "net worth",
+      "lower": 5.495361718707652,
+      "upper": 20.394214272658218,
+      "p": 0.00065953349413035
+    },
+    {
+      "period": "change",
+      "stat": "top",
+      "est": -0.9353636791294022,
+      "se": 4.637698478614086,
+      "rank": "net worth",
+      "lower": -10.025252697213011,
+      "upper": 8.154525338954207,
+      "p": 0.8401613948839239
+    },
+    {
+      "period": "change",
+      "stat": "aff",
+      "est": -13.078655297437001,
+      "se": 2.878506145783532,
+      "rank": "net worth",
+      "lower": -18.720527343172723,
+      "upper": -7.436783251701279,
+      "p": 5.531297180977346e-06
+    },
+    {
+      "period": "change",
+      "stat": "gap",
+      "est": 12.143291618307599,
+      "se": 5.504767912864261,
+      "rank": "net worth",
+      "lower": 1.353946509093648,
+      "upper": 22.932636727521547,
+      "p": 0.02738687948716357
+    }
+  ],
+  "numbers": [
+    {
+      "item": "stock_owners_pct_2025",
+      "value": 56.184645765151799,
+      "note": "share of families with any stock, SE 0.9",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by wealth Bottom 50%",
+      "value": 1.13556830882321,
+      "note": "SE 0.1",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by wealth 50th-90th",
+      "value": 17.4029773174064,
+      "note": "SE 0.8",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by wealth 90th-99th",
+      "value": 48.6255868995284,
+      "note": "SE 1.5",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by wealth Top 1%",
+      "value": 32.835867474241603,
+      "note": "SE 1.6",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by stock holdings Bottom 50%",
+      "value": 0.0201628843382733,
+      "note": "SE 0.0",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by stock holdings 50th-90th",
+      "value": 13.437927081108899,
+      "note": "SE 0.6",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by stock holdings 90th-99th",
+      "value": 48.039045087970599,
+      "note": "SE 1.2",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by stock holdings Top 1%",
+      "value": 38.502864946581802,
+      "note": "SE 1.4",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by wealth Top 10%",
+      "value": 81.461454373769996,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "equity_share Ranked by stock holdings Top 10%",
+      "value": 86.541910034552401,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P10_2013_25",
+      "value": 26024.384806999999,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P20_2013_25",
+      "value": 41402.430375000004,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P30_2013_25",
+      "value": 58123.682988,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P40_2013_25",
+      "value": 74524.374674999999,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P50_2013_25",
+      "value": 94634.126571000001,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P60_2013_25",
+      "value": 118292.65820999999,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P70_2013_25",
+      "value": 148918.91892,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P80_2013_25",
+      "value": 202324.32432000001,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P90_2013_25",
+      "value": 309992.97593000002,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P95_2013_25",
+      "value": 479621.62161999999,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "income_cutoff_P99_2013_25",
+      "value": 1420801.1396999999,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P0-10",
+      "value": 36.008419421114397,
+      "note": "SE 1.5 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P10-20",
+      "value": 40.575937819955698,
+      "note": "SE 1.8 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P20-30",
+      "value": 41.773804588580298,
+      "note": "SE 1.7 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P30-40",
+      "value": 42.225454094651703,
+      "note": "SE 1.9 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P40-50",
+      "value": 41.317488338741001,
+      "note": "SE 1.9 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P50-60",
+      "value": 43.203813182031098,
+      "note": "SE 2.0 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P60-70",
+      "value": 39.846036847770499,
+      "note": "SE 1.8 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P70-80",
+      "value": 40.021331452105798,
+      "note": "SE 1.9 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P80-90",
+      "value": 37.115749892257902,
+      "note": "SE 1.6 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P90-95",
+      "value": 39.084940519746802,
+      "note": "SE 2.6 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 P95-99",
+      "value": 41.110211206611098,
+      "note": "SE 2.3 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25 Top 1%",
+      "value": 49.129849602573003,
+      "note": "SE 3.3 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P0-10",
+      "value": 2.23474635850989,
+      "note": "SE 0.06 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P10-20",
+      "value": 2.39997982639786,
+      "note": "SE 0.07 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P20-30",
+      "value": 2.4471377339063,
+      "note": "SE 0.07 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P30-40",
+      "value": 2.43385770547042,
+      "note": "SE 0.08 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P40-50",
+      "value": 2.43467985542272,
+      "note": "SE 0.08 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P50-60",
+      "value": 2.48901044865161,
+      "note": "SE 0.08 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P60-70",
+      "value": 2.35960628081368,
+      "note": "SE 0.06 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P70-80",
+      "value": 2.31419305180349,
+      "note": "SE 0.06 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P80-90",
+      "value": 2.3318975405351,
+      "note": "SE 0.05 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P90-95",
+      "value": 2.28535888953215,
+      "note": "SE 0.07 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 P95-99",
+      "value": 2.43223732347599,
+      "note": "SE 0.06 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25 Top 1%",
+      "value": 2.50896957217896,
+      "note": "SE 0.08 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P0-10",
+      "value": 55.164543118069098,
+      "note": "SE 5.0 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P10-20",
+      "value": 53.785460185096497,
+      "note": "SE 3.5 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P20-30",
+      "value": 56.627922160847902,
+      "note": "SE 3.3 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P30-40",
+      "value": 56.839177396655501,
+      "note": "SE 3.2 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P40-50",
+      "value": 51.969456485640698,
+      "note": "SE 3.0 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P50-60",
+      "value": 49.862792071751201,
+      "note": "SE 2.5 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P60-70",
+      "value": 44.583314406385703,
+      "note": "SE 2.3 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P70-80",
+      "value": 44.265963217782598,
+      "note": "SE 2.2 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P80-90",
+      "value": 38.882954569979702,
+      "note": "SE 2.0 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P90-95",
+      "value": 40.394275422442902,
+      "note": "SE 2.8 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 P95-99",
+      "value": 43.077731721174999,
+      "note": "SE 2.5 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_married_2013_25 Top 1%",
+      "value": 52.009620214144199,
+      "note": "SE 3.4 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "p99_usual_income_2025_head45_64",
+      "value": 1545675.6757,
+      "note": "2025 $, P99 of usual income, all heads 45-64 (not age-band)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "min_usual_income_top1bin_2025",
+      "value": 1324864.8648999999,
+      "note": "lowest income in age-band top-1% bins, 2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "median_usual_income_top1bin_2025",
+      "value": 2156756.7568000001,
+      "note": "2025 $",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "median_usual_income_top1bin_2013_25",
+      "value": 2125945.9459000002,
+      "note": "2025 $",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "p90_usual_income_2025_head45_64",
+      "value": 328648.64864999999,
+      "note": "2025 $",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 top1",
+      "value": 50.115006164860503,
+      "note": "replicate-weight SE 6.81",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 p90_99",
+      "value": 36.981524575364098,
+      "note": "replicate-weight SE 3.28",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 p80_90",
+      "value": 34.406580817306299,
+      "note": "replicate-weight SE 3.03",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 mid",
+      "value": 43.326064079741798,
+      "note": "replicate-weight SE 2.41",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 gap_top1_p90_99",
+      "value": 13.1334815894963,
+      "note": "replicate-weight SE 7.69",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 gap_top1_mid",
+      "value": 6.78894208511867,
+      "note": "replicate-weight SE 7.17",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 k_top1",
+      "value": 2.83516247499723,
+      "note": "replicate-weight SE 0.21",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 k_p90_99",
+      "value": 2.26813867139931,
+      "note": "replicate-weight SE 0.08",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 k_mid",
+      "value": 2.4092852566931,
+      "note": "replicate-weight SE 0.08",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2019 k_gap_top1_p90_99",
+      "value": 0.567023803597929,
+      "note": "replicate-weight SE 0.22",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 top1",
+      "value": 50.324216682885897,
+      "note": "replicate-weight SE 6.82",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 p90_99",
+      "value": 46.440351318189897,
+      "note": "replicate-weight SE 3.79",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 p80_90",
+      "value": 44.2334103897647,
+      "note": "replicate-weight SE 4.77",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 mid",
+      "value": 43.780671256124698,
+      "note": "replicate-weight SE 3.32",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 gap_top1_p90_99",
+      "value": 3.88386536469598,
+      "note": "replicate-weight SE 7.75",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 gap_top1_mid",
+      "value": 6.54354542676116,
+      "note": "replicate-weight SE 7.43",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 k_top1",
+      "value": 2.56809852434766,
+      "note": "replicate-weight SE 0.14",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 k_p90_99",
+      "value": 2.45210457749549,
+      "note": "replicate-weight SE 0.11",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 k_mid",
+      "value": 2.50144549750482,
+      "note": "replicate-weight SE 0.12",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2022 k_gap_top1_p90_99",
+      "value": 0.115993946852177,
+      "note": "replicate-weight SE 0.17",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 top1",
+      "value": 52.881715525175899,
+      "note": "replicate-weight SE 8.21",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 p90_99",
+      "value": 34.475187016139799,
+      "note": "replicate-weight SE 3.97",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 p80_90",
+      "value": 33.691124664706102,
+      "note": "replicate-weight SE 3.83",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 mid",
+      "value": 43.448342278096597,
+      "note": "replicate-weight SE 3.18",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 gap_top1_p90_99",
+      "value": 18.4065285090361,
+      "note": "replicate-weight SE 9.07",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 gap_top1_mid",
+      "value": 9.43337324707923,
+      "note": "replicate-weight SE 8.76",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 k_top1",
+      "value": 2.40779417888318,
+      "note": "replicate-weight SE 0.13",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 k_p90_99",
+      "value": 2.26958410603688,
+      "note": "replicate-weight SE 0.10",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 k_mid",
+      "value": 2.49685062690983,
+      "note": "replicate-weight SE 0.12",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw 2025 k_gap_top1_p90_99",
+      "value": 0.138210072846305,
+      "note": "replicate-weight SE 0.17",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 top1",
+      "value": 45.768099620965202,
+      "note": "replicate-weight SE 5.80",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 p90_99",
+      "value": 32.3164517764937,
+      "note": "replicate-weight SE 3.02",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 p80_90",
+      "value": 38.028726062460201,
+      "note": "replicate-weight SE 3.66",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 mid",
+      "value": 40.881743601324203,
+      "note": "replicate-weight SE 2.19",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 gap_top1_p90_99",
+      "value": 13.4516478444715,
+      "note": "replicate-weight SE 6.72",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 gap_top1_mid",
+      "value": 4.88635601964101,
+      "note": "replicate-weight SE 6.22",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 k_top1",
+      "value": 2.50440892414688,
+      "note": "replicate-weight SE 0.14",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 k_p90_99",
+      "value": 2.16222827949398,
+      "note": "replicate-weight SE 0.08",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 k_mid",
+      "value": 2.40256536968813,
+      "note": "replicate-weight SE 0.09",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2019 k_gap_top1_p90_99",
+      "value": 0.342180644652907,
+      "note": "replicate-weight SE 0.16",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 top1",
+      "value": 44.214808754628599,
+      "note": "replicate-weight SE 6.58",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 p90_99",
+      "value": 41.090085778911103,
+      "note": "replicate-weight SE 4.32",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 p80_90",
+      "value": 39.026123238015501,
+      "note": "replicate-weight SE 4.49",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 mid",
+      "value": 38.903113172273002,
+      "note": "replicate-weight SE 2.91",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 gap_top1_p90_99",
+      "value": 3.1247229757176,
+      "note": "replicate-weight SE 8.11",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 gap_top1_mid",
+      "value": 5.31169558235562,
+      "note": "replicate-weight SE 7.69",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 k_top1",
+      "value": 2.37765004987713,
+      "note": "replicate-weight SE 0.16",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 k_p90_99",
+      "value": 2.22592237150002,
+      "note": "replicate-weight SE 0.12",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 k_mid",
+      "value": 2.35588811550754,
+      "note": "replicate-weight SE 0.10",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2022 k_gap_top1_p90_99",
+      "value": 0.151727678377113,
+      "note": "replicate-weight SE 0.22",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 top1",
+      "value": 49.945708631113099,
+      "note": "replicate-weight SE 8.73",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 p90_99",
+      "value": 37.224013083087002,
+      "note": "replicate-weight SE 3.73",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 p80_90",
+      "value": 33.427750949610299,
+      "note": "replicate-weight SE 4.12",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 mid",
+      "value": 43.690883837852297,
+      "note": "replicate-weight SE 3.37",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 gap_top1_p90_99",
+      "value": 12.7216955480261,
+      "note": "replicate-weight SE 9.52",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 gap_top1_mid",
+      "value": 6.25482479326082,
+      "note": "replicate-weight SE 9.01",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 k_top1",
+      "value": 2.49116405449586,
+      "note": "replicate-weight SE 0.21",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 k_p90_99",
+      "value": 2.28916315050484,
+      "note": "replicate-weight SE 0.09",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 k_mid",
+      "value": 2.5071316166771,
+      "note": "replicate-weight SE 0.13",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw_networth 2025 k_gap_top1_p90_99",
+      "value": 0.202000903991025,
+      "note": "replicate-weight SE 0.23",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_top3",
+      "value": 49.129849602573103,
+      "note": "replicate-weight SE 3.281, 95% CI 42.70 to 55.56, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_aff3",
+      "value": 39.987578355837201,
+      "note": "replicate-weight SE 1.639, 95% CI 36.78 to 43.20, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_mid3",
+      "value": 42.259287297857803,
+      "note": "replicate-weight SE 1.198, 95% CI 39.91 to 44.61, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_gap3",
+      "value": 9.142271246735881,
+      "note": "replicate-weight SE 3.753, 95% CI 1.79 to 16.50, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_gapmid3",
+      "value": 6.87056230471524,
+      "note": "replicate-weight SE 3.482, 95% CI 0.05 to 13.70, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_topkids",
+      "value": 2.50896957217896,
+      "note": "replicate-weight SE 0.082, 95% CI 2.35 to 2.67, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_affkids",
+      "value": 2.35071392489555,
+      "note": "replicate-weight SE 0.045, 95% CI 2.26 to 2.44, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_gapkids",
+      "value": 0.158255647283413,
+      "note": "replicate-weight SE 0.095, 95% CI -0.03 to 0.34, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_top_exact3",
+      "value": 33.805507852294099,
+      "note": "replicate-weight SE 3.148, 95% CI 27.63 to 39.98, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_aff_exact3",
+      "value": 23.901061025135899,
+      "note": "replicate-weight SE 1.363, 95% CI 21.23 to 26.57, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_gap_exact3",
+      "value": 9.90444682715826,
+      "note": "replicate-weight SE 3.468, 95% CI 3.11 to 16.70, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_top_4plus",
+      "value": 15.324341750278901,
+      "note": "replicate-weight SE 2.200, 95% CI 11.01 to 19.64, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_aff_4plus",
+      "value": 16.086517330701302,
+      "note": "replicate-weight SE 1.230, 95% CI 13.68 to 18.50, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank all_gap_4plus",
+      "value": -0.762175580422392,
+      "note": "replicate-weight SE 2.588, 95% CI -5.83 to 4.31, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_top3",
+      "value": 45.935139501808898,
+      "note": "replicate-weight SE 3.772, 95% CI 38.54 to 53.33, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_aff3",
+      "value": 35.639492494265603,
+      "note": "replicate-weight SE 1.875, 95% CI 31.96 to 39.31, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_mid3",
+      "value": 34.9045432947132,
+      "note": "replicate-weight SE 1.354, 95% CI 32.25 to 37.56, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_gap3",
+      "value": 10.295647007543399,
+      "note": "replicate-weight SE 4.373, 95% CI 1.72 to 18.87, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_gapmid3",
+      "value": 11.0305962070957,
+      "note": "replicate-weight SE 3.984, 95% CI 3.22 to 18.84, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_topkids",
+      "value": 2.42347279823436,
+      "note": "replicate-weight SE 0.091, 95% CI 2.24 to 2.60, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_affkids",
+      "value": 2.19041943606362,
+      "note": "replicate-weight SE 0.047, 95% CI 2.10 to 2.28, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_gapkids",
+      "value": 0.233053362170743,
+      "note": "replicate-weight SE 0.103, 95% CI 0.03 to 0.44, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_top_exact3",
+      "value": 32.858581255553197,
+      "note": "replicate-weight SE 3.583, 95% CI 25.84 to 39.88, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_aff_exact3",
+      "value": 24.8492761269478,
+      "note": "replicate-weight SE 1.652, 95% CI 21.61 to 28.09, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_gap_exact3",
+      "value": 8.009305128605421,
+      "note": "replicate-weight SE 4.070, 95% CI 0.03 to 15.99, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_top_4plus",
+      "value": 13.076558246255701,
+      "note": "replicate-weight SE 2.388, 95% CI 8.40 to 17.76, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_aff_4plus",
+      "value": 10.7902163673178,
+      "note": "replicate-weight SE 1.150, 95% CI 8.54 to 13.04, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank no_remarried_gap_4plus",
+      "value": 2.28634187893796,
+      "note": "replicate-weight SE 2.715, 95% CI -3.03 to 7.61, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_top3",
+      "value": 50.529171925827001,
+      "note": "replicate-weight SE 4.078, 95% CI 42.54 to 58.52, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_aff3",
+      "value": 37.934479819228301,
+      "note": "replicate-weight SE 2.062, 95% CI 33.89 to 41.98, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_mid3",
+      "value": 43.431537556443601,
+      "note": "replicate-weight SE 2.017, 95% CI 39.48 to 47.39, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_gap3",
+      "value": 12.5946921065987,
+      "note": "replicate-weight SE 4.788, 95% CI 3.21 to 21.98, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_gapmid3",
+      "value": 7.09763436938343,
+      "note": "replicate-weight SE 4.603, 95% CI -1.92 to 16.12, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_topkids",
+      "value": 2.59484050529365,
+      "note": "replicate-weight SE 0.086, 95% CI 2.43 to 2.76, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_affkids",
+      "value": 2.27567540545724,
+      "note": "replicate-weight SE 0.045, 95% CI 2.19 to 2.36, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_gapkids",
+      "value": 0.319165099836406,
+      "note": "replicate-weight SE 0.100, 95% CI 0.12 to 0.51, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_top_exact3",
+      "value": 35.823788397662,
+      "note": "replicate-weight SE 3.914, 95% CI 28.15 to 43.50, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_aff_exact3",
+      "value": 27.4066052129788,
+      "note": "replicate-weight SE 1.850, 95% CI 23.78 to 31.03, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_gap_exact3",
+      "value": 8.417183184683219,
+      "note": "replicate-weight SE 4.455, 95% CI -0.31 to 17.15, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_top_4plus",
+      "value": 14.705383528164999,
+      "note": "replicate-weight SE 2.681, 95% CI 9.45 to 19.96, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_aff_4plus",
+      "value": 10.527874606249499,
+      "note": "replicate-weight SE 1.257, 95% CI 8.06 to 12.99, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 inc_rank first_marriage_gap_4plus",
+      "value": 4.1775089219155,
+      "note": "replicate-weight SE 3.056, 95% CI -1.81 to 10.17, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_top3",
+      "value": 50.150320534072698,
+      "note": "replicate-weight SE 3.329, 95% CI 43.63 to 56.68, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_aff3",
+      "value": 37.205532538389697,
+      "note": "replicate-weight SE 1.643, 95% CI 33.98 to 40.43, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_mid3",
+      "value": 40.720056937965197,
+      "note": "replicate-weight SE 1.199, 95% CI 38.37 to 43.07, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_gap3",
+      "value": 12.9447879956829,
+      "note": "replicate-weight SE 3.801, 95% CI 5.50 to 20.39, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_gapmid3",
+      "value": 9.430263596107411,
+      "note": "replicate-weight SE 3.634, 95% CI 2.31 to 16.55, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_topkids",
+      "value": 2.52217215332614,
+      "note": "replicate-weight SE 0.085, 95% CI 2.35 to 2.69, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_affkids",
+      "value": 2.24652901129332,
+      "note": "replicate-weight SE 0.045, 95% CI 2.16 to 2.34, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_gapkids",
+      "value": 0.275643142032817,
+      "note": "replicate-weight SE 0.098, 95% CI 0.08 to 0.47, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_top_exact3",
+      "value": 31.181112211570699,
+      "note": "replicate-weight SE 3.023, 95% CI 25.26 to 37.11, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_aff_exact3",
+      "value": 23.4411668851405,
+      "note": "replicate-weight SE 1.516, 95% CI 20.47 to 26.41, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_gap_exact3",
+      "value": 7.7399453264302,
+      "note": "replicate-weight SE 3.473, 95% CI 0.93 to 14.55, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_top_4plus",
+      "value": 18.969208322501999,
+      "note": "replicate-weight SE 2.149, 95% CI 14.76 to 23.18, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_aff_4plus",
+      "value": 13.7643656532493,
+      "note": "replicate-weight SE 1.056, 95% CI 11.69 to 15.83, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank all_gap_4plus",
+      "value": 5.20484266925273,
+      "note": "replicate-weight SE 2.466, 95% CI 0.37 to 10.04, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_top3",
+      "value": 46.710924990743599,
+      "note": "replicate-weight SE 3.995, 95% CI 38.88 to 54.54, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_aff3",
+      "value": 34.502871584574002,
+      "note": "replicate-weight SE 1.900, 95% CI 30.78 to 38.23, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_mid3",
+      "value": 34.974305499668702,
+      "note": "replicate-weight SE 1.427, 95% CI 32.18 to 37.77, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_gap3",
+      "value": 12.208053406169601,
+      "note": "replicate-weight SE 4.595, 95% CI 3.20 to 21.22, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_gapmid3",
+      "value": 11.736619491075,
+      "note": "replicate-weight SE 4.431, 95% CI 3.05 to 20.42, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_topkids",
+      "value": 2.38093072651668,
+      "note": "replicate-weight SE 0.102, 95% CI 2.18 to 2.58, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_affkids",
+      "value": 2.15183451907942,
+      "note": "replicate-weight SE 0.049, 95% CI 2.06 to 2.25, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_gapkids",
+      "value": 0.229096207437256,
+      "note": "replicate-weight SE 0.121, 95% CI -0.01 to 0.47, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_top_exact3",
+      "value": 32.698113903313804,
+      "note": "replicate-weight SE 3.772, 95% CI 25.30 to 40.09, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_aff_exact3",
+      "value": 23.895008256517499,
+      "note": "replicate-weight SE 1.816, 95% CI 20.34 to 27.45, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_gap_exact3",
+      "value": 8.803105646796309,
+      "note": "replicate-weight SE 4.299, 95% CI 0.38 to 17.23, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_top_4plus",
+      "value": 14.012811087429901,
+      "note": "replicate-weight SE 2.431, 95% CI 9.25 to 18.78, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_aff_4plus",
+      "value": 10.607863328056499,
+      "note": "replicate-weight SE 1.080, 95% CI 8.49 to 12.72, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank no_remarried_gap_4plus",
+      "value": 3.40494775937332,
+      "note": "replicate-weight SE 2.738, 95% CI -1.96 to 8.77, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_top3",
+      "value": 50.3699915175131,
+      "note": "replicate-weight SE 4.002, 95% CI 42.53 to 58.21, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_aff3",
+      "value": 38.925261528440799,
+      "note": "replicate-weight SE 2.196, 95% CI 34.62 to 43.23, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_mid3",
+      "value": 43.286705487322003,
+      "note": "replicate-weight SE 2.202, 95% CI 38.97 to 47.60, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_gap3",
+      "value": 11.4447299890723,
+      "note": "replicate-weight SE 4.760, 95% CI 2.11 to 20.78, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_gapmid3",
+      "value": 7.08328603019113,
+      "note": "replicate-weight SE 4.881, 95% CI -2.48 to 16.65, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_topkids",
+      "value": 2.50909143218504,
+      "note": "replicate-weight SE 0.088, 95% CI 2.34 to 2.68, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_affkids",
+      "value": 2.35441637247264,
+      "note": "replicate-weight SE 0.051, 95% CI 2.25 to 2.45, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_gapkids",
+      "value": 0.154675059712393,
+      "note": "replicate-weight SE 0.111, 95% CI -0.06 to 0.37, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_top_exact3",
+      "value": 35.525146668960801,
+      "note": "replicate-weight SE 3.951, 95% CI 27.78 to 43.27, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_aff_exact3",
+      "value": 27.167528538660498,
+      "note": "replicate-weight SE 2.134, 95% CI 22.98 to 31.35, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_gap_exact3",
+      "value": 8.35761813030026,
+      "note": "replicate-weight SE 4.621, 95% CI -0.70 to 17.41, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_top_4plus",
+      "value": 14.844844848552301,
+      "note": "replicate-weight SE 2.693, 95% CI 9.57 to 20.12, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_aff_4plus",
+      "value": 11.757732989780299,
+      "note": "replicate-weight SE 1.266, 95% CI 9.28 to 14.24, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "rw5 nw_rank first_marriage_gap_4plus",
+      "value": 3.08711185877204,
+      "note": "replicate-weight SE 3.067, 95% CI -2.92 to 9.10, pooled 2013-2025",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "n_top1_families_2025",
+      "value": 208,
+      "note": "unweighted cases",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P0-10",
+      "value": 54.918379303410099,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P10-20",
+      "value": 52.321696147482299,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P20-30",
+      "value": 52.394331294287198,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P60-70",
+      "value": 56.883405346081901,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P80-90",
+      "value": 50.174929951236201,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P70-80",
+      "value": 49.7308281902923,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P40-50",
+      "value": 52.5479995638281,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P30-40",
+      "value": 52.455718100111604,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P50-60",
+      "value": 50.024497919297801,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P90-95",
+      "value": 54.3093632634382,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 P95-99",
+      "value": 51.325737614988299,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 1989-1998 Top 1%",
+      "value": 48.520562146875903,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P70-80",
+      "value": 43.248827412158299,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P80-90",
+      "value": 41.078530170370499,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P95-99",
+      "value": 40.482499720176698,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 Top 1%",
+      "value": 48.160749403462802,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P90-95",
+      "value": 41.239032937060202,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P0-10",
+      "value": 46.945372550632499,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P50-60",
+      "value": 41.885170800463001,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P60-70",
+      "value": 42.6996288848853,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P20-30",
+      "value": 40.622441586533803,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P10-20",
+      "value": 41.8074348348838,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P30-40",
+      "value": 40.608135929924998,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2001-2010 P40-50",
+      "value": 43.931037622906402,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P20-30",
+      "value": 41.774050646568703,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P30-40",
+      "value": 42.223712831182397,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P80-90",
+      "value": 37.116152557989402,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P60-70",
+      "value": 39.845993606354803,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P70-80",
+      "value": 40.021347842026998,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P40-50",
+      "value": 41.317836255845997,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P90-95",
+      "value": 39.089246288677501,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P95-99",
+      "value": 41.1108291847627,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P10-20",
+      "value": 40.575286265434201,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 Top 1%",
+      "value": 49.130806837308398,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P0-10",
+      "value": 36.0082929506083,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p 2013-2025 P50-60",
+      "value": 43.204149870225699,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P0-10",
+      "value": 3.09397479602916,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P10-20",
+      "value": 2.99978706216069,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P20-30",
+      "value": 2.95053031621193,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P60-70",
+      "value": 3.08067470971486,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P80-90",
+      "value": 2.79561322346786,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P70-80",
+      "value": 2.84348948390901,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P40-50",
+      "value": 2.79541063630796,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P30-40",
+      "value": 2.87059373334444,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P50-60",
+      "value": 2.79485257300455,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P90-95",
+      "value": 2.85919242516218,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 P95-99",
+      "value": 2.74844650494112,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 1989-1998 Top 1%",
+      "value": 2.67902953615144,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P70-80",
+      "value": 2.45022927173295,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P80-90",
+      "value": 2.42733909405403,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P95-99",
+      "value": 2.38582202520413,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 Top 1%",
+      "value": 2.68338749103491,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P90-95",
+      "value": 2.46357166220944,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P0-10",
+      "value": 2.60563341495356,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P50-60",
+      "value": 2.42485598248287,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P60-70",
+      "value": 2.5020174869954,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P20-30",
+      "value": 2.48665550436073,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P10-20",
+      "value": 2.55791986320225,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P30-40",
+      "value": 2.46275304942039,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2001-2010 P40-50",
+      "value": 2.49569994716422,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P20-30",
+      "value": 2.44716566612408,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P30-40",
+      "value": 2.43377925935222,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P80-90",
+      "value": 2.33187391616676,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P60-70",
+      "value": 2.35960432593655,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P70-80",
+      "value": 2.31419232625725,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P40-50",
+      "value": 2.43467055256487,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P90-95",
+      "value": 2.28545475150923,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P95-99",
+      "value": 2.43224545389111,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P10-20",
+      "value": 2.39995291794039,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 Top 1%",
+      "value": 2.50894403705517,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P0-10",
+      "value": 2.23475906351447,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids 2013-2025 P50-60",
+      "value": 2.48902488043549,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "gap_top1_vs_p90_99_ageyear 1989-1998",
+      "value": -3.7162973014861,
+      "note": "SE 4.9 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "gap_top1_vs_p90_99_ageyear 2001-2010",
+      "value": 7.99417457159703,
+      "note": "SE 4.0 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "gap_top1_vs_p90_99_ageyear 2013-2025",
+      "value": 9.03631698754524,
+      "note": "SE 3.7 (approx.)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_by_source Total income Top 1%",
+      "value": 49.130806837308398,
+      "note": "n=1390",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_by_source Total income 90th-99th",
+      "value": 39.988162369726297,
+      "note": "n=1928",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_by_source Wages and salaries Top 1%",
+      "value": 44.167120011245601,
+      "note": "n=529",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_by_source Wages and salaries 90th-99th",
+      "value": 38.927001597483802,
+      "note": "n=1728",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_by_source Capital income Top 1%",
+      "value": 48.806664229429103,
+      "note": "n=1444",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_by_source Capital income 90th-99th",
+      "value": 35.684101875765698,
+      "note": "n=1801",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_2013_25_P40_60",
+      "value": 42.259240367602899,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "p99_wage_2025wave_head45_64_nominal2024",
+      "value": 1010000,
+      "note": "nominal 2024 $, all heads 45-64",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "p99_capinc_2025wave_head45_64_nominal2024",
+      "value": 677300,
+      "note": "nominal 2024 $",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "p99_threshold_2013_25_2025usd Total income",
+      "value": 1420801.1396999999,
+      "note": "heads 45-64, pooled, 2025 $",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "p99_threshold_2013_25_2025usd Wages and salaries",
+      "value": 969999.79735576501,
+      "note": "heads 45-64, pooled, 2025 $",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "p99_threshold_2013_25_2025usd Capital income",
+      "value": 672712.97297273704,
+      "note": "heads 45-64, pooled, 2025 $",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_2013_25_P40_60",
+      "value": 2.46179721239445,
+      "note": "",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_by_source Total income Top 1%",
+      "value": 2.50894403705517,
+      "note": "n=1390",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_by_source Total income 90th-99th",
+      "value": 2.35072663483147,
+      "note": "n=1928",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_by_source Wages and salaries Top 1%",
+      "value": 2.44548833628396,
+      "note": "n=529",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_by_source Wages and salaries 90th-99th",
+      "value": 2.33821536529214,
+      "note": "n=1728",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_by_source Capital income Top 1%",
+      "value": 2.521857888672,
+      "note": "n=1444",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_by_source Capital income 90th-99th",
+      "value": 2.22529006874507,
+      "note": "n=1801",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P10_2013_25",
+      "value": 970,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P20_2013_25",
+      "value": 20199.327807000001,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P30_2013_25",
+      "value": 72919.660927000004,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P40_2013_25",
+      "value": 147425.08343999999,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P50_2013_25",
+      "value": 244822.10258999999,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P60_2013_25",
+      "value": 394904.45026000001,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P70_2013_25",
+      "value": 640198.05524000002,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P80_2013_25",
+      "value": 1135970.2368000001,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P90_2013_25",
+      "value": 2430020.5060999999,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P95_2013_25",
+      "value": 4923699.3310000002,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "networth_cutoff_P99_2013_25",
+      "value": 17073000,
+      "note": "2025 $, heads 45-64, pooled",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P0-10",
+      "value": 40.573204390642999,
+      "note": "SE 1.4 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P10-20",
+      "value": 44.150690301940202,
+      "note": "SE 1.6 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P20-30",
+      "value": 47.354325859510602,
+      "note": "SE 1.7 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P30-40",
+      "value": 45.033782523103099,
+      "note": "SE 2.0 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P40-50",
+      "value": 40.734403638405801,
+      "note": "SE 2.0 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P50-60",
+      "value": 40.708161787739499,
+      "note": "SE 2.2 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P60-70",
+      "value": 36.578114302903799,
+      "note": "SE 1.8 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P70-80",
+      "value": 33.866342735963997,
+      "note": "SE 1.6 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P80-90",
+      "value": 35.489470565227698,
+      "note": "SE 1.8 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P90-95",
+      "value": 36.392201312593102,
+      "note": "SE 2.6 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 P95-99",
+      "value": 38.221336515703698,
+      "note": "SE 2.2 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "share3p_networth_2013_25 Top 1%",
+      "value": 50.150320534072598,
+      "note": "SE 3.3 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P0-10",
+      "value": 2.43777389613357,
+      "note": "SE 0.07 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P10-20",
+      "value": 2.56321993627994,
+      "note": "SE 0.07 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P20-30",
+      "value": 2.65503738389357,
+      "note": "SE 0.07 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P30-40",
+      "value": 2.58699837405631,
+      "note": "SE 0.07 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P40-50",
+      "value": 2.39675403944439,
+      "note": "SE 0.07 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P50-60",
+      "value": 2.39853784975249,
+      "note": "SE 0.09 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P60-70",
+      "value": 2.18710665095684,
+      "note": "SE 0.06 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P70-80",
+      "value": 2.136680938105,
+      "note": "SE 0.05 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P80-90",
+      "value": 2.17572242408672,
+      "note": "SE 0.05 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P90-95",
+      "value": 2.22525762166166,
+      "note": "SE 0.07 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 P95-99",
+      "value": 2.27309647908104,
+      "note": "SE 0.06 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    },
+    {
+      "item": "mean_kids_networth_2013_25 Top 1%",
+      "value": 2.52217215332614,
+      "note": "SE 0.09 (replicate weights)",
+      "built_at": "2026-10-15 21:43 EDT"
+    }
+  ],
+  "raw_integrity": [
+    {
+      "year": 1989,
+      "rows": 15715,
+      "families": 3143,
+      "max_weight_error": 1.40514377910961e-10,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 16,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 0.0126017220318317
+    },
+    {
+      "year": 1992,
+      "rows": 19530,
+      "families": 3906,
+      "max_weight_error": 4.93063367912328e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 15,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 2.97538936138153e-05
+    },
+    {
+      "year": 1995,
+      "rows": 21495,
+      "families": 4299,
+      "max_weight_error": 4.924616270329809e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 1.67600810527802e-05
+    },
+    {
+      "year": 1998,
+      "rows": 21525,
+      "families": 4305,
+      "max_weight_error": 4.81561457377211e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 1.39814101904631
+    },
+    {
+      "year": 2001,
+      "rows": 22210,
+      "families": 4442,
+      "max_weight_error": 4.960942767695539e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 13.090288233012
+    },
+    {
+      "year": 2004,
+      "rows": 22595,
+      "families": 4519,
+      "max_weight_error": 4.945621689955719e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 0.43290201947093
+    },
+    {
+      "year": 2007,
+      "rows": 22085,
+      "families": 4417,
+      "max_weight_error": 4.88087348315958e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 22.272783458232901
+    },
+    {
+      "year": 2010,
+      "rows": 32410,
+      "families": 6482,
+      "max_weight_error": 4.77025086098593e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 1.17333739995956
+    },
+    {
+      "year": 2013,
+      "rows": 30075,
+      "families": 6015,
+      "max_weight_error": 4.87128115622681e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 4.85195922851563
+    },
+    {
+      "year": 2016,
+      "rows": 31240,
+      "families": 6248,
+      "max_weight_error": 4.9128034973478e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 0.566739026457071
+    },
+    {
+      "year": 2019,
+      "rows": 28885,
+      "families": 5777,
+      "max_weight_error": 4.96730434562664e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 0.407397124916315
+    },
+    {
+      "year": 2022,
+      "rows": 22975,
+      "families": 4595,
+      "max_weight_error": 4.96707119879147e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 0.933534242212772
+    },
+    {
+      "year": 2025,
+      "rows": 21800,
+      "families": 4360,
+      "max_weight_error": 4.95377072695646e-11,
+      "roster_disagreements": 0,
+      "min_x5910": -1,
+      "max_x5910": 10,
+      "missing_x5910": 0,
+      "max_implicate_population_difference": 1.0970704741776
+    }
+  ],
+  "overall": [
+    {
+      "period": "1989-1998",
+      "share3": 52.39907863551344
+    },
+    {
+      "period": "2001-2010",
+      "share3": 42.444247387061957
+    },
+    {
+      "period": "2013-2025",
+      "share3": 40.298659390763056
+    }
+  ],
+  "sample": {
+    "recent_families": 11215,
+    "recent_rows": 56075,
+    "top_income_any_implicate": 1390
+  },
+  "supplementary_measurement": [
+    {
+      "id": "baseline",
+      "outcome": "count_base",
+      "filter": "all",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 49.129849602573103,
+      "aff": 39.987578355837201,
+      "gap": 9.142271246735881,
+      "se": 3.75308156952234,
+      "lower": 1.78623137047209,
+      "upper": 16.498311122999699
+    },
+    {
+      "id": "dedup_both",
+      "outcome": "count_dedup",
+      "filter": "all",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 47.827485997850303,
+      "aff": 39.355509208553897,
+      "gap": 8.47197678929642,
+      "se": 3.78897531603243,
+      "lower": 1.04558516987285,
+      "upper": 15.89836840872
+    },
+    {
+      "id": "dedup_top_only",
+      "outcome": "count_dedup",
+      "filter": "all",
+      "adverse": true,
+      "rank": "inc_rank",
+      "top": 47.827485997850303,
+      "aff": 39.987578355837201,
+      "gap": 7.83990764201311,
+      "se": 3.78023168917206,
+      "lower": 0.43065353123587,
+      "upper": 15.2491617527903
+    },
+    {
+      "id": "exclude_all_adult_roster_both",
+      "outcome": "count_minors_away",
+      "filter": "all",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 38.333913729365499,
+      "aff": 28.550774238094402,
+      "gap": 9.78313949127106,
+      "se": 3.5767476690658,
+      "lower": 2.77271405990209,
+      "upper": 16.793564922640002
+    },
+    {
+      "id": "exclude_all_adult_roster_top_only",
+      "outcome": "count_minors_away",
+      "filter": "all",
+      "adverse": true,
+      "rank": "inc_rank",
+      "top": 38.333913729365499,
+      "aff": 39.987578355837201,
+      "gap": -1.65366462647171,
+      "se": 3.6629479157899,
+      "lower": -8.8330425414199,
+      "upper": 5.52571328847649
+    },
+    {
+      "id": "away_both",
+      "outcome": "count_away",
+      "filter": "all",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 20.984745267047,
+      "aff": 17.9320103842355,
+      "gap": 3.05273488281151,
+      "se": 2.75732084012759,
+      "lower": -2.35161396383858,
+      "upper": 8.457083729461591
+    },
+    {
+      "id": "away_top_only",
+      "outcome": "count_away",
+      "filter": "all",
+      "adverse": true,
+      "rank": "inc_rank",
+      "top": 20.984745267047,
+      "aff": 39.987578355837201,
+      "gap": -19.002833088790201,
+      "se": 2.99956415319016,
+      "lower": -24.8819788290429,
+      "upper": -13.1236873485375
+    },
+    {
+      "id": "strict_current_first_marriage",
+      "outcome": "count_base",
+      "filter": "strict",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 50.731297987289899,
+      "aff": 37.484427756821702,
+      "gap": 13.2468702304682,
+      "se": 4.78769631660025,
+      "lower": 3.86298544993174,
+      "upper": 22.630755011004702
+    },
+    {
+      "id": "mature_sample",
+      "outcome": "count_base",
+      "filter": "mature",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 52.0144472121384,
+      "aff": 39.977404681805197,
+      "gap": 12.037042530333199,
+      "se": 4.16594315699892,
+      "lower": 3.87179394261534,
+      "upper": 20.2022911180511
+    },
+    {
+      "id": "strict_mature",
+      "outcome": "count_base",
+      "filter": "strict_mature",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 51.696377034756203,
+      "aff": 38.1807390175967,
+      "gap": 13.5156380171595,
+      "se": 5.21388433744248,
+      "lower": 3.29642471577228,
+      "upper": 23.734851318546799
+    },
+    {
+      "id": "strict_dedup",
+      "outcome": "count_dedup",
+      "filter": "strict",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 48.890658187656904,
+      "aff": 37.055280065805498,
+      "gap": 11.8353781218514,
+      "se": 4.81419882209979,
+      "lower": 2.39954843053577,
+      "upper": 21.271207813166999
+    },
+    {
+      "id": "strict_adult_removed",
+      "outcome": "count_minors_away",
+      "filter": "strict",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 37.081334864570799,
+      "aff": 23.716097736944299,
+      "gap": 13.3652371276265,
+      "se": 4.5101465043247,
+      "lower": 4.52534997915005,
+      "upper": 22.2051242761029
+    },
+    {
+      "id": "three_plus_among_two_plus",
+      "outcome": "count_base",
+      "filter": "parents2",
+      "adverse": false,
+      "rank": "inc_rank",
+      "top": 57.593436920323398,
+      "aff": 51.023991900107902,
+      "gap": 6.56944502021546,
+      "se": 4.06917942623894,
+      "lower": -1.40614665521286,
+      "upper": 14.5450366956438
+    },
+    {
+      "id": "baseline",
+      "outcome": "count_base",
+      "filter": "all",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 50.150320534072698,
+      "aff": 37.205532538389697,
+      "gap": 12.9447879956829,
+      "se": 3.80072769233874,
+      "lower": 5.49536171869901,
+      "upper": 20.3942142726669
+    },
+    {
+      "id": "dedup_both",
+      "outcome": "count_dedup",
+      "filter": "all",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 49.461396511763098,
+      "aff": 36.295707257116199,
+      "gap": 13.165689254647001,
+      "se": 3.91492053669191,
+      "lower": 5.49244500273083,
+      "upper": 20.838933506563102
+    },
+    {
+      "id": "dedup_top_only",
+      "outcome": "count_dedup",
+      "filter": "all",
+      "adverse": true,
+      "rank": "nw_rank",
+      "top": 49.461396511763098,
+      "aff": 37.205532538389697,
+      "gap": 12.255863973373399,
+      "se": 3.88169084279563,
+      "lower": 4.64774992149401,
+      "upper": 19.863978025252901
+    },
+    {
+      "id": "exclude_all_adult_roster_both",
+      "outcome": "count_minors_away",
+      "filter": "all",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 38.158548311500297,
+      "aff": 25.872915022914501,
+      "gap": 12.2856332885858,
+      "se": 3.77546213529312,
+      "lower": 4.88572750341128,
+      "upper": 19.6855390737603
+    },
+    {
+      "id": "exclude_all_adult_roster_top_only",
+      "outcome": "count_minors_away",
+      "filter": "all",
+      "adverse": true,
+      "rank": "nw_rank",
+      "top": 38.158548311500297,
+      "aff": 37.205532538389697,
+      "gap": 0.953015773110587,
+      "se": 3.77664218727218,
+      "lower": -6.44920291394288,
+      "upper": 8.35523446016405
+    },
+    {
+      "id": "away_both",
+      "outcome": "count_away",
+      "filter": "all",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 21.823992602599201,
+      "aff": 14.930917206936099,
+      "gap": 6.8930753956631,
+      "se": 2.38760771204757,
+      "lower": 2.21336428004987,
+      "upper": 11.5727865112763
+    },
+    {
+      "id": "away_top_only",
+      "outcome": "count_away",
+      "filter": "all",
+      "adverse": true,
+      "rank": "nw_rank",
+      "top": 21.823992602599201,
+      "aff": 37.205532538389697,
+      "gap": -15.381539935790499,
+      "se": 2.62123672457969,
+      "lower": -20.519163915966701,
+      "upper": -10.2439159556143
+    },
+    {
+      "id": "strict_current_first_marriage",
+      "outcome": "count_base",
+      "filter": "strict",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 49.962944509064599,
+      "aff": 38.9754622290138,
+      "gap": 10.9874822800508,
+      "se": 4.79471274048077,
+      "lower": 1.58984530870846,
+      "upper": 20.3851192513931
+    },
+    {
+      "id": "mature_sample",
+      "outcome": "count_base",
+      "filter": "mature",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 52.046977271774303,
+      "aff": 36.837178223784697,
+      "gap": 15.2097990479897,
+      "se": 3.83584201919893,
+      "lower": 7.69154869035974,
+      "upper": 22.728049405619601
+    },
+    {
+      "id": "strict_mature",
+      "outcome": "count_base",
+      "filter": "strict_mature",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 51.923288419225997,
+      "aff": 38.317342978366703,
+      "gap": 13.605945440859401,
+      "se": 4.80511707685461,
+      "lower": 4.18791597022433,
+      "upper": 23.023974911494399
+    },
+    {
+      "id": "strict_dedup",
+      "outcome": "count_dedup",
+      "filter": "strict",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 48.918690925403197,
+      "aff": 38.272759204082199,
+      "gap": 10.645931721320901,
+      "se": 4.9634556497547,
+      "lower": 0.917558647801703,
+      "upper": 20.3743047948401
+    },
+    {
+      "id": "strict_adult_removed",
+      "outcome": "count_minors_away",
+      "filter": "strict",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 33.4559522715955,
+      "aff": 25.211766160019302,
+      "gap": 8.24418611157623,
+      "se": 4.61649221612843,
+      "lower": -0.804138632035498,
+      "upper": 17.292510855187999
+    },
+    {
+      "id": "three_plus_among_two_plus",
+      "outcome": "count_base",
+      "filter": "parents2",
+      "adverse": false,
+      "rank": "nw_rank",
+      "top": 60.456310876057202,
+      "aff": 48.940713742063402,
+      "gap": 11.515597133993801,
+      "se": 3.81324195102674,
+      "lower": 4.04164290998139,
+      "upper": 18.989551358006199
+    }
+  ]
+}

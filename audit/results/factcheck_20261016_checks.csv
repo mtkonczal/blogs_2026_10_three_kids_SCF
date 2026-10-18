@@ -1,0 +1,45 @@
+check,maximum_absolute_error,tolerance
+inc_rank all_gap3 independent estimate,7.105427357601e-15,1e-08
+inc_rank all_gap3 independent SE,9.53903622757934e-13,1e-06
+inc_rank all_gap_exact3 independent estimate,3.5527136788005e-15,1e-08
+inc_rank all_gap_exact3 independent SE,8.29603052920902e-12,1e-06
+inc_rank all_gap_4plus independent estimate,9.99200722162641e-16,1e-08
+inc_rank all_gap_4plus independent SE,6.14441830748547e-12,1e-06
+inc_rank all_gapkids independent estimate,3.05311331771918e-16,1e-08
+inc_rank all_gapkids independent SE,7.33330063340532e-13,1e-06
+nw_rank all_gap3 independent estimate,3.90798504668055e-14,1e-08
+nw_rank all_gap3 independent SE,4.17652579187688e-11,1e-06
+nw_rank all_gap_exact3 independent estimate,2.66453525910038e-15,1e-08
+nw_rank all_gap_exact3 independent SE,1.8715695659921e-11,1e-06
+nw_rank all_gap_4plus independent estimate,4.44089209850063e-15,1e-08
+nw_rank all_gap_4plus independent SE,7.86526399565446e-12,1e-06
+nw_rank all_gapkids independent estimate,1.66533453693773e-16,1e-08
+nw_rank all_gapkids independent SE,1.54151691411641e-12,1e-06
+Stock share: bottom half,1.11022302462516e-15,1e-08
+Stock share: top tenth,1.56319401867222e-13,1e-08
+Stored summary archives agree with recorded MD5,0,0
+All-wave roster child count disagreements,0,0
+independent_bands.csv point estimates,1.4210854715202e-14,1e-08
+independent_bands.csv standard errors,4.88498130835069e-15,1e-07
+independent_definitions.csv point estimates,3.5527136788005e-15,1e-08
+independent_definitions.csv standard errors,0,1e-07
+independent_period_change.csv point estimates,7.105427357601e-15,1e-08
+independent_period_change.csv standard errors,3.4114266966867e-10,1e-07
+Fresh rebuild: data/scf_linked.rds,0,0
+Fresh rebuild: output/kids_main.rds,0,0
+Fresh rebuild: output/kids_income.rds,0,0
+Fresh rebuild: output/kids_blended.rds,0,0
+Fresh rebuild: output/kids_wealth_work.rds,0,0
+Fresh rebuild: output/kids_rep5.rds,0,0
+Fresh rebuild: output/kids_top1_defs.rds,0,0
+Fresh rebuild: output/kids_period_change.rds,0,0
+Fresh rebuild: output/kids_bin_ci.rds,0,0
+Fresh rebuild: output/kids_count_checks.rds,0,0
+Fresh rebuild: graphics/post_numbers.csv,0,0
+Fresh rebuild: graphics/01_stock_ownership_2025.png,0,0
+Fresh rebuild: graphics/02_three_plus_kids_by_income.png,0,0
+Fresh rebuild: graphics/03_mean_kids_by_income.png,0,0
+Fresh rebuild: graphics/04_three_plus_kids_by_period.png,0,0
+Fresh rebuild: graphics/04b_mean_kids_by_period.png,0,0
+Fresh rebuild: graphics/05_three_plus_kids_by_networth.png,0,0
+Fresh rebuild: graphics/05b_mean_kids_by_networth.png,0,0

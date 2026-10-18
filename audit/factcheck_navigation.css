@@ -1,0 +1,33 @@
+/* Extend the existing blue/serif evidence page; tokens remain in factcheck.html. */
+.review-rail{font:14px/1.45 "Avenir Next","Segoe UI",Arial,sans-serif;min-width:0;margin-bottom:24px}
+.review-rail>details{padding:12px;border:1px solid var(--line);background:var(--white);border-radius:4px}
+.review-rail summary{font-weight:650;cursor:pointer;min-height:44px;padding:10px 4px;color:var(--ink)}
+.review-rail summary:hover,.review-section>summary:hover{background:var(--wash)}
+.review-rail summary:active,.review-section>summary:active{background:var(--paper)}
+.review-rail ol{list-style:none;padding:0;margin:0 0 8px;border-left:1px solid var(--line)}
+.review-rail li{margin:0}.review-rail a{display:block;padding:9px 12px;color:var(--muted);text-decoration:none;border-left:3px solid transparent;margin-left:-1px}
+.review-rail a:hover{color:var(--accent);background:var(--wash)}
+.review-rail a[aria-current]{color:var(--accent);border-color:var(--accent);background:var(--wash);font-weight:650}
+.rail-group{border-top:1px solid var(--line);margin-top:4px}
+.review-section{border-top:1px solid var(--line);margin:24px 0;background:var(--white)}
+.review-section>summary{cursor:pointer;padding:16px;min-height:52px;color:var(--accent)}
+.review-section>summary h2,.review-section>summary h3,#cross-check .review-section>summary h3{display:inline;font:650 21px/1.4 "Avenir Next","Segoe UI",Arial,sans-serif;margin:0;color:var(--ink)}
+.section-content{padding:0 18px 18px;min-width:0}
+.section-content>.verdict-box,.section-content>.weakest-points,.section-content>.x-note{margin:0!important}
+.section-content .weakest-points{border:0;padding:0;background:transparent}
+.section-content .final-recommendations{padding:0}
+.section-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;font:13px/1.4 "Avenir Next","Segoe UI",Arial,sans-serif}
+.section-controls button{padding:8px 12px;border:1px solid var(--line);background:var(--white);color:var(--accent);border-radius:4px}
+.section-controls button:hover{background:var(--wash)}.section-controls button:active{background:var(--paper)}
+.tabs{flex-wrap:wrap}.tabs button:hover{background:var(--wash)}
+.codex-cross-container{border-top:3px solid var(--accent);padding-top:18px;margin-top:18px}
+.codex-cross-review .byline{margin-bottom:24px}.codex-cross-review .final-recommendations{border-left:4px solid var(--ok);padding-left:18px}
+.codex-cross-review .evidence{font-size:13px;color:var(--muted)}
+[id]{scroll-margin-top:20px}
+@media(min-width:1000px){
+  [role="tabpanel"]{display:grid;grid-template-columns:minmax(0,1fr)240px;gap:36px;align-items:start}
+  [role="tabpanel"]>.review-rail{grid-column:2;grid-row:1;position:sticky;top:20px;max-height:calc(100dvh - 40px);overflow-y:auto;margin:0}
+  [role="tabpanel"]>#review,[role="tabpanel"]>.revbody{grid-column:1;grid-row:1;min-width:0}
+}
+@media(max-width:600px){.review-section>summary{padding:13px}.review-section>summary h2,.review-section>summary h3{font-size:18px}.section-content{padding:0 13px 13px}}
+@media print{[role="tabpanel"]{display:block!important}.review-rail,.section-controls{display:none}.review-section{border-top:1px solid #ccc}.review-section>summary{list-style:none}.section-content{padding:0}.weakest-points{break-before:auto}}

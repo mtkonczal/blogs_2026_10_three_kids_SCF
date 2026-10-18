@@ -82,3 +82,57 @@ No new bootstrap draws are generated: inference uses the Fed's fixed 999
 replicate weights and the five supplied implicates. The repository excludes
 raw-data archives and derived RDS files; download and rebuild them using the
 main instructions before running these checks.
+
+## October 16 process fact-check
+
+`../factcheck.html` now includes a separate process review covering joins, the
+harmonized database, sample construction, child counts, ranks, weights,
+imputation, replicate inference, and a fresh isolated production rebuild.
+
+```bash
+python3 audit/review_20261015/reproduce.py
+Rscript audit/review_20261015/check_outputs.R
+Rscript audit/process_factcheck_20261016.R
+Rscript audit/factcheck_20261016.R
+python3 audit/build_factcheck.py
+```
+
+The process script independently reads the raw CSV and Stata files without
+sourcing production estimators. Its dated JSON and CSVs preserve all-wave join,
+missing-roster-field, weight, rank, and replicate checks, plus headline and
+counting-check point comparisons. The dated assertion script compares all ten
+production data objects, the numbers CSV and seven PNGs to the isolated rebuild.
+Build timestamps are excluded from value comparisons; figure hashes match
+byte for byte. The HTML generator preserves the separate AI review tab.
+
+`results/factcheck_20261016_validation.md` records what was actually executed,
+including the sandbox restriction on the rebuild's initial Quarto subprocess
+and its subsequent successful render. Archive hashes check the local vintage;
+they do not imply a new network download. The author confirmed the New York
+Times quotation, resolving that item from the initial review.
+
+## Codex cross-check of Claude, October 16
+
+The Cross-Fact Check tab now contains a separately attributed Codex response and
+a closing list of recommended changes. Claude's authored text is preserved.
+
+```bash
+Rscript audit/crosscheck_claude_20261016.R
+python3 audit/build_factcheck.py
+```
+
+The new R script reconstructs the recent sample from raw CSV/Stata inputs and
+checks capped-count, conditional-share, first-marriage and ranking diagnostics.
+It also reads X5910 extrema from every full public wave. Dated inference,
+composition, covariance, extrema and session files are in `results/`.
+These supplemental estimands do not replace the production specification.
+
+`codex_crosscheck_20261016.html` contains the response fragment. The builder
+inserts it only between the Codex cross-check markers and preserves the other
+author's review. `factcheck_navigation.js` and `.css` provide shared tab,
+disclosure, deep-link and sidebar behavior for all three panels. Keep these
+assets with the HTML when copying the page. Without JavaScript, the review text
+remains in the source rather than being collapsed by the controller.
+
+Execution and browser verification are recorded in
+`results/crosscheck_claude_20261016_validation.md`.

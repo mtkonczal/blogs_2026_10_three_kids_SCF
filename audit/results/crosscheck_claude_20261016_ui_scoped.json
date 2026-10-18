@@ -1,0 +1,32 @@
+{
+  "findings": [
+    {
+      "category": "violation",
+      "file": "factcheck.html",
+      "line": 11,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    },
+    {
+      "category": "violation",
+      "file": "factcheck.html",
+      "line": 11,
+      "message": "Enabled literal button has no detectable action or submit behavior.",
+      "remediation": "Connect the button to a real action, make it a submit button, or disable/remove it.",
+      "ruleId": "affordance.actionless-button",
+      "severity": "error"
+    }
+  ],
+  "mode": "strict",
+  "projectRoot": "/private/tmp/scf_factcheck_ui_audit",
+  "schemaVersion": 1,
+  "summary": {
+    "errors": 2,
+    "total": 2,
+    "unresolved": 0,
+    "violations": 2,
+    "warnings": 0
+  }
+}
