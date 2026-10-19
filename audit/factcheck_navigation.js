@@ -41,7 +41,16 @@
     if (!panel) return;
     activate(panel); disclose(target);
     if (!wide.matches) rails.get(panel)?.removeAttribute('open');
-    if (history) window.history.pushState(null, '', '#' + id);
+    if (history) {
+      // HTML Preview inserts a cross-origin <base>; resolve against the browser URL.
+      const url = new URL(window.location.href);
+      url.hash = id;
+      try {
+        window.history.pushState(null, '', url.href);
+      } catch {
+        // Address updates are optional; navigation must still open and scroll.
+      }
+    }
     target.focus({preventScroll: true}); target.scrollIntoView({block: 'start'});
     updateCurrent();
   }
