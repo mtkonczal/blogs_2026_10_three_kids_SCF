@@ -1,0 +1,53 @@
+{
+  "reviewed_date": "2026-10-18",
+  "model": "GPT-6 Astra",
+  "repository_head": "f1dc9469d6b26938ef267afb5ce49945b0c1c2ef",
+  "reviewed_commit": "dd0e71ff182bd30d53997ad03c5743df917aafca",
+  "blog_md5": "b3c67e6c65ae667ca415951384f71558",
+  "scope": "Git and current-draft reassessment, with three targeted isolated reruns. No new full production rebuild, Quarto render or source downloads.",
+  "scripts_rerun": [
+    "R/29_family_count_checks.R",
+    "audit/crosscheck_claude_20261016.R",
+    "audit/measurement_response_20261016.R"
+  ],
+  "comparisons": [
+    {
+      "file": "crosscheck_claude_20261016_inference.csv",
+      "rows": "10",
+      "max_numeric_error": "0"
+    },
+    {
+      "file": "crosscheck_claude_20261016_composition.csv",
+      "rows": "4",
+      "max_numeric_error": "0"
+    },
+    {
+      "file": "crosscheck_claude_20261016_covariance.csv",
+      "rows": "2",
+      "max_numeric_error": "0"
+    },
+    {
+      "file": "crosscheck_claude_20261016_extrema.csv",
+      "rows": "13",
+      "max_numeric_error": "0"
+    },
+    {
+      "file": "measurement_response_20261016.csv",
+      "rows": "26",
+      "max_numeric_error": "0"
+    },
+    {
+      "file": "kids_count_checks.rds",
+      "rows": "14",
+      "max_numeric_error": "0"
+    }
+  ],
+  "sha256": {
+    "blog_post_text.md": "1829664cb39b6d5d37e300a50b029c116f04ba919c28c0b9df9c61ef8d98b4fe",
+    "kids_methods.qmd": "0bce80a204a3405d1cb72ebd7b999188a774e16c2ab0154e140dbdab1fa18fe2",
+    "R/22_post_kids_graphics.R": "bf57d4e68ce57391be9a557ba90f24a383a99138443d7f12fa65825f519caaa8",
+    "R/29_family_count_checks.R": "cfb2a72a3ada725d7b23e6ef65807450637465b71a9939e071f3908c77c50dac",
+    "audit/measurement_response_20261016.R": "f98d3348507adbd6087986deafd25d358c78ba060e9021efd23346ea9cfe650f",
+    "audit/crosscheck_claude_20261016.R": "9407cf37059dab3742ae3147705120f80583c2a561381259b6c7ed98188174b6"
+  }
+}

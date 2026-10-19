@@ -78,16 +78,19 @@
     const rail = document.createElement('details'); rail.open = wide.matches;
     const label = document.createElement('summary'); label.textContent = 'On this page'; rail.append(label);
     const nav = document.createElement('nav'); nav.setAttribute('aria-label', panel.id + ' review sections'); rail.append(nav); aside.append(rail); panel.prepend(aside); rails.set(panel, rail);
-    // A group is [label, child ids, optional id the label itself links to]. The Claude
-    // panel splits into three top-level parts so the eye has three stops rather than
-    // twelve; its supporting sections hang under the first and collapse when the reader
-    // is elsewhere (see updateCurrent).
+    // A group is [label, child ids, optional id the label itself links to].
+    // Review panels expose three main parts; supporting audit sections appear
+    // under the executive summary only while reading that part (see updateCurrent).
     const claudeTail = ['c2-weakest', 'c2-rebuttals'];
     const groups = panel.id === 'cross-check' ? [
       ['Claude’s cross-check', headingIds.filter(id => id !== 'x-codex' && id !== 'ds-crosscheck')],
       ['Codex’s cross-check', ['x-codex', ...headings.filter(h => h.id.startsWith('cx-') && h.id !== 'cx-final').map(h => h.id)]],
       ['Final recommendations', ['cx-final']],
       ['DeepSeek’s note', ['ds-crosscheck']]
+    ] : panel.id === 'codex' ? [
+      ['Executive Summary', headingIds.filter(id => !['overall-assessment', 'weakest-points', 'easiest-rebuttals'].includes(id)), 'overall-assessment'],
+      ['Three Weakest Points', [], 'weakest-points'],
+      ['Five Substantive Objections', [], 'easiest-rebuttals']
     ] : panel.id === 'other-ai' ? [
       ['Executive summary', headingIds.filter(id => id !== 'c2-summary' && !claudeTail.includes(id)), 'c2-summary'],
       ['Three weakest points', [], 'c2-weakest'],
@@ -117,7 +120,7 @@
       }
       group.append(title);
       if (!ids.length) { group.classList.add('rail-leaf'); nav.append(group); return; }
-      if (panel.id === 'other-ai' || panel.id === 'deepseek') group.dataset.autoclose = '1';
+      if (['codex', 'other-ai', 'deepseek'].includes(panel.id)) group.dataset.autoclose = '1';
       const list = document.createElement('ol');
       ids.forEach(id => {
         const target = document.getElementById(id); if (!target) return;
